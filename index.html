@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Magic Passport — Personalized Storybooks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800&family=Baloo+Bhaijaan+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --paper:#FFF8EC; --card:#fff; --ink:#3B2A4A; --ink-soft:#6D5C80;
+  --coral:#4A90D9; --coral-deep:#3272B4; --sunny:#FFC948; --teal:#35A7A0;
+  --sand:#F5DEB0; --night:#2A2350;
+  --radius:22px; --shadow:0 10px 30px rgba(59,42,74,.12);
+  --font-display:'Fredoka',sans-serif; --font-body:'Nunito',sans-serif;
+}
+html[dir=rtl]{
+  --font-display:'Baloo Bhaijaan 2',sans-serif;
+  --font-body:'Baloo Bhaijaan 2',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--font-body);background:var(--paper);color:var(--ink);min-height:100vh;
+  background-image:
+    linear-gradient(180deg, rgba(203,228,255,.55) 0, rgba(255,248,236,0) 340px),
+    radial-gradient(circle at 8% 12%, rgba(255,201,72,.14) 0 90px, transparent 90px),
+    radial-gradient(circle at 92% 20%, rgba(53,167,160,.10) 0 120px, transparent 120px),
+    radial-gradient(circle at 85% 85%, rgba(74,144,217,.10) 0 100px, transparent 100px);
+}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 80px}
+.screen{display:none}
+.screen.on{display:block;animation:fadein .4s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen.on,.page.on{animation:none}}
+
+header{text-align:center;margin-bottom:24px}
+.kicker{display:inline-block;font-family:var(--font-display);font-weight:600;font-size:.8rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal);
+  border:2px solid var(--teal);border-radius:999px;padding:5px 14px;margin-bottom:12px;background:#fff}
+html[dir=rtl] .kicker{letter-spacing:0}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(1.7rem,5vw,2.5rem);line-height:1.15}
+h1 .pop{color:var(--coral)}
+header p{color:var(--ink-soft);margin-top:8px;font-weight:600}
+
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:26px;border:2px solid rgba(59,42,74,.06);margin-bottom:18px}
+h2{font-family:var(--font-display);font-weight:600;font-size:1.25rem;margin-bottom:6px}
+.sub{color:var(--ink-soft);font-weight:600;font-size:.92rem;margin-bottom:16px}
+
+label.field{display:block;font-weight:800;font-size:.9rem;margin-bottom:6px}
+input[type=text]{width:100%;padding:13px 16px;font:inherit;font-weight:700;font-size:1.05rem;
+  border:2px solid rgba(59,42,74,.18);border-radius:14px;background:var(--paper);color:var(--ink)}
+input[type=text]:focus{outline:3px solid var(--sunny);border-color:var(--ink)}
+
+.btn{font-family:var(--font-display);font-weight:600;font-size:1.05rem;border:none;cursor:pointer;
+  padding:14px 30px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+  box-shadow:0 5px 0 var(--coral-deep);transition:transform .12s, box-shadow .12s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--coral-deep)}
+.btn:focus-visible{outline:3px solid var(--sunny)}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:0 4px 0 rgba(59,42,74,.15);border:2px solid rgba(59,42,74,.15)}
+.btn.small{font-size:.9rem;padding:9px 18px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.center{text-align:center}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* language picker */
+.langpick{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.langpick button{
+  font-family:'Baloo Bhaijaan 2','Fredoka',sans-serif;font-size:1.5rem;font-weight:700;
+  padding:26px 44px;border-radius:22px;border:3px solid rgba(59,42,74,.12);background:#fff;
+  color:var(--ink);cursor:pointer;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.langpick button:hover{transform:translateY(-4px);border-color:var(--coral)}
+.langpick small{display:block;font-size:.85rem;color:var(--ink-soft);font-weight:600;margin-top:4px}
+
+/* country picker (passport pages) */
+.themepick{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:8px}
+.themepick button{
+  font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--ink);cursor:pointer;
+  padding:22px 14px;border-radius:22px;border:3px solid rgba(59,42,74,.12);background:#fff;
+  box-shadow:var(--shadow);transition:transform .15s,border-color .15s;text-align:center;position:relative}
+.themepick button:hover:not(:disabled){transform:translateY(-4px);border-color:var(--coral);
+  box-shadow:0 14px 34px rgba(74,144,217,.28)}
+.themepick .ticon{font-size:2.2rem;display:flex;align-items:center;justify-content:center;
+  width:76px;height:76px;border-radius:50%;background:var(--paper);
+  border:3px dashed rgba(74,144,217,.5);margin:0 auto 10px}
+.themepick small{display:block;font-family:var(--font-body);font-weight:600;font-size:.83rem;color:var(--ink-soft);margin-top:6px}
+.themepick button:disabled{cursor:default;opacity:.75;background:var(--paper);border-style:dashed}
+.themepick button:disabled .ticon{border-color:rgba(59,42,74,.2);filter:grayscale(.35)}
+.themepick button:disabled:hover{transform:none;border-color:rgba(59,42,74,.12)}
+.soon{display:inline-block;margin-top:8px;font-family:var(--font-body);font-weight:800;font-size:.7rem;
+  letter-spacing:.05em;text-transform:uppercase;color:#C0574A;border:2px solid #C0574A;
+  background:transparent;border-radius:8px;padding:3px 10px;transform:rotate(-5deg)}
+html[dir=rtl] .soon{letter-spacing:0;transform:rotate(5deg)}
+
+/* gender pick */
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pills button{font:inherit;font-weight:800;font-size:1rem;padding:11px 22px;border-radius:999px;
+  border:2px solid rgba(59,42,74,.18);background:#fff;color:var(--ink-soft);cursor:pointer}
+.pills button.on{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* upload */
+.upload-zone{border:3px dashed rgba(59,42,74,.25);border-radius:18px;padding:24px;text-align:center;
+  cursor:pointer;transition:.2s;background:var(--paper)}
+.upload-zone:hover{border-color:var(--coral);background:#FFF3E8}
+.upload-zone .emoji{font-size:2rem;display:block;margin-bottom:6px}
+.upload-zone strong{font-family:var(--font-display);font-weight:600;display:block;margin-bottom:4px}
+.upload-zone span{color:var(--ink-soft);font-weight:600;font-size:.9rem}
+#fileInput{display:none}
+.thumb{display:none;margin:14px auto 0;width:130px;height:130px;border-radius:20px;object-fit:cover;
+  box-shadow:var(--shadow);border:3px solid #fff}
+.privacy{margin-top:12px;font-size:.82rem;color:var(--ink-soft);font-weight:600;text-align:center}
+.phototips{margin-top:10px;font-size:.85rem;font-weight:700;color:var(--teal);text-align:center}
+
+.notice{padding:13px 16px;border-radius:14px;font-weight:700;font-size:.92rem;margin-top:14px;display:none}
+.notice.err{display:block;background:#FDEAEA;color:#B3261E}
+.notice.ok{display:block;background:#E6F6EC;color:#1F7A3D}
+.credits{font-size:.85rem;font-weight:800;color:var(--teal);text-align:center;margin-top:10px}
+
+/* character approval */
+.charbox{display:flex;flex-direction:column;align-items:center;gap:16px}
+.charbox img{width:min(340px,84vw);border-radius:22px;box-shadow:var(--shadow)}
+
+/* progress */
+.progress-wrap{margin-top:8px}
+.bigbar{height:18px;border-radius:999px;background:#EFE6D4;overflow:hidden;box-shadow:inset 0 2px 4px rgba(59,42,74,.08)}
+.bigbar div{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--sunny),var(--coral));transition:width .6s ease}
+.progmsg{text-align:center;font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-top:16px;min-height:1.5em}
+.progsub{text-align:center;color:var(--ink-soft);font-weight:700;font-size:.85rem;margin-top:6px}
+.thumbrow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.thumbrow .t{width:56px;height:56px;border-radius:12px;background:#EFE6D4;display:flex;align-items:center;
+  justify-content:center;font-size:1.1rem;overflow:hidden;box-shadow:var(--shadow)}
+.thumbrow .t img{width:100%;height:100%;object-fit:cover}
+
+/* book */
+.book{position:relative;max-width:560px;margin:0 auto;border-radius:26px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(42,35,80,.28);background:var(--night)}
+.page{display:none}
+.page.on{display:block;animation:pagein .5s ease}
+@keyframes pagein{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+.page img.illu{width:100%;display:block;aspect-ratio:1;object-fit:cover;background:#EFE6D4}
+.caption{background:#FFFDF6;padding:20px 26px 22px;text-align:center;position:relative}
+.caption::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;border-radius:3px;background:var(--sunny)}
+.caption .booktitle{font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1.25;margin-bottom:4px}
+.caption p{font-size:1.1rem;font-weight:700;line-height:1.6}
+.caption .kidname{color:var(--coral);font-family:var(--font-display);font-weight:700}
+.pageno{font-size:.75rem;letter-spacing:.1em;color:var(--ink-soft);font-weight:800;margin-top:10px;text-transform:uppercase}
+html[dir=rtl] .pageno{letter-spacing:0}
+.booknav{display:flex;justify-content:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.pagefix{text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ SCREEN 0: LANGUAGE ============ -->
+<section class="screen on" id="s-lang">
+  <header>
+    <div class="kicker">The Magic Passport ✈️ جواز السفر السحري</div>
+    <h1>Choose your language<br>اختر لغة القصة</h1>
+    <p style="font-size:1.5rem;margin-top:12px">🌍 ✈️ 🗺️ 🧳</p>
+  </header>
+  <div class="langpick">
+    <button onclick="setLang('ar')">العربية<small>قصة بالعربية</small></button>
+    <button onclick="setLang('en')">English<small>Story in English</small></button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 1: ACCESS CODE ============ -->
+<section class="screen" id="s-code">
+  <header>
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="codeTitle"></h1>
+    <p data-t="codeSub"></p>
+  </header>
+  <div class="card">
+    <label class="field" for="codeInput" data-t="codeLabel"></label>
+    <input type="text" id="codeInput" autocomplete="off" placeholder="XXXX-XXXX-XXXX" style="text-transform:uppercase">
+    <div class="notice" id="codeNotice"></div>
+    <div class="center" style="margin-top:18px">
+      <button class="btn" id="codeBtn" onclick="checkCode()" data-t="codeBtn"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2: COUNTRY PICKER ============ -->
+<section class="screen" id="s-theme">
+  <header>
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="themeTitle"></h1>
+    <p data-t="themeSub"></p>
+  </header>
+  <div class="themepick" id="themePick"></div>
+</section>
+
+<!-- ============ SCREEN 3: CHILD SETUP ============ -->
+<section class="screen" id="s-setup">
+  <header>
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="setupTitle"></h1>
+    <p data-t="setupSub"></p>
+  </header>
+  <div class="card">
+    <label class="field" for="kidName" data-t="nameLabel"></label>
+    <input type="text" id="kidName" maxlength="20" autocomplete="off">
+    <div style="height:16px"></div>
+    <label class="field" data-t="genderLabel"></label>
+    <div class="pills" id="genderPills">
+      <button data-g="boy" data-t="boy"></button>
+      <button data-g="girl" data-t="girl"></button>
+    </div>
+    <div style="height:16px"></div>
+    <label class="field" data-t="photoLabel"></label>
+    <div class="upload-zone" id="dropZone">
+      <span class="emoji">📷</span>
+      <strong data-t="photoTitle"></strong>
+      <span data-t="photoHint"></span>
+    </div>
+    <input type="file" id="fileInput" accept="image/*">
+    <img class="thumb" id="thumb" alt="">
+    <p class="phototips" data-t="photoTips"></p>
+    <p class="privacy" data-t="privacy"></p>
+    <div class="notice" id="setupNotice"></div>
+    <div class="center" style="margin-top:18px">
+      <button class="btn" id="setupBtn" onclick="startCharacter()" disabled data-t="setupBtn"></button>
+    </div>
+    <p class="credits" id="creditsLine1"></p>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4: CHARACTER APPROVAL ============ -->
+<section class="screen" id="s-char">
+  <header>
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="charTitle"></h1>
+    <p data-t="charSub"></p>
+  </header>
+  <div class="card charbox">
+    <div class="progress-wrap" id="charProgress" style="width:100%">
+      <div class="bigbar"><div id="charBar"></div></div>
+      <div class="progmsg" id="charMsg"></div>
+    </div>
+    <img id="charImg" style="display:none" alt="Cartoon character">
+    <div class="row" id="charActions" style="display:none">
+      <button class="btn" onclick="approveCharacter()" data-t="charApprove"></button>
+      <button class="btn ghost" onclick="regenCharacter()" data-t="charRetry"></button>
+    </div>
+    <div class="notice" id="charNotice"></div>
+    <p class="credits" id="creditsLine2"></p>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5: GENERATING PAGES ============ -->
+<section class="screen" id="s-gen">
+  <header>
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="genTitle"></h1>
+    <p data-t="genSub"></p>
+  </header>
+  <div class="card">
+    <div class="progress-wrap">
+      <div class="bigbar"><div id="genBar"></div></div>
+      <div class="progmsg" id="genMsg"></div>
+      <div class="progsub" id="genSubMsg"></div>
+      <div class="thumbrow" id="thumbRow"></div>
+    </div>
+    <div class="notice" id="genNotice"></div>
+    <div class="center" id="genRetryWrap" style="display:none;margin-top:16px">
+      <button class="btn" onclick="resumeGeneration()" data-t="genRetry"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 6: THE BOOK ============ -->
+<section class="screen" id="s-book">
+  <header>
+    <div class="kicker" data-t="kicker"></div>
+    <h1 data-t="bookTitle"></h1>
+    <p data-t="bookSub"></p>
+  </header>
+  <div class="book" id="book"></div>
+  <div class="booknav">
+    <button class="btn ghost" id="prevBtn" data-t="back"></button>
+    <button class="btn" id="nextBtn" data-t="next"></button>
+  </div>
+  <div class="pagefix">
+    <button class="btn ghost small" id="regenPageBtn" onclick="regenCurrentPage()" data-t="regenPage"></button>
+  </div>
+  <div class="center" style="margin-top:22px">
+    <button class="btn" id="pdfBtn" onclick="downloadPDF()" data-t="pdf"></button>
+  </div>
+  <div class="notice" id="bookNotice"></div>
+  <p class="credits" id="creditsLine3"></p>
+</section>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==================== CONFIG ==================== */
+const WORKER_URL = "https://storybook.reemafahmi.workers.dev";
+const PRODUCT    = "passport";   // tells the Worker which Gumroad product this app belongs to
+
+const CHAR_BASE = "This is a photo of a real child (a young {GENDER}). Create the SAME child as a cartoon character in soft 3D animated movie style. It is very important that the character is instantly recognizable as this exact child: keep the same face shape, eye shape and eye color, eyebrows, nose, mouth and smile, skin tone, and the exact same hairstyle and hair color. Apply only gentle stylization (soft smooth skin, slightly larger eyes, clean cartoon shading) and do not change the child's identity or facial features. {OUTFIT} Full body, standing, friendly smile, plain warm cream background. No text.";
+
+const SUFFIX_BASE = " Children's picture book illustration, soft 3D animated movie style, {PALETTE}, gentle lighting, wide composition. The attached image is the character reference: draw the exact same child with identical facial features, eyes, nose, mouth, skin tone, hairstyle, hair color and outfit — the face must stay clearly visible and recognizable in the scene. No text or letters in the image.";
+
+/* ==================== COUNTRIES ==================== */
+const COUNTRIES = {
+
+/* ---------------- KUWAIT 🇰🇼 ---------------- */
+kuwait: {
+  icon:"🇰🇼",
+  name:{en:"Kuwait",ar:"الكويت"},
+  tag:{en:"Pearl Stars, the Towers & a falcon friend",ar:"نجمات اللؤلؤ والأبراج وصقر لطيف"},
+  outfit:"Dress the character in a light khaki explorer outfit with a small woven vest decorated with a red, black and white geometric Sadu weaving pattern, and a light explorer cap worn pushed back so the hair and full face stay clearly visible.",
+  palette:"warm Arabian Gulf palette of turquoise sea, golden sand and soft pearl-white light",
+  fun:{
+    en:["Polishing the Kuwait Towers… 🗼","Teaching Shaheen the falcon to wave… 🦅","Sprinkling pearls across the Gulf… 🦪","Raising the dhow's big white sail… ⛵","Warming up the golden sand… 🏜️","Lighting the souq lanterns… 🏮"],
+    ar:["نلمّع أبراج الكويت… 🗼","نعلّم الصقر شاهين أن يلوّح… 🦅","ننثر اللؤلؤ فوق الخليج… 🦪","نرفع شراع البوم الأبيض… ⛵","ندفّئ الرمال الذهبية… 🏜️","نضيء فوانيس السوق… 🏮"]
+  },
+  story:[
+  { prompt:"The character stands proudly on a sunny seaside promenade in Kuwait City, hands on hips, a majestic friendly falcon with warm kind eyes perched on their arm, the iconic Kuwait Towers with blue-green mosaic spheres rising behind, sparkling turquoise sea and clear sky.",
+    en:n=>({title:`${n}'s Adventure in Kuwait`, text:"A story starring a very brave explorer."}),
+    ar:(n,g)=>({title:`مغامرة ${n} في الكويت`, text: g==="boy"?"قصة بطلها مستكشف شجاع جدًا.":"قصة بطلتها مستكشفة شجاعة جدًا."}) },
+  { prompt:"The character stands amazed on a seaside promenade holding a small glowing magical passport in both hands, a majestic friendly falcon with warm kind eyes landing gently beside them with wings spread, the Kuwait Towers with blue-green mosaic spheres in the background, morning light over a turquoise sea.",
+    en:n=>({text:`The magic passport glowed in ${n}'s hands — WHOOSH! — and suddenly ${n} stood by a sparkling sea, right beneath the Kuwait Towers. A falcon landed gently nearby. "Welcome to Kuwait! I'm Shaheen," he said. "Five Pearl Stars are lost today. Will you help me find them before sunset?"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`توهّج الجوازُ السحريُّ بين يدي ${n} — ووووش! — وفجأةً وجد نفسه قرب بحرٍ متلألئ، تحت أبراج الكويت. حطّ صقرٌ جميلٌ بلطفٍ قربه وقال: "أهلًا بك في الكويت! أنا شاهين. ضاعت اليوم خمسُ نجماتِ لؤلؤ. هل تساعدني في إيجادها قبل الغروب؟"`})
+     : ({text:`توهّج الجوازُ السحريُّ بين يدي ${n} — ووووش! — وفجأةً وجدت نفسها قرب بحرٍ متلألئ، تحت أبراج الكويت. حطّ صقرٌ جميلٌ بلطفٍ قربها وقال: "أهلًا بكِ في الكويت! أنا شاهين. ضاعت اليوم خمسُ نجماتِ لؤلؤ. هل تساعدينني في إيجادها قبل الغروب؟"`}) },
+  { prompt:"The character and the friendly falcon stand on the high observation deck inside the sphere at the top of the Kuwait Towers, looking out through big windows over the sparkling city and turquoise sea far below, a small glowing pearl-white star twinkling among blue mosaic tiles beside the window.",
+    en:n=>({text:`Up, up, up they rode to the very top of the Kuwait Towers. The whole city sparkled below like a treasure map! And there, hiding among the sea-blue tiles, twinkled the first Pearl Star. "One!" cheered ${n}.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`صعد ${n} وشاهين عاليًا عاليًا إلى قمة أبراج الكويت. لمعت المدينة كلُّها من تحتهما مثل خريطة كنز! وهناك، بين الفسيفساء الزرقاء بلون البحر، تلألأت نجمةُ اللؤلؤ الأولى. هتف ${n}: "واحدة!"`})
+     : ({text:`صعدت ${n} وشاهين عاليًا عاليًا إلى قمة أبراج الكويت. لمعت المدينة كلُّها من تحتهما مثل خريطة كنز! وهناك، بين الفسيفساء الزرقاء بلون البحر، تلألأت نجمةُ اللؤلؤ الأولى. هتفت ${n}: "واحدة!"`}) },
+  { prompt:"The character explores a lively traditional Arabian souq street with wooden shutters, hanging lanterns, colorful sacks of spices and baskets of dates, a kind old shopkeeper smiling warmly, a small glowing pearl-white star shining inside an old golden lantern, the friendly falcon perched on a wooden beam above.",
+    en:n=>({text:`In Souq Al-Mubarakiya, the air smelled of spices and sweet dates. A friendly shopkeeper smiled: "Solve my riddle and the star is yours!" ${n} thought hard… and answered just right! The second Pearl Star glowed inside an old golden lantern.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`في سوق المباركية، فاحت رائحة البهارات والتمر الحلو. ابتسم بائعٌ طيّبٌ وقال: "حُلَّ لغزي وستكون النجمة لك!" فكّر ${n} جيدًا… وأجاب إجابةً صحيحة! توهّجت نجمةُ اللؤلؤ الثانية داخل فانوسٍ ذهبيٍّ قديم.`})
+     : ({text:`في سوق المباركية، فاحت رائحة البهارات والتمر الحلو. ابتسم بائعٌ طيّبٌ وقال: "حُلّي لغزي وستكون النجمة لكِ!" فكّرت ${n} جيدًا… وأجابت إجابةً صحيحة! توهّجت نجمةُ اللؤلؤ الثانية داخل فانوسٍ ذهبيٍّ قديم.`}) },
+  { prompt:"The character sails on a traditional wooden dhow boat with a big white sail across the blue Arabian Gulf, wind filling the sail, the friendly falcon flying alongside, a small glowing pearl-white star caught twinkling at the corner of the sail, the city skyline tiny on the horizon, joyful motion.",
+    en:n=>({text:`Down at the harbor waited a beautiful wooden dhow with a big white sail. They sailed across the blue Arabian Gulf — waves dancing, wind singing — and caught in the corner of the sail, the third Pearl Star twinkled hello!`}),
+    ar:(n,g)=>({text:`وفي الميناء انتظرهما مركبٌ خشبيٌّ جميلٌ بشراعٍ أبيضَ كبير. أبحرا فوق مياه الخليج العربي الزرقاء — والأمواج ترقص والريح تغنّي — وفي طرف الشراع، تلألأت نجمةُ اللؤلؤ الثالثة وكأنها تقول: مرحبًا!`}) },
+  { prompt:"The character swims underwater wearing a diving mask among silvery fish and soft corals in clear turquoise water, sun rays shining down from above, a big open smiling oyster on the sandy bottom revealing a small glowing pearl-white star inside, gentle silvery bubbles.",
+    en:n=>({text:`${n} put on a diving mask and dove into the cool sea, just like the pearl divers of long ago. Silvery fish swirled all around, and on the sandy bottom a smiling oyster opened its shell — and inside glowed the fourth Pearl Star!`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`لبس ${n} نظّارة الغوص وغاص في الماء البارد، تمامًا مثل الغوّاصين الذين بحثوا عن اللؤلؤ قديمًا. دارت حوله أسماكٌ فضيةٌ لامعة، وفي القاع الرمليّ فتحت محارةٌ مبتسمةٌ صدفتها — وفي داخلها توهّجت نجمةُ اللؤلؤ الرابعة!`})
+     : ({text:`لبست ${n} نظّارة الغوص وغاصت في الماء البارد، تمامًا مثل الغوّاصين الذين بحثوا عن اللؤلؤ قديمًا. دارت حولها أسماكٌ فضيةٌ لامعة، وفي القاع الرمليّ فتحت محارةٌ مبتسمةٌ صدفتها — وفي داخلها توهّجت نجمةُ اللؤلؤ الرابعة!`}) },
+  { prompt:"The character rides a gentle friendly camel across golden desert sand in warm late afternoon light, following a trail of small mysterious footprints in the sand, the friendly falcon flying ahead pointing the way, soft dunes rolling to the horizon.",
+    en:n=>({text:`Back on land, a gentle camel knelt down on the sand. "Hop on!" said Shaheen. "The last star is deep in the desert!" They followed a trail of mysterious little footprints over the golden sand, all the way to the tallest dune.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وعلى اليابسة، برك جملٌ لطيفٌ على الرمل. قال شاهين: "اركب! النجمة الأخيرة في عمق الصحراء!" تتبّعا آثارَ أقدامٍ صغيرةً غامضةً فوق الرمال الذهبية، حتى وصلا إلى أعلى كثيب.`})
+     : ({text:`وعلى اليابسة، برك جملٌ لطيفٌ على الرمل. قال شاهين: "اركبي! النجمة الأخيرة في عمق الصحراء!" تتبّعا آثارَ أقدامٍ صغيرةً غامضةً فوق الرمال الذهبية، حتى وصلا إلى أعلى كثيب.`}) },
+  { prompt:"The character kneels on warm golden sand at the top of a tall dune at sunset, pink orange and gold sky, gently picking up a small glowing pearl-white star from the sand, the gentle camel and the friendly falcon beside them, magical peaceful light.",
+    en:n=>({text:`The desert sky turned pink and orange and gold. And there, resting on the warm sand beneath the beautiful sunset, twinkled the fifth and final Pearl Star. "We found them all!" cheered ${n}, hugging Shaheen tight.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`تلوّنت سماءُ الصحراء بالورديّ والبرتقاليّ والذهبيّ. وهناك، فوق الرمل الدافئ تحت الغروب الجميل، تلألأت نجمةُ اللؤلؤ الخامسة والأخيرة. هتف ${n} وهو يعانق شاهين: "وجدناها كلَّها!"`})
+     : ({text:`تلوّنت سماءُ الصحراء بالورديّ والبرتقاليّ والذهبيّ. وهناك، فوق الرمل الدافئ تحت الغروب الجميل، تلألأت نجمةُ اللؤلؤ الخامسة والأخيرة. هتفت ${n} وهي تعانق شاهين: "وجدناها كلَّها!"`}) },
+  { prompt:"Night celebration scene: the character stands on the seaside holding five glowing pearl-white stars raised toward the sky as all of Kuwait City sparkles with magical light — the Kuwait Towers glowing softly, wooden dhow boats with warm lanterns on the calm water, gentle fireworks above — the friendly falcon flying joyfully overhead.",
+    en:n=>({text:`That night, ${n} raised the five Pearl Stars over the sea, and all of Kuwait sparkled with magical light — the towers, the souq, the dhows, everything! "Thank you, little explorer," smiled Shaheen. And the magic passport glowed with a brand-new stamp: KUWAIT. The End ⭐`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي المساء، رفع ${n} نجماتِ اللؤلؤ الخمس فوق البحر، فتلألأت الكويت كلُّها بنورٍ سحريّ — الأبراج والسوق والمراكب، كلُّ شيء! ابتسم شاهين وقال: "شكرًا لك أيها المستكشف الصغير." وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. النهاية ⭐`})
+     : ({text:`وفي المساء، رفعت ${n} نجماتِ اللؤلؤ الخمس فوق البحر، فتلألأت الكويت كلُّها بنورٍ سحريّ — الأبراج والسوق والمراكب، كلُّ شيء! ابتسم شاهين وقال: "شكرًا لكِ أيتها المستكشفة الصغيرة." وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. النهاية ⭐`}) },
+  ]
+}
+
+};
+
+/* Countries shown as "Coming soon" passport pages (not yet playable) */
+const COMING_SOON = [
+  { icon:"🇵🇸", name:{en:"Palestine", ar:"فلسطين"} },
+  { icon:"🇪🇬", name:{en:"Egypt",     ar:"مصر"} },
+  { icon:"🇹🇷", name:{en:"Turkey",    ar:"تركيا"} },
+  { icon:"🇯🇵", name:{en:"Japan",     ar:"اليابان"} },
+  { icon:"🇰🇪", name:{en:"Kenya",     ar:"كينيا"} },
+  { icon:"🇧🇷", name:{en:"Brazil",    ar:"البرازيل"} },
+  { icon:"🇫🇮", name:{en:"Finland",   ar:"فنلندا"} },
+  { icon:"🇮🇹", name:{en:"Italy",     ar:"إيطاليا"} },
+  { icon:"🇦🇺", name:{en:"Australia", ar:"أستراليا"} }
+];
+
+/* ==================== UI STRINGS ==================== */
+const T = {
+en:{
+  kicker:"The Magic Passport",
+  codeTitle:"Enter your magic code", codeSub:"You received it with your purchase.",
+  codeLabel:"Access code", codeBtn:"Unlock ✨",
+  codeChecking:"Checking…", codeBad:"Hmm, that code wasn't found. Please check the spelling.",
+  codeEmpty:"This code has no image credits left.",
+  themeTitle:"Choose your destination", themeSub:"Every journey stars your child as the hero. One code = one country.",
+  soon:"Coming soon ✈️",
+  lockedNote:"✈️ This code's journey is:",
+  resumeFound:"📖 A saved book was found on this device:", resumeOpen:"Open my saved book",
+  resumeNew:"…or start a new journey below (this will replace the saved one):",
+  resumeConfirm:"Starting a new journey will REPLACE your saved book:\n\n{BOOK}\n\nContinue?",
+  setupTitle:"Tell us about your hero", setupSub:"Name, and one nice clear photo of the face.",
+  nameLabel:"Child's name (as it should appear in the story)",
+  genderLabel:"The story's hero is a…", boy:"Boy 👦", girl:"Girl 👧",
+  photoLabel:"Photo", photoTitle:"Tap to choose a photo", photoHint:"a clear, well-lit face works best",
+  photoTips:"💡 Best results: front-facing photo, good light, face large in the frame.",
+  privacy:"🔒 The photo is used only to create the storybook character and is not stored by us.",
+  setupBtn:"Create my explorer! 🎨",
+  charTitle:"Meet your explorer!", charSub:"We turned the photo into a storybook character.",
+  charApprove:"Perfect! Make the book 📖", charRetry:"Try again 🔄",
+  charWorking:["Mixing the paint colors…","Sketching your explorer…","Adding the finishing touches…","Almost ready…"],
+  genTitle:"Painting your journey…", genSub:"This takes a few minutes — every page is painted just for you. Please keep this page open.",
+  genPage:"Painting page", genOf:"of",
+  genErr:"Page generation hit a problem: ", genRetry:"Continue where we stopped ▶",
+  bookTitle:"Your book is ready! 🎉", bookSub:"Flip through it, then download the PDF to keep and print.",
+  back:"← Back", next:"Turn the page →", theEnd:"The End 🌙",
+  regenPage:"🔄 Repaint this page", pdf:"⬇ Download PDF",
+  pdfWorking:"Building your PDF…",
+  page:"Page", credits:"image credits left",
+  netErr:"Could not reach the server. Check your internet and try again."
+},
+ar:{
+  kicker:"جواز السفر السحري",
+  codeTitle:"أدخل الرمز السحري", codeSub:"وصلك الرمز مع عملية الشراء.",
+  codeLabel:"رمز الدخول", codeBtn:"افتح ✨",
+  codeChecking:"جارٍ التحقق…", codeBad:"لم نجد هذا الرمز. تأكد من كتابته بشكل صحيح.",
+  codeEmpty:"لا يحتوي هذا الرمز على رصيد صور.",
+  themeTitle:"اختر وجهتك", themeSub:"في كل رحلة، طفلك هو البطل. رمز واحد = دولة واحدة.",
+  soon:"قريبًا ✈️",
+  lockedNote:"✈️ رحلة هذا الرمز هي:",
+  resumeFound:"📖 يوجد كتاب محفوظ على هذا الجهاز:", resumeOpen:"افتح كتابي المحفوظ",
+  resumeNew:"…أو ابدأ رحلة جديدة من الأسفل (ستحلّ محل الكتاب المحفوظ):",
+  resumeConfirm:"بدء رحلة جديدة سيحلّ محل كتابك المحفوظ:\n\n{BOOK}\n\nهل تريد المتابعة؟",
+  setupTitle:"أخبرنا عن بطل القصة", setupSub:"الاسم، وصورة واضحة للوجه.",
+  nameLabel:"اسم الطفل (كما سيظهر في القصة)",
+  genderLabel:"بطل القصة…", boy:"ولد 👦", girl:"بنت 👧",
+  photoLabel:"الصورة", photoTitle:"اضغط لاختيار صورة", photoHint:"صورة واضحة وبإضاءة جيدة للوجه",
+  photoTips:"💡 لأفضل نتيجة: صورة أمامية، بإضاءة جيدة، والوجه يملأ الصورة.",
+  privacy:"🔒 تُستخدم الصورة فقط لإنشاء شخصية القصة ولا نقوم بتخزينها.",
+  setupBtn:"ارسم مستكشفي! 🎨",
+  charTitle:"تعرّف على مستكشفك!", charSub:"حوّلنا الصورة إلى شخصية كرتونية للقصة.",
+  charApprove:"رائع! اصنع الكتاب 📖", charRetry:"حاول مرة أخرى 🔄",
+  charWorking:["نخلط ألوان الرسم…","نرسم ملامح المستكشف…","نضيف اللمسات الأخيرة…","اقتربنا…"],
+  genTitle:"نرسم رحلتك الآن…", genSub:"يستغرق هذا بضع دقائق — كل صفحة تُرسم خصيصًا لك. من فضلك أبقِ الصفحة مفتوحة.",
+  genPage:"نرسم الصفحة", genOf:"من",
+  genErr:"حدثت مشكلة أثناء رسم الصفحة: ", genRetry:"أكمل من حيث توقفنا ▶",
+  bookTitle:"كتابك جاهز! 🎉", bookSub:"تصفّحه ثم حمّل ملف PDF للاحتفاظ به وطباعته.",
+  back:"→ السابق", next:"اقلب الصفحة ←", theEnd:"النهاية 🌙",
+  regenPage:"🔄 أعد رسم هذه الصفحة", pdf:"⬇ تحميل PDF",
+  pdfWorking:"نجهّز ملف PDF…",
+  page:"صفحة", credits:"رصيد الصور المتبقي",
+  netErr:"تعذّر الوصول إلى الخادم. تحقق من الإنترنت وحاول مجددًا."
+}};
+
+/* ==================== STATE ==================== */
+const S = {
+  lang:"en", code:"", credits:0, name:"", gender:null, theme:null,
+  lockedCountry:null,
+  photo:null, character:null,
+  pages:[], genIndex:0, page:0, busy:false
+};
+const $=id=>document.getElementById(id);
+const t=k=>T[S.lang][k];
+const story=()=>COUNTRIES[S.theme].story;
+
+/* ==================== LANGUAGE ==================== */
+window.setLang = function(l){
+  S.lang=l;
+  document.documentElement.lang = l==="ar"?"ar":"en";
+  document.documentElement.dir  = l==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(el=>{
+    const k=el.getAttribute("data-t");
+    if(T[l][k]) el.textContent=T[l][k];
+  });
+  show("s-code");
+};
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));
+  $(id).classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function updCredits(){
+  const line="💳 "+S.credits+" "+t("credits");
+  ["creditsLine1","creditsLine2","creditsLine3"].forEach(i=>$(i).textContent=line);
+}
+
+/* ==================== LOCAL SAVE (IndexedDB) ==================== */
+function idbOpen(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open("world-passport",1);
+    r.onupgradeneeded=()=>r.result.createObjectStore("books");
+    r.onsuccess=()=>res(r.result);
+    r.onerror=()=>rej(r.error);
+  });
+}
+async function idbSet(k,v){
+  const d=await idbOpen();
+  return new Promise((res,rej)=>{
+    const tx=d.transaction("books","readwrite");
+    tx.objectStore("books").put(v,k);
+    tx.oncomplete=res; tx.onerror=()=>rej(tx.error);
+  });
+}
+async function idbGet(k){
+  const d=await idbOpen();
+  return new Promise((res,rej)=>{
+    const q=d.transaction("books","readonly").objectStore("books").get(k);
+    q.onsuccess=()=>res(q.result); q.onerror=()=>rej(q.error);
+  });
+}
+async function saveBook(){
+  if(!S.code||!S.theme) return;
+  try{
+    await idbSet(S.code,{lang:S.lang,theme:S.theme,name:S.name,gender:S.gender,
+      character:S.character,pages:S.pages,ts:Date.now()});
+  }catch(e){/* storage full or unavailable — the app still works, just without resume */}
+}
+
+/* ==================== API ==================== */
+async function api(path,payload){
+  const r=await fetch(WORKER_URL+path,{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(Object.assign({product:PRODUCT},payload))
+  });
+  return r.json();
+}
+async function generateImage(refDataURL,prompt){
+  const data=await api("/generate",{code:S.code,photo:refDataURL,prompt,country:S.theme});
+  if(data.error) throw new Error(data.error);
+  S.credits=data.credits; updCredits();
+  return "data:image/png;base64,"+data.image;
+}
+
+/* ==================== SCREEN 1: CODE ==================== */
+window.checkCode = async function(){
+  const n=$("codeNotice"); n.className="notice";
+  const code=$("codeInput").value.trim().toUpperCase();
+  if(!code) return;
+  $("codeBtn").disabled=true; $("codeBtn").textContent=t("codeChecking");
+  try{
+    const data=await api("/check",{code});
+    if(!data.valid){
+      n.className="notice err";
+      n.textContent=data.error||t("codeBad");
+    }
+    else if(data.credits<=0 && !data.country){ n.className="notice err"; n.textContent=t("codeEmpty"); }
+    else{
+      S.code=code; S.credits=data.credits; updCredits();
+      S.lockedCountry = (data.country && COUNTRIES[data.country]) ? data.country : null;
+      try{ S.saved=await idbGet(code)||null; }catch(e){ S.saved=null; }
+      renderCountryPicker();
+      show("s-theme");
+    }
+  }catch(e){ n.className="notice err"; n.textContent=t("netErr"); }
+  $("codeBtn").disabled=false; $("codeBtn").textContent=t("codeBtn");
+};
+
+/* ==================== SCREEN 2: COUNTRY ==================== */
+function renderCountryPicker(){
+  const box=$("themePick");
+  box.innerHTML="";
+  if(S.saved && S.saved.character){
+    const done=S.saved.pages.filter(Boolean).length, total=S.saved.pages.length;
+    const th=COUNTRIES[S.saved.theme];
+    const wrap=document.createElement("div");
+    wrap.style.cssText="grid-column:1/-1;text-align:center";
+    wrap.innerHTML='<p style="font-weight:800;margin-bottom:10px">'+t("resumeFound")+" "+
+      th.icon+" "+th.name[S.saved.lang]+" — "+escStr(S.saved.name)+
+      (done<total?" ("+done+"/"+total+")":"")+'</p>';
+    const b=document.createElement("button");
+    b.className="btn"; b.textContent=t("resumeOpen");
+    b.onclick=resumeSaved;
+    wrap.appendChild(b);
+    const hint=document.createElement("p");
+    hint.style.cssText="font-weight:700;font-size:.85rem;color:var(--ink-soft);margin-top:12px";
+    hint.textContent=t("resumeNew");
+    wrap.appendChild(hint);
+    box.appendChild(wrap);
+  }
+  else if(S.lockedCountry){
+    // The code already started a book (on another device) — remind which country it belongs to.
+    const th=COUNTRIES[S.lockedCountry];
+    const note=document.createElement("p");
+    note.style.cssText="grid-column:1/-1;text-align:center;font-weight:800;color:var(--teal)";
+    note.textContent=t("lockedNote")+" "+th.icon+" "+th.name[S.lang];
+    box.appendChild(note);
+  }
+  Object.entries(COUNTRIES).forEach(([id,th])=>{
+    const b=document.createElement("button");
+    b.innerHTML='<span class="ticon">'+th.icon+'</span>'+th.name[S.lang]+
+      '<small>'+th.tag[S.lang]+'</small>';
+    if(S.lockedCountry && S.lockedCountry!==id){
+      b.disabled=true;
+    } else {
+      b.onclick=()=>{ pickCountry(id); };
+    }
+    box.appendChild(b);
+  });
+  COMING_SOON.forEach(cs=>{
+    const b=document.createElement("button");
+    b.disabled=true;
+    b.innerHTML='<span class="ticon">'+cs.icon+'</span>'+cs.name[S.lang]+
+      '<span class="soon">'+t("soon")+'</span>';
+    box.appendChild(b);
+  });
+}
+function escStr(x){return String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+window.resumeSaved=function(){
+  const sv=S.saved;
+  if(!sv) return;
+  if(sv.lang!==S.lang) setLangSilent(sv.lang);
+  S.theme=sv.theme; S.name=sv.name; S.gender=sv.gender;
+  S.character=sv.character; S.pages=sv.pages.slice();
+  const missing=S.pages.findIndex(p=>!p);
+  if(missing===-1){
+    S.page=0; renderBook(); show("s-book");
+  } else {
+    show("s-gen"); buildThumbRow();
+    S.genIndex=missing; runGeneration();
+  }
+};
+function setLangSilent(l){
+  S.lang=l;
+  document.documentElement.lang=l==="ar"?"ar":"en";
+  document.documentElement.dir=l==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(el=>{
+    const k=el.getAttribute("data-t");
+    if(T[l][k]) el.textContent=T[l][k];
+  });
+  updCredits();
+}
+function pickCountry(id){
+  if(S.saved && S.saved.character){
+    const th=COUNTRIES[S.saved.theme];
+    const done=S.saved.pages.filter(Boolean).length, total=S.saved.pages.length;
+    const desc=th.icon+" "+th.name[S.saved.lang]+" — "+S.saved.name+(done<total?" ("+done+"/"+total+")":"");
+    if(!confirm(t("resumeConfirm").replace("{BOOK}",desc))) return;
+    S.saved=null;
+  }
+  S.theme=id;
+  S.pages=new Array(COUNTRIES[id].story.length).fill(null);
+  S.character=null;
+  show("s-setup");
+}
+
+/* ==================== SCREEN 3: SETUP ==================== */
+$("genderPills").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#genderPills button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); S.gender=b.dataset.g; validateSetup();
+});
+$("kidName").addEventListener("input",validateSetup);
+$("dropZone").addEventListener("click",()=>$("fileInput").click());
+$("fileInput").addEventListener("change",async ()=>{
+  const f=$("fileInput").files[0]; if(!f) return;
+  if(!f.type.startsWith("image/")) return;
+  S.photo=await downscale(f,1024);
+  $("thumb").src=S.photo; $("thumb").style.display="block";
+  validateSetup();
+});
+async function downscale(file,maxSide){
+  let bmp;
+  try{ bmp=await createImageBitmap(file,{imageOrientation:"from-image"}); }
+  catch(e){
+    bmp=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(file);});
+  }
+  const w=bmp.width||bmp.naturalWidth,h=bmp.height||bmp.naturalHeight;
+  const k=Math.min(1,maxSide/Math.max(w,h));
+  const c=document.createElement("canvas");
+  c.width=Math.round(w*k);c.height=Math.round(h*k);
+  const ctx=c.getContext("2d"); ctx.imageSmoothingQuality="high";
+  ctx.drawImage(bmp,0,0,c.width,c.height);
+  return c.toDataURL("image/jpeg",0.87);
+}
+function validateSetup(){
+  S.name=$("kidName").value.trim();
+  $("setupBtn").disabled=!(S.name && S.gender && S.photo);
+}
+
+/* ==================== SCREEN 4: CHARACTER ==================== */
+let charMsgTimer=null;
+window.startCharacter=function(){ show("s-char"); makeCharacter(); };
+
+function characterPrompt(){
+  return CHAR_BASE
+    .replace("{GENDER}", S.gender==="boy"?"boy":"girl")
+    .replace("{OUTFIT}", COUNTRIES[S.theme].outfit);
+}
+function sceneSuffix(){
+  return SUFFIX_BASE.replace("{PALETTE}", COUNTRIES[S.theme].palette);
+}
+
+async function makeCharacter(){
+  if(S.busy) return; S.busy=true;
+  $("charImg").style.display="none";
+  $("charActions").style.display="none";
+  $("charNotice").className="notice";
+  $("charProgress").style.display="block";
+  animateBar("charBar",45000);
+  let mi=0;
+  $("charMsg").textContent=t("charWorking")[0];
+  charMsgTimer=setInterval(()=>{mi=(mi+1)%t("charWorking").length;$("charMsg").textContent=t("charWorking")[mi];},4000);
+  try{
+    const img=await generateImage(S.photo,characterPrompt());
+    S.character=img;
+    saveBook();
+    $("charImg").src=img; $("charImg").style.display="block";
+    $("charActions").style.display="flex";
+  }catch(e){
+    $("charNotice").className="notice err";
+    $("charNotice").textContent=(e.message||t("netErr"));
+    $("charActions").style.display="flex";
+  }
+  clearInterval(charMsgTimer);
+  $("charProgress").style.display="none";
+  S.busy=false;
+}
+window.regenCharacter=()=>makeCharacter();
+window.approveCharacter=function(){
+  show("s-gen");
+  buildThumbRow();
+  S.genIndex=0;
+  runGeneration();
+};
+
+/* ==================== SCREEN 5: GENERATION ==================== */
+let funTimer=null;
+function buildThumbRow(){
+  const row=$("thumbRow"); row.innerHTML="";
+  story().forEach((_,i)=>{
+    const d=document.createElement("div");
+    d.className="t"; d.id="thumb-"+i; d.textContent="🖌️";
+    row.appendChild(d);
+  });
+  S.pages.forEach((p,i)=>{ if(p) $("thumb-"+i).innerHTML='<img src="'+p+'">'; });
+}
+function animateBar(id,ms){
+  const bar=$(id); bar.style.transition="none"; bar.style.width="4%";
+  requestAnimationFrame(()=>{bar.style.transition="width "+ms+"ms linear";bar.style.width="92%";});
+}
+async function runGeneration(){
+  if(S.busy) return; S.busy=true;
+  $("genNotice").className="notice";
+  $("genRetryWrap").style.display="none";
+  const fun=COUNTRIES[S.theme].fun[S.lang];
+  let fi=0;
+  clearInterval(funTimer);
+  funTimer=setInterval(()=>{fi=(fi+1)%fun.length;$("genSubMsg").textContent=fun[fi];},5000);
+  $("genSubMsg").textContent=fun[0];
+
+  const st=story();
+  for(let i=S.genIndex;i<st.length;i++){
+    S.genIndex=i;
+    $("genMsg").textContent=t("genPage")+" "+(i+1)+" "+t("genOf")+" "+st.length;
+    $("genBar").style.transition="width .6s ease";
+    $("genBar").style.width=Math.round(i/st.length*100)+"%";
+    if(S.pages[i]) continue;
+    try{
+      const img=await tryTwice(()=>generateImage(S.character, st[i].prompt+sceneSuffix()));
+      S.pages[i]=img;
+      saveBook();
+      $("thumb-"+i).innerHTML='<img src="'+img+'">';
+    }catch(e){
+      clearInterval(funTimer);
+      $("genNotice").className="notice err";
+      $("genNotice").textContent=t("genErr")+(e.message||t("netErr"));
+      $("genRetryWrap").style.display="block";
+      S.busy=false;
+      return;
+    }
+  }
+  clearInterval(funTimer);
+  $("genBar").style.width="100%";
+  S.busy=false;
+  S.page=0;
+  renderBook();
+  show("s-book");
+}
+async function tryTwice(fn){
+  try{ return await fn(); }
+  catch(e){
+    if(/credit|code|country/i.test(e.message)) throw e;
+    return await fn();
+  }
+}
+window.resumeGeneration=()=>runGeneration();
+
+/* ==================== SCREEN 6: BOOK ==================== */
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function pageText(i){
+  const sc=story()[i];
+  const fn=S.lang==="ar"?sc.ar:sc.en;
+  return fn(S.name,S.gender);
+}
+function renderBook(){
+  const st=story();
+  $("book").innerHTML=st.map((sc,i)=>{
+    const pt=pageText(i);
+    const nameHTML='<span class="kidname">'+esc(S.name)+'</span>';
+    const body=esc(pt.text).split(esc(S.name)).join(nameHTML);
+    const label=i===0?"":t("page")+" "+i;
+    return '<article class="page'+(i===S.page?" on":"")+'">'+
+      '<img class="illu" src="'+(S.pages[i]||"")+'" alt="">'+
+      '<div class="caption">'+
+        (pt.title?'<div class="booktitle">'+esc(pt.title).split(esc(S.name)).join(nameHTML)+'</div>':'')+
+        '<p>'+body+'</p>'+
+        (label?'<div class="pageno">'+label+'</div>':'')+
+      '</div></article>';
+  }).join("");
+  $("prevBtn").disabled=S.page===0;
+  $("nextBtn").disabled=S.page===st.length-1;
+  $("nextBtn").textContent=S.page===st.length-1?t("theEnd"):t("next");
+}
+$("prevBtn").addEventListener("click",()=>{if(S.page>0){S.page--;renderBook();}});
+$("nextBtn").addEventListener("click",()=>{if(S.page<story().length-1){S.page++;renderBook();}});
+
+window.regenCurrentPage=async function(){
+  if(S.busy) return; S.busy=true;
+  const i=S.page,n=$("bookNotice");
+  n.className="notice";
+  $("regenPageBtn").disabled=true;
+  $("regenPageBtn").textContent="🖌️ …";
+  try{
+    const img=await generateImage(S.character, story()[i].prompt+sceneSuffix());
+    S.pages[i]=img; saveBook(); renderBook();
+  }catch(e){ n.className="notice err"; n.textContent=(e.message||t("netErr")); }
+  $("regenPageBtn").disabled=false;
+  $("regenPageBtn").textContent=t("regenPage");
+  S.busy=false;
+};
+
+/* ==================== PDF ==================== */
+window.downloadPDF=async function(){
+  if(S.busy) return; S.busy=true;
+  const btn=$("pdfBtn"); btn.disabled=true; btn.textContent=t("pdfWorking");
+  try{
+    await document.fonts.ready;
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({unit:"mm",format:"a4",orientation:"portrait"});
+    const st=story();
+    for(let i=0;i<st.length;i++){
+      if(i>0) pdf.addPage();
+      const cnv=await composePage(i);
+      pdf.addImage(cnv.toDataURL("image/jpeg",0.92),"JPEG",0,0,210,297);
+    }
+    const countryName=COUNTRIES[S.theme].name[S.lang].replace(/\s+/g,"-");
+    const fname=(S.lang==="ar"?"قصة-":"storybook-")+S.name+"-"+countryName+".pdf";
+    pdf.save(fname);
+  }catch(e){
+    const n=$("bookNotice"); n.className="notice err"; n.textContent=e.message;
+  }
+  btn.disabled=false; btn.textContent=t("pdf");
+  S.busy=false;
+};
+
+async function composePage(i){
+  const W=1240,H=1754;
+  const c=document.createElement("canvas"); c.width=W;c.height=H;
+  const x=c.getContext("2d");
+  const ar=S.lang==="ar";
+  const dispFont=ar?"'Baloo Bhaijaan 2'":"'Fredoka'";
+  const bodyFont=ar?"'Baloo Bhaijaan 2'":"'Nunito'";
+  x.fillStyle="#FFF8EC"; x.fillRect(0,0,W,H);
+  x.fillStyle="#F5DEB0";
+  x.beginPath(); x.arc(W-90,90,140,0,7); x.fill();
+  x.beginPath(); x.arc(70,H-70,110,0,7); x.fill();
+  const img=await loadImg(S.pages[i]);
+  const iw=W-160, ix=80, iy=90;
+  roundImage(x,img,ix,iy,iw,iw,36);
+  x.strokeStyle="#fff"; x.lineWidth=10;
+  roundRectPath(x,ix,iy,iw,iw,36); x.stroke();
+  const pt=pageText(i);
+  x.textAlign="center"; x.fillStyle="#3B2A4A"; x.direction=ar?"rtl":"ltr";
+  let ty=iy+iw+110;
+  if(pt.title){
+    x.font="700 64px "+dispFont;
+    ty=wrapText(x,pt.title,W/2,ty,W-220,80);
+    ty+=30;
+  }
+  x.font="700 44px "+bodyFont;
+  wrapText(x,pt.text,W/2,ty,W-240,66);
+  if(i>0){
+    x.font="600 26px "+dispFont; x.fillStyle="#6D5C80";
+    x.fillText(t("page")+" "+i, W/2, H-56);
+  }
+  return c;
+}
+function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});}
+function roundRectPath(x,px,py,w,h,r){
+  x.beginPath();
+  x.moveTo(px+r,py); x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r);
+  x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath();
+}
+function roundImage(x,img,px,py,w,h,r){
+  x.save(); roundRectPath(x,px,py,w,h,r); x.clip();
+  x.drawImage(img,px,py,w,h); x.restore();
+}
+function wrapText(x,text,cx,y,maxW,lineH){
+  const words=text.split(" ");
+  let line="";
+  for(const w of words){
+    const test=line?line+" "+w:w;
+    if(x.measureText(test).width>maxW && line){
+      x.fillText(line,cx,y); y+=lineH; line=w;
+    } else line=test;
+  }
+  if(line){ x.fillText(line,cx,y); y+=lineH; }
+  return y;
+}
+
+})();
+</script>
+</body>
+</html>
