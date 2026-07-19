@@ -559,7 +559,7 @@ window.checkCode = async function(){
 /* ==================== SCREEN 2: COUNTRY ==================== */
 function emojify(el){
   if(window.twemoji){
-    try{ twemoji.parse(el,{base:"https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/",folder:"svg",ext:".svg"}); }
+    try{ twemoji.parse(el,{base:"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/",folder:"svg",ext:".svg"}); }
     catch(e){/* emojis stay as text — fine */}
   }
 }
