@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800&family=Baloo+Bhaijaan+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js"></script>
 <style>
 :root{
   --paper:#FFF8EC; --card:#fff; --ink:#3B2A4A; --ink-soft:#6D5C80;
@@ -89,10 +90,12 @@ input[type=text]:focus{outline:3px solid var(--sunny);border-color:var(--ink)}
 .themepick button:disabled{cursor:default;opacity:.75;background:var(--paper);border-style:dashed}
 .themepick button:disabled .ticon{border-color:rgba(59,42,74,.2);filter:grayscale(.35)}
 .themepick button:disabled:hover{transform:none;border-color:rgba(59,42,74,.12)}
-.soon{display:inline-block;margin-top:8px;font-family:var(--font-body);font-weight:800;font-size:.7rem;
+.soon{display:block;width:max-content;margin:10px auto 0;font-family:var(--font-body);font-weight:800;font-size:.7rem;
   letter-spacing:.05em;text-transform:uppercase;color:#C0574A;border:2px solid #C0574A;
   background:transparent;border-radius:8px;padding:3px 10px;transform:rotate(-5deg)}
 html[dir=rtl] .soon{letter-spacing:0;transform:rotate(5deg)}
+img.emoji{height:1.1em;width:1.1em;vertical-align:-0.15em;display:inline-block}
+.ticon img.emoji{height:1.15em;width:1.15em;vertical-align:middle}
 
 /* gender pick */
 .pills{display:flex;gap:10px;flex-wrap:wrap}
@@ -554,6 +557,12 @@ window.checkCode = async function(){
 };
 
 /* ==================== SCREEN 2: COUNTRY ==================== */
+function emojify(el){
+  if(window.twemoji){
+    try{ twemoji.parse(el,{base:"https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/",folder:"svg",ext:".svg"}); }
+    catch(e){/* emojis stay as text — fine */}
+  }
+}
 function renderCountryPicker(){
   const box=$("themePick");
   box.innerHTML="";
@@ -601,6 +610,7 @@ function renderCountryPicker(){
       '<span class="soon">'+t("soon")+'</span>';
     box.appendChild(b);
   });
+  emojify(box);
 }
 function escStr(x){return String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 window.resumeSaved=function(){
@@ -905,6 +915,8 @@ function wrapText(x,text,cx,y,maxW,lineH){
   if(line){ x.fillText(line,cx,y); y+=lineH; }
   return y;
 }
+
+emojify(document.getElementById("s-lang"));
 
 })();
 </script>
