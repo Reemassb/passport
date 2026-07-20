@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800&family=Baloo+Bhaijaan+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js"></script>
 <style>
 :root{
   --paper:#FFF8EC; --card:#fff; --ink:#3B2A4A; --ink-soft:#6D5C80;
@@ -94,8 +93,7 @@ input[type=text]:focus{outline:3px solid var(--sunny);border-color:var(--ink)}
   letter-spacing:.05em;text-transform:uppercase;color:#C0574A;border:2px solid #C0574A;
   background:transparent;border-radius:8px;padding:3px 10px;transform:rotate(-5deg)}
 html[dir=rtl] .soon{letter-spacing:0;transform:rotate(5deg)}
-img.emoji{height:1.1em;width:1.1em;vertical-align:-0.15em;display:inline-block}
-.ticon img.emoji{height:1.15em;width:1.15em;vertical-align:middle}
+.ticon img{width:46px;height:auto;border-radius:8px;box-shadow:0 2px 6px rgba(59,42,74,.2)}
 
 /* gender pick */
 .pills{display:flex;gap:10px;flex-wrap:wrap}
@@ -317,56 +315,60 @@ const COUNTRIES = {
 /* ---------------- KUWAIT 🇰🇼 ---------------- */
 kuwait: {
   icon:"🇰🇼",
+  flag:"kw",
   name:{en:"Kuwait",ar:"الكويت"},
-  tag:{en:"Pearl Stars, the Towers & a falcon friend",ar:"نجمات اللؤلؤ والأبراج وصقر لطيف"},
-  outfit:"Dress the character in a light khaki explorer outfit with a small woven vest decorated with a red, black and white geometric Sadu weaving pattern, and a light explorer cap worn pushed back so the hair and full face stay clearly visible.",
+  tag:{en:"The Towers, the souq & Grandpa's pearl story",ar:"الأبراج والسوق وحكاية اللؤلؤ مع الجدّ"},
+  outfit:{
+    boy:"Dress the character in a traditional Kuwaiti white dishdasha — a simple, elegant ankle-length white robe with a small neat collar — with no head covering, so the hairstyle and full face stay clearly visible.",
+    girl:"Dress the character in a traditional Kuwaiti girls' darraa'a — a festive, colorful dress with rich golden embroidery — with no head covering, so the hairstyle and full face stay clearly visible."
+  },
   palette:"warm Arabian Gulf palette of turquoise sea, golden sand and soft pearl-white light",
   fun:{
-    en:["Polishing the Kuwait Towers… 🗼","Teaching Shaheen the falcon to wave… 🦅","Sprinkling pearls across the Gulf… 🦪","Raising the dhow's big white sail… ⛵","Warming up the golden sand… 🏜️","Lighting the souq lanterns… 🏮"],
-    ar:["نلمّع أبراج الكويت… 🗼","نعلّم الصقر شاهين أن يلوّح… 🦅","ننثر اللؤلؤ فوق الخليج… 🦪","نرفع شراع البوم الأبيض… ⛵","ندفّئ الرمال الذهبية… 🏜️","نضيء فوانيس السوق… 🏮"]
+    en:["Polishing the Kuwait Towers… 🗼","Teaching Shaheen the falcon to wave… 🦅","Raising the dhow's big white sail… ⛵","Framing Grandpa's old photograph… 🖼️","Brewing sweet tea in the desert tent… ☕","Lighting the souq lanterns… 🏮"],
+    ar:["نلمّع أبراج الكويت… 🗼","نعلّم الصقر شاهين أن يلوّح… 🦅","نرفع شراع البوم الأبيض… ⛵","نضع صورة الجدّ القديمة في الإطار… 🖼️","نجهّز الشاي في خيمة الصحراء… ☕","نضيء فوانيس السوق… 🏮"]
   },
   story:[
-  { prompt:"The character stands proudly on a sunny seaside promenade in Kuwait City, hands on hips, a majestic friendly falcon with warm kind eyes perched on their arm, the iconic Kuwait Towers with blue-green mosaic spheres rising behind, sparkling turquoise sea and clear sky.",
-    en:n=>({title:`${n}'s Adventure in Kuwait`, text:"A story starring a very brave explorer."}),
-    ar:(n,g)=>({title:`مغامرة ${n} في الكويت`, text: g==="boy"?"قصة بطلها مستكشف شجاع جدًا.":"قصة بطلتها مستكشفة شجاعة جدًا."}) },
-  { prompt:"The character stands amazed on a seaside promenade holding a small glowing magical passport in both hands, a majestic friendly falcon with warm kind eyes landing gently beside them with wings spread, the Kuwait Towers with blue-green mosaic spheres in the background, morning light over a turquoise sea.",
-    en:n=>({text:`The magic passport glowed in ${n}'s hands — WHOOSH! — and suddenly ${n} stood by a sparkling sea, right beneath the Kuwait Towers. A falcon landed gently nearby. "Welcome to Kuwait! I'm Shaheen," he said. "Five Pearl Stars are lost today. Will you help me find them before sunset?"`}),
+  { prompt:"The character stands happily on a sunny seaside promenade in Kuwait City, a majestic friendly falcon with warm kind eyes perched gently on their arm, the iconic Kuwait Towers with blue-green mosaic spheres rising behind, calm turquoise sea and soft clear sky, warm welcoming mood.",
+    en:n=>({title:`${n}'s Journey in Kuwait`, text:"A story about a beautiful day in Kuwait."}),
+    ar:(n,g)=>({title:`رحلة ${n} في الكويت`, text:"قصة عن يومٍ جميلٍ في الكويت."}) },
+  { prompt:"The character stands on a seaside promenade on a bright calm morning, holding a small softly glowing magical passport in both hands, a majestic friendly falcon with warm kind eyes landing gently beside them, the Kuwait Towers with blue-green mosaic spheres in the background over a calm turquoise sea.",
+    en:n=>({text:`The magic passport glowed softly in ${n}'s hands — and suddenly ${n} was standing by the calm blue sea in Kuwait, on a bright sunny morning. A friendly falcon landed nearby. "Welcome, ${n}! I'm Shaheen," he said kindly. "Would you like me to show you my beautiful country today?"`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`توهّج الجوازُ السحريُّ بين يدي ${n} — ووووش! — وفجأةً وجد نفسه قرب بحرٍ متلألئ، تحت أبراج الكويت. حطّ صقرٌ جميلٌ بلطفٍ قربه وقال: "أهلًا بك في الكويت! أنا شاهين. ضاعت اليوم خمسُ نجماتِ لؤلؤ. هل تساعدني في إيجادها قبل الغروب؟"`})
-     : ({text:`توهّج الجوازُ السحريُّ بين يدي ${n} — ووووش! — وفجأةً وجدت نفسها قرب بحرٍ متلألئ، تحت أبراج الكويت. حطّ صقرٌ جميلٌ بلطفٍ قربها وقال: "أهلًا بكِ في الكويت! أنا شاهين. ضاعت اليوم خمسُ نجماتِ لؤلؤ. هل تساعدينني في إيجادها قبل الغروب؟"`}) },
-  { prompt:"The character and the friendly falcon stand on the high observation deck inside the sphere at the top of the Kuwait Towers, looking out through big windows over the sparkling city and turquoise sea far below, a small glowing pearl-white star twinkling among blue mosaic tiles beside the window.",
-    en:n=>({text:`Up, up, up they rode to the very top of the Kuwait Towers. The whole city sparkled below like a treasure map! And there, hiding among the sea-blue tiles, twinkled the first Pearl Star. "One!" cheered ${n}.`}),
+     ? ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجد نفسه واقفًا أمام البحر الأزرق الهادئ في الكويت، وشمسُ الصباح تملأ المكان بضوءٍ جميل. حطّ صقرٌ لطيفٌ قربه وقال بودّ: "أهلًا بك يا ${n}! أنا شاهين. هل تحب أن أريك بلدي الجميل اليوم؟"`})
+     : ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجدت نفسها واقفةً أمام البحر الأزرق الهادئ في الكويت، وشمسُ الصباح تملأ المكان بضوءٍ جميل. حطّ صقرٌ لطيفٌ قربها وقال بودّ: "أهلًا بكِ يا ${n}! أنا شاهين. هل تحبين أن أريكِ بلدي الجميل اليوم؟"`}) },
+  { prompt:"The character and the friendly falcon stand on the high observation deck inside the big blue-green sphere at the top of the Kuwait Towers, looking out through tall windows over the sparkling city and calm turquoise sea far below, soft morning light, peaceful and amazed mood.",
+    en:n=>({text:`First stop: the Kuwait Towers! Up, up they went to the big blue sphere at the very top, and from up there they could see the whole city and the wide blue sea. "Did you know the towers keep water for the city?" said Shaheen. "They are Kuwait's most famous landmark."`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`صعد ${n} وشاهين عاليًا عاليًا إلى قمة أبراج الكويت. لمعت المدينة كلُّها من تحتهما مثل خريطة كنز! وهناك، بين الفسيفساء الزرقاء بلون البحر، تلألأت نجمةُ اللؤلؤ الأولى. هتف ${n}: "واحدة!"`})
-     : ({text:`صعدت ${n} وشاهين عاليًا عاليًا إلى قمة أبراج الكويت. لمعت المدينة كلُّها من تحتهما مثل خريطة كنز! وهناك، بين الفسيفساء الزرقاء بلون البحر، تلألأت نجمةُ اللؤلؤ الأولى. هتفت ${n}: "واحدة!"`}) },
-  { prompt:"The character explores a lively traditional Arabian souq street with wooden shutters, hanging lanterns, colorful sacks of spices and baskets of dates, a kind old shopkeeper smiling warmly, a small glowing pearl-white star shining inside an old golden lantern, the friendly falcon perched on a wooden beam above.",
-    en:n=>({text:`In Souq Al-Mubarakiya, the air smelled of spices and sweet dates. A friendly shopkeeper smiled: "Solve my riddle and the star is yours!" ${n} thought hard… and answered just right! The second Pearl Star glowed inside an old golden lantern.`}),
+     ? ({text:`المحطة الأولى: أبراج الكويت! صعد ${n} وشاهين عاليًا إلى الكرة الزرقاء الكبيرة في القمة، وشاهدا من الأعلى المدينةَ كلَّها والبحرَ الواسع. فقال شاهين: "هل تعلم أن الأبراج تخزّن الماء للمدينة؟ إنها أشهر معالم الكويت."`})
+     : ({text:`المحطة الأولى: أبراج الكويت! صعدت ${n} وشاهين عاليًا إلى الكرة الزرقاء الكبيرة في القمة، وشاهدا من الأعلى المدينةَ كلَّها والبحرَ الواسع. فقال شاهين: "هل تعلمين أن الأبراج تخزّن الماء للمدينة؟ إنها أشهر معالم الكويت."`}) },
+  { prompt:"The character explores a lively traditional Arabian souq street with wooden shutters, hanging lanterns, colorful sacks of spices and baskets of golden dates, a kind old shopkeeper warmly offering the character a date, the friendly falcon perched on a wooden beam above, warm cozy light.",
+    en:n=>({text:`Next, they walked together into Souq Al-Mubarakiya, where the air smelled of spices, coffee and sweet dates. A kind shopkeeper smiled and offered ${n} a soft, sweet date. "This souq is more than two hundred years old," he said. "Everyone in Kuwait loves it." And ${n} loved it too.`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`في سوق المباركية، فاحت رائحة البهارات والتمر الحلو. ابتسم بائعٌ طيّبٌ وقال: "حُلَّ لغزي وستكون النجمة لك!" فكّر ${n} جيدًا… وأجاب إجابةً صحيحة! توهّجت نجمةُ اللؤلؤ الثانية داخل فانوسٍ ذهبيٍّ قديم.`})
-     : ({text:`في سوق المباركية، فاحت رائحة البهارات والتمر الحلو. ابتسم بائعٌ طيّبٌ وقال: "حُلّي لغزي وستكون النجمة لكِ!" فكّرت ${n} جيدًا… وأجابت إجابةً صحيحة! توهّجت نجمةُ اللؤلؤ الثانية داخل فانوسٍ ذهبيٍّ قديم.`}) },
-  { prompt:"The character sails on a traditional wooden dhow boat with a big white sail across the blue Arabian Gulf, wind filling the sail, the friendly falcon flying alongside, a small glowing pearl-white star caught twinkling at the corner of the sail, the city skyline tiny on the horizon, joyful motion.",
-    en:n=>({text:`Down at the harbor waited a beautiful wooden dhow with a big white sail. They sailed across the blue Arabian Gulf — waves dancing, wind singing — and caught in the corner of the sail, the third Pearl Star twinkled hello!`}),
-    ar:(n,g)=>({text:`وفي الميناء انتظرهما مركبٌ خشبيٌّ جميلٌ بشراعٍ أبيضَ كبير. أبحرا فوق مياه الخليج العربي الزرقاء — والأمواج ترقص والريح تغنّي — وفي طرف الشراع، تلألأت نجمةُ اللؤلؤ الثالثة وكأنها تقول: مرحبًا!`}) },
-  { prompt:"The character swims underwater wearing a diving mask among silvery fish and soft corals in clear turquoise water, sun rays shining down from above, a big open smiling oyster on the sandy bottom revealing a small glowing pearl-white star inside, gentle silvery bubbles.",
-    en:n=>({text:`${n} put on a diving mask and dove into the cool sea, just like the pearl divers of long ago. Silvery fish swirled all around, and on the sandy bottom a smiling oyster opened its shell — and inside glowed the fourth Pearl Star!`}),
+     ? ({text:`مشيا بعد ذلك إلى سوق المباركية العريق، حيث فاحت رائحة البهارات والقهوة والتمر الحلو. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} تمرةً طريةً حلوة، وقال: "عمر هذا السوق أكثر من مئتي سنة، وكلُّ أهل الكويت يحبونه." وأحبّه ${n} أيضًا.`})
+     : ({text:`مشيا بعد ذلك إلى سوق المباركية العريق، حيث فاحت رائحة البهارات والقهوة والتمر الحلو. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} تمرةً طريةً حلوة، وقال: "عمر هذا السوق أكثر من مئتي سنة، وكلُّ أهل الكويت يحبونه." وأحبّته ${n} أيضًا.`}) },
+  { prompt:"The character sails on a traditional wooden dhow boat with a big white sail, gliding gently over the calm blue Arabian Gulf, the friendly falcon flying alongside, soft wind in the sail, the city skyline small on the horizon, peaceful happy mood.",
+    en:n=>({text:`From the souq, they made their way to the harbor, where a beautiful wooden dhow waited with a big white sail. They glided gently over the calm blue water of the Arabian Gulf. "Long ago, ships just like this one sailed far, far away to trade," said Shaheen, as the soft wind hummed in the sail.`}),
+    ar:(n,g)=>({text:`ومن السوق اتجها إلى الميناء، حيث انتظرهما مركبٌ خشبيٌّ جميلٌ بشراعٍ أبيضَ كبير. هبطا بهدوءٍ فوق مياه الخليج العربي الزرقاء الهادئة. قال شاهين والريحُ اللطيفةُ تهمس في الشراع: "قديمًا، أبحرت مراكبُ مثل هذا بعيدًا بعيدًا للتجارة."`}) },
+  { prompt:"Cozy warm scene inside a traditional Kuwaiti seaside majlis with soft cushions and warm lamplight: a kind elderly grandfather with a gentle smile, wearing a white dishdasha and traditional headdress, shows the character an old framed sepia photograph of pearl divers beside a wooden dhow; the character sits close, listening with wide amazed eyes; the friendly falcon perched quietly by the window.",
+    en:n=>({text:`Then came the sweetest stop of all — Grandpa's house by the sea. Grandpa showed ${n} an old photograph of brave pearl divers beside their dhow. "When I was young, our fathers dove deep into the sea to find pearls," he said. "Inside some oysters hid a small white treasure." ${n} listened in amazement.`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`لبس ${n} نظّارة الغوص وغاص في الماء البارد، تمامًا مثل الغوّاصين الذين بحثوا عن اللؤلؤ قديمًا. دارت حوله أسماكٌ فضيةٌ لامعة، وفي القاع الرمليّ فتحت محارةٌ مبتسمةٌ صدفتها — وفي داخلها توهّجت نجمةُ اللؤلؤ الرابعة!`})
-     : ({text:`لبست ${n} نظّارة الغوص وغاصت في الماء البارد، تمامًا مثل الغوّاصين الذين بحثوا عن اللؤلؤ قديمًا. دارت حولها أسماكٌ فضيةٌ لامعة، وفي القاع الرمليّ فتحت محارةٌ مبتسمةٌ صدفتها — وفي داخلها توهّجت نجمةُ اللؤلؤ الرابعة!`}) },
-  { prompt:"The character rides a gentle friendly camel across golden desert sand in warm late afternoon light, following a trail of small mysterious footprints in the sand, the friendly falcon flying ahead pointing the way, soft dunes rolling to the horizon.",
-    en:n=>({text:`Back on land, a gentle camel knelt down on the sand. "Hop on!" said Shaheen. "The last star is deep in the desert!" They followed a trail of mysterious little footprints over the golden sand, all the way to the tallest dune.`}),
+     ? ({text:`ثم جاءت أجملُ محطة: بيتُ الجدّ قرب البحر. أراه الجدُّ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ صغيرًا، كان آباؤنا يغوصون عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغى ${n} بحماسٍ كبير.`})
+     : ({text:`ثم جاءت أجملُ محطة: بيتُ الجدّ قرب البحر. أراها الجدُّ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ صغيرًا، كان آباؤنا يغوصون عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغت ${n} بحماسٍ كبير.`}) },
+  { prompt:"The character rides a gentle friendly camel slowly across soft golden desert sand in warm late afternoon light, passing a cozy traditional tent woven with red, black and white geometric Sadu patterns, the friendly falcon flying calmly ahead, soft dunes rolling to the horizon, peaceful mood.",
+    en:n=>({text:`In the late afternoon, they visited the golden desert. A gentle camel carried ${n} slowly over the soft sand, past a cozy tent woven with red, black and white Sadu patterns. "The desert is quiet," whispered Shaheen. "Listen… you can hear the wind telling stories."`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`وعلى اليابسة، برك جملٌ لطيفٌ على الرمل. قال شاهين: "اركب! النجمة الأخيرة في عمق الصحراء!" تتبّعا آثارَ أقدامٍ صغيرةً غامضةً فوق الرمال الذهبية، حتى وصلا إلى أعلى كثيب.`})
-     : ({text:`وعلى اليابسة، برك جملٌ لطيفٌ على الرمل. قال شاهين: "اركبي! النجمة الأخيرة في عمق الصحراء!" تتبّعا آثارَ أقدامٍ صغيرةً غامضةً فوق الرمال الذهبية، حتى وصلا إلى أعلى كثيب.`}) },
-  { prompt:"The character kneels on warm golden sand at the top of a tall dune at sunset, pink orange and gold sky, gently picking up a small glowing pearl-white star from the sand, the gentle camel and the friendly falcon beside them, magical peaceful light.",
-    en:n=>({text:`The desert sky turned pink and orange and gold. And there, resting on the warm sand beneath the beautiful sunset, twinkled the fifth and final Pearl Star. "We found them all!" cheered ${n}, hugging Shaheen tight.`}),
+     ? ({text:`وفي العصر، زارا الصحراءَ الذهبية. حمل جملٌ لطيفٌ ${n} ببطءٍ فوق الرمال الناعمة، ومرّا بخيمةٍ جميلةٍ منسوجةٍ بنقوش السدو الحمراء والسوداء والبيضاء. همس شاهين: "الصحراء هادئة. أصغِ… يمكنك أن تسمع الريح تروي الحكايات."`})
+     : ({text:`وفي العصر، زارا الصحراءَ الذهبية. حمل جملٌ لطيفٌ ${n} ببطءٍ فوق الرمال الناعمة، ومرّا بخيمةٍ جميلةٍ منسوجةٍ بنقوش السدو الحمراء والسوداء والبيضاء. همس شاهين: "الصحراء هادئة. أصغي… يمكنكِ أن تسمعي الريح تروي الحكايات."`}) },
+  { prompt:"Sunset scene on warm golden sand: the sky glowing yellow, orange and gold, the kind elderly grandfather in a white dishdasha sitting with the character on the sand and gently placing a small white pearl in the character's open hand, the gentle camel resting and the friendly falcon perched nearby, magical peaceful golden light.",
+    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold. Grandpa joined them on the warm sand and placed a small white pearl in ${n}'s hand. "A little piece of our sea," he smiled, "to remind you of Kuwait wherever you go."`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`تلوّنت سماءُ الصحراء بالورديّ والبرتقاليّ والذهبيّ. وهناك، فوق الرمل الدافئ تحت الغروب الجميل، تلألأت نجمةُ اللؤلؤ الخامسة والأخيرة. هتف ${n} وهو يعانق شاهين: "وجدناها كلَّها!"`})
-     : ({text:`تلوّنت سماءُ الصحراء بالورديّ والبرتقاليّ والذهبيّ. وهناك، فوق الرمل الدافئ تحت الغروب الجميل، تلألأت نجمةُ اللؤلؤ الخامسة والأخيرة. هتفت ${n} وهي تعانق شاهين: "وجدناها كلَّها!"`}) },
-  { prompt:"Night celebration scene: the character stands on the seaside holding five glowing pearl-white stars raised toward the sky as all of Kuwait City sparkles with magical light — the Kuwait Towers glowing softly, wooden dhow boats with warm lanterns on the calm water, gentle fireworks above — the friendly falcon flying joyfully overhead.",
-    en:n=>({text:`That night, ${n} raised the five Pearl Stars over the sea, and all of Kuwait sparkled with magical light — the towers, the souq, the dhows, everything! "Thank you, little explorer," smiled Shaheen. And the magic passport glowed with a brand-new stamp: KUWAIT. The End ⭐`}),
+     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس الجدُّ معهما على الرمل الدافئ، ووضع في يد ${n} لؤلؤةً بيضاءَ صغيرة، وقال مبتسمًا: "قطعةٌ صغيرةٌ من بحرنا، لتذكّرك بالكويت أينما ذهبت."`})
+     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس الجدُّ معهما على الرمل الدافئ، ووضع في يد ${n} لؤلؤةً بيضاءَ صغيرة، وقال مبتسمًا: "قطعةٌ صغيرةٌ من بحرنا، لتذكّركِ بالكويت أينما ذهبتِ."`}) },
+  { prompt:"Warm evening scene by the sparkling sea: the character hugging the kind elderly grandfather goodbye, the Kuwait Towers glowing softly with warm lights in the background, wooden dhow boats with gentle lanterns on the calm water, the friendly falcon flying overhead, a small magical passport glowing warmly in the scene, loving peaceful mood.",
+    en:n=>({text:`That evening by the sparkling sea, ${n} hugged Grandpa goodbye and thanked Shaheen for the beautiful day. The magic passport glowed warmly with a brand-new stamp: KUWAIT. "Come back soon," smiled Shaheen. "Kuwait will always be waiting for you." The End ⭐`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`وفي المساء، رفع ${n} نجماتِ اللؤلؤ الخمس فوق البحر، فتلألأت الكويت كلُّها بنورٍ سحريّ — الأبراج والسوق والمراكب، كلُّ شيء! ابتسم شاهين وقال: "شكرًا لك أيها المستكشف الصغير." وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. النهاية ⭐`})
-     : ({text:`وفي المساء، رفعت ${n} نجماتِ اللؤلؤ الخمس فوق البحر، فتلألأت الكويت كلُّها بنورٍ سحريّ — الأبراج والسوق والمراكب، كلُّ شيء! ابتسم شاهين وقال: "شكرًا لكِ أيتها المستكشفة الصغيرة." وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. النهاية ⭐`}) },
+     ? ({text:`وفي المساء، قرب البحر المتلألئ، عانق ${n} جدَّه مودّعًا، وشكر شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عُد قريبًا، فالكويت تنتظرك دائمًا." النهاية ⭐`})
+     : ({text:`وفي المساء، قرب البحر المتلألئ، عانقت ${n} جدَّها مودّعةً، وشكرت شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عودي قريبًا، فالكويت تنتظركِ دائمًا." النهاية ⭐`}) },
   ]
 }
 
@@ -374,15 +376,15 @@ kuwait: {
 
 /* Countries shown as "Coming soon" passport pages (not yet playable) */
 const COMING_SOON = [
-  { icon:"🇵🇸", name:{en:"Palestine", ar:"فلسطين"} },
-  { icon:"🇪🇬", name:{en:"Egypt",     ar:"مصر"} },
-  { icon:"🇹🇷", name:{en:"Turkey",    ar:"تركيا"} },
-  { icon:"🇯🇵", name:{en:"Japan",     ar:"اليابان"} },
-  { icon:"🇰🇪", name:{en:"Kenya",     ar:"كينيا"} },
-  { icon:"🇧🇷", name:{en:"Brazil",    ar:"البرازيل"} },
-  { icon:"🇫🇮", name:{en:"Finland",   ar:"فنلندا"} },
-  { icon:"🇮🇹", name:{en:"Italy",     ar:"إيطاليا"} },
-  { icon:"🇦🇺", name:{en:"Australia", ar:"أستراليا"} }
+  { icon:"🇵🇸", flag:"ps", name:{en:"Palestine", ar:"فلسطين"} },
+  { icon:"🇪🇬", flag:"eg", name:{en:"Egypt",     ar:"مصر"} },
+  { icon:"🇹🇷", flag:"tr", name:{en:"Turkey",    ar:"تركيا"} },
+  { icon:"🇯🇵", flag:"jp", name:{en:"Japan",     ar:"اليابان"} },
+  { icon:"🇰🇪", flag:"ke", name:{en:"Kenya",     ar:"كينيا"} },
+  { icon:"🇧🇷", flag:"br", name:{en:"Brazil",    ar:"البرازيل"} },
+  { icon:"🇫🇮", flag:"fi", name:{en:"Finland",   ar:"فنلندا"} },
+  { icon:"🇮🇹", flag:"it", name:{en:"Italy",     ar:"إيطاليا"} },
+  { icon:"🇦🇺", flag:"au", name:{en:"Australia", ar:"أستراليا"} }
 ];
 
 /* ==================== UI STRINGS ==================== */
@@ -557,12 +559,6 @@ window.checkCode = async function(){
 };
 
 /* ==================== SCREEN 2: COUNTRY ==================== */
-function emojify(el){
-  if(window.twemoji){
-    try{ twemoji.parse(el,{base:"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/",folder:"svg",ext:".svg"}); }
-    catch(e){/* emojis stay as text — fine */}
-  }
-}
 function renderCountryPicker(){
   const box=$("themePick");
   box.innerHTML="";
@@ -594,7 +590,7 @@ function renderCountryPicker(){
   }
   Object.entries(COUNTRIES).forEach(([id,th])=>{
     const b=document.createElement("button");
-    b.innerHTML='<span class="ticon">'+th.icon+'</span>'+th.name[S.lang]+
+    b.innerHTML='<span class="ticon"><img src="https://flagcdn.com/w80/'+th.flag+'.png" alt="'+th.name[S.lang]+'"></span>'+th.name[S.lang]+
       '<small>'+th.tag[S.lang]+'</small>';
     if(S.lockedCountry && S.lockedCountry!==id){
       b.disabled=true;
@@ -606,11 +602,10 @@ function renderCountryPicker(){
   COMING_SOON.forEach(cs=>{
     const b=document.createElement("button");
     b.disabled=true;
-    b.innerHTML='<span class="ticon">'+cs.icon+'</span>'+cs.name[S.lang]+
+    b.innerHTML='<span class="ticon"><img src="https://flagcdn.com/w80/'+cs.flag+'.png" alt="'+cs.name[S.lang]+'"></span>'+cs.name[S.lang]+
       '<span class="soon">'+t("soon")+'</span>';
     box.appendChild(b);
   });
-  emojify(box);
 }
 function escStr(x){return String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 window.resumeSaved=function(){
@@ -690,9 +685,11 @@ let charMsgTimer=null;
 window.startCharacter=function(){ show("s-char"); makeCharacter(); };
 
 function characterPrompt(){
+  const o=COUNTRIES[S.theme].outfit;
+  const outfit = typeof o==="string" ? o : o[S.gender==="boy"?"boy":"girl"];
   return CHAR_BASE
     .replace("{GENDER}", S.gender==="boy"?"boy":"girl")
-    .replace("{OUTFIT}", COUNTRIES[S.theme].outfit);
+    .replace("{OUTFIT}", outfit);
 }
 function sceneSuffix(){
   return SUFFIX_BASE.replace("{PALETTE}", COUNTRIES[S.theme].palette);
@@ -915,8 +912,6 @@ function wrapText(x,text,cx,y,maxW,lineH){
   if(line){ x.fillText(line,cx,y); y+=lineH; }
   return y;
 }
-
-emojify(document.getElementById("s-lang"));
 
 })();
 </script>
