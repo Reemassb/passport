@@ -317,15 +317,15 @@ kuwait: {
   icon:"🇰🇼",
   flag:"kw",
   name:{en:"Kuwait",ar:"الكويت"},
-  tag:{en:"The Towers, the souq & Grandpa's pearl story",ar:"الأبراج والسوق وحكاية اللؤلؤ مع الجدّ"},
+  tag:{en:"The Towers, the souq & the pearl story",ar:"الأبراج والسوق وحكاية اللؤلؤ"},
   outfit:{
     boy:"Dress the character in a traditional Kuwaiti white dishdasha — a simple, elegant ankle-length white robe with a small neat collar — with no head covering, so the hairstyle and full face stay clearly visible.",
     girl:"Dress the character in a traditional Kuwaiti girls' darraa'a — a festive, colorful dress with rich golden embroidery — with no head covering, so the hairstyle and full face stay clearly visible."
   },
   palette:"warm Arabian Gulf palette of turquoise sea, golden sand and soft pearl-white light",
   fun:{
-    en:["Polishing the Kuwait Towers… 🗼","Teaching Shaheen the falcon to wave… 🦅","Raising the dhow's big white sail… ⛵","Framing Grandpa's old photograph… 🖼️","Brewing sweet tea in the desert tent… ☕","Lighting the souq lanterns… 🏮"],
-    ar:["نلمّع أبراج الكويت… 🗼","نعلّم الصقر شاهين أن يلوّح… 🦅","نرفع شراع البوم الأبيض… ⛵","نضع صورة الجدّ القديمة في الإطار… 🖼️","نجهّز الشاي في خيمة الصحراء… ☕","نضيء فوانيس السوق… 🏮"]
+    en:["Polishing the Kuwait Towers… 🗼","Teaching Shaheen the falcon to wave… 🦅","Raising the dhow's big white sail… ⛵","Framing the old sailor's photograph… 🖼️","Brewing sweet tea in the desert tent… ☕","Lighting the souq lanterns… 🏮"],
+    ar:["نلمّع أبراج الكويت… 🗼","نعلّم الصقر شاهين أن يلوّح… 🦅","نرفع شراع البوم الأبيض… ⛵","نضع صورة البحّار القديمة في الإطار… 🖼️","نجهّز الشاي في خيمة الصحراء… ☕","نضيء فوانيس السوق… 🏮"]
   },
   story:[
   { prompt:"The character stands happily on a sunny seaside promenade in Kuwait City, a majestic friendly falcon with warm kind eyes perched gently on their arm, the iconic Kuwait Towers with blue-green mosaic spheres rising behind, calm turquoise sea and soft clear sky, warm welcoming mood.",
@@ -349,26 +349,26 @@ kuwait: {
   { prompt:"The character sails on a traditional wooden dhow boat with a big white sail, gliding gently over the calm blue Arabian Gulf, the friendly falcon flying alongside, soft wind in the sail, the city skyline small on the horizon, peaceful happy mood.",
     en:n=>({text:`From the souq, they made their way to the harbor, where a beautiful wooden dhow waited with a big white sail. They glided gently over the calm blue water of the Arabian Gulf. "Long ago, ships just like this one sailed far, far away to trade," said Shaheen, as the soft wind hummed in the sail.`}),
     ar:(n,g)=>({text:`ومن السوق اتجها إلى الميناء، حيث انتظرهما مركبٌ خشبيٌّ جميلٌ بشراعٍ أبيضَ كبير. هبطا بهدوءٍ فوق مياه الخليج العربي الزرقاء الهادئة. قال شاهين والريحُ اللطيفةُ تهمس في الشراع: "قديمًا، أبحرت مراكبُ مثل هذا بعيدًا بعيدًا للتجارة."`}) },
-  { prompt:"Cozy warm scene inside a traditional Kuwaiti seaside majlis with soft cushions and warm lamplight: a kind elderly grandfather with a gentle smile, wearing a white dishdasha and traditional headdress, shows the character an old framed sepia photograph of pearl divers beside a wooden dhow; the character sits close, listening with wide amazed eyes; the friendly falcon perched quietly by the window.",
-    en:n=>({text:`Then came the sweetest stop of all — Grandpa's house by the sea. Grandpa showed ${n} an old photograph of brave pearl divers beside their dhow. "When I was young, our fathers dove deep into the sea to find pearls," he said. "Inside some oysters hid a small white treasure." ${n} listened in amazement.`}),
+  { prompt:"Cozy warm scene by the sea: a kind elderly Kuwaiti sailor with a gentle smile and a short white beard, wearing a white dishdasha and traditional headdress, sits in front of his small seaside house and shows the character an old framed sepia photograph of pearl divers beside a wooden dhow; the character sits close, listening happily; the friendly falcon perched quietly nearby.",
+    en:n=>({text:`Then came the sweetest stop of all. By the sea, they met a kind old sailor sitting in front of his little house. He showed ${n} an old photograph of brave pearl divers beside their dhow. "When I was young, we dove deep into the sea to find pearls," he said. "Inside some oysters hid a small white treasure." ${n} listened in amazement.`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`ثم جاءت أجملُ محطة: بيتُ الجدّ قرب البحر. أراه الجدُّ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ صغيرًا، كان آباؤنا يغوصون عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغى ${n} بحماسٍ كبير.`})
-     : ({text:`ثم جاءت أجملُ محطة: بيتُ الجدّ قرب البحر. أراها الجدُّ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ صغيرًا، كان آباؤنا يغوصون عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغت ${n} بحماسٍ كبير.`}) },
+     ? ({text:`ثم جاءت أجملُ محطة. قرب البحر، التقيا ببحّارٍ عجوزٍ طيّبٍ يجلس أمام بيته الصغير. أراه البحّارُ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ شابًّا، كنّا نغوص عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغى ${n} بحماسٍ كبير.`})
+     : ({text:`ثم جاءت أجملُ محطة. قرب البحر، التقيا ببحّارٍ عجوزٍ طيّبٍ يجلس أمام بيته الصغير. أراها البحّارُ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ شابًّا، كنّا نغوص عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغت ${n} بحماسٍ كبير.`}) },
   { prompt:"The character rides a gentle friendly camel slowly across soft golden desert sand in warm late afternoon light, passing a cozy traditional tent woven with red, black and white geometric Sadu patterns, the friendly falcon flying calmly ahead, soft dunes rolling to the horizon, peaceful mood.",
     en:n=>({text:`In the late afternoon, they visited the golden desert. A gentle camel carried ${n} slowly over the soft sand, past a cozy tent woven with red, black and white Sadu patterns. "The desert is quiet," whispered Shaheen. "Listen… you can hear the wind telling stories."`}),
     ar:(n,g)=> g==="boy"
      ? ({text:`وفي العصر، زارا الصحراءَ الذهبية. حمل جملٌ لطيفٌ ${n} ببطءٍ فوق الرمال الناعمة، ومرّا بخيمةٍ جميلةٍ منسوجةٍ بنقوش السدو الحمراء والسوداء والبيضاء. همس شاهين: "الصحراء هادئة. أصغِ… يمكنك أن تسمع الريح تروي الحكايات."`})
      : ({text:`وفي العصر، زارا الصحراءَ الذهبية. حمل جملٌ لطيفٌ ${n} ببطءٍ فوق الرمال الناعمة، ومرّا بخيمةٍ جميلةٍ منسوجةٍ بنقوش السدو الحمراء والسوداء والبيضاء. همس شاهين: "الصحراء هادئة. أصغي… يمكنكِ أن تسمعي الريح تروي الحكايات."`}) },
-  { prompt:"Sunset scene on warm golden sand: the sky glowing yellow, orange and gold, the kind elderly grandfather in a white dishdasha sitting with the character on the sand and gently placing a small white pearl in the character's open hand, the gentle camel resting and the friendly falcon perched nearby, magical peaceful golden light.",
-    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold. Grandpa joined them on the warm sand and placed a small white pearl in ${n}'s hand. "A little piece of our sea," he smiled, "to remind you of Kuwait wherever you go."`}),
+  { prompt:"Sunset scene on warm golden sand: the sky glowing yellow, orange and gold, the character sitting on a dune holding a small glowing white pearl in open hands and smiling at it, the gentle camel resting and the friendly falcon perched nearby, magical peaceful golden light.",
+    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold. Sitting on the warm sand, ${n} looked at the old sailor's farewell gift — a small white pearl — and remembered his smiling words: "A little piece of our sea, to remind you of Kuwait wherever you go."`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس الجدُّ معهما على الرمل الدافئ، ووضع في يد ${n} لؤلؤةً بيضاءَ صغيرة، وقال مبتسمًا: "قطعةٌ صغيرةٌ من بحرنا، لتذكّرك بالكويت أينما ذهبت."`})
-     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس الجدُّ معهما على الرمل الدافئ، ووضع في يد ${n} لؤلؤةً بيضاءَ صغيرة، وقال مبتسمًا: "قطعةٌ صغيرةٌ من بحرنا، لتذكّركِ بالكويت أينما ذهبتِ."`}) },
-  { prompt:"Warm evening scene by the sparkling sea: the character hugging the kind elderly grandfather goodbye, the Kuwait Towers glowing softly with warm lights in the background, wooden dhow boats with gentle lanterns on the calm water, the friendly falcon flying overhead, a small magical passport glowing warmly in the scene, loving peaceful mood.",
-    en:n=>({text:`That evening by the sparkling sea, ${n} hugged Grandpa goodbye and thanked Shaheen for the beautiful day. The magic passport glowed warmly with a brand-new stamp: KUWAIT. "Come back soon," smiled Shaheen. "Kuwait will always be waiting for you." The End ⭐`}),
+     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس ${n} على الرمل الدافئ يتأمّل هديةَ البحّار العجوز: لؤلؤةً بيضاءَ صغيرة، وتذكّر كيف قال له مبتسمًا: "قطعةٌ صغيرةٌ من بحرنا، لتذكّرك بالكويت أينما ذهبت."`})
+     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلست ${n} على الرمل الدافئ تتأمّل هديةَ البحّار العجوز: لؤلؤةً بيضاءَ صغيرة، وتذكّرت كيف قال لها مبتسمًا: "قطعةٌ صغيرةٌ من بحرنا، لتذكّركِ بالكويت أينما ذهبتِ."`}) },
+  { prompt:"Warm evening scene by the sparkling sea: the character standing on the shore happily waving goodbye toward the sea, the Kuwait Towers glowing softly with warm lights in the background, wooden dhow boats with gentle lanterns on the calm water, the friendly falcon flying overhead, a small magical passport glowing warmly in the scene, loving peaceful mood.",
+    en:n=>({text:`That evening by the sparkling sea, ${n} waved goodbye to the sea and thanked Shaheen for the beautiful day. The magic passport glowed warmly with a brand-new stamp: KUWAIT. "Come back soon," smiled Shaheen. "Kuwait will always be waiting for you." The End ⭐`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`وفي المساء، قرب البحر المتلألئ، عانق ${n} جدَّه مودّعًا، وشكر شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عُد قريبًا، فالكويت تنتظرك دائمًا." النهاية ⭐`})
-     : ({text:`وفي المساء، قرب البحر المتلألئ، عانقت ${n} جدَّها مودّعةً، وشكرت شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عودي قريبًا، فالكويت تنتظركِ دائمًا." النهاية ⭐`}) },
+     ? ({text:`وفي المساء، قرب البحر المتلألئ، وقف ${n} يلوّح للبحر مودّعًا، وشكر صديقه شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عُد قريبًا، فالكويت تنتظرك دائمًا." النهاية ⭐`})
+     : ({text:`وفي المساء، قرب البحر المتلألئ، وقفت ${n} تلوّح للبحر مودّعةً، وشكرت صديقها شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عودي قريبًا، فالكويت تنتظركِ دائمًا." النهاية ⭐`}) },
   ]
 }
 
