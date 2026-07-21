@@ -379,7 +379,7 @@ palestine: {
   name:{en:"Palestine",ar:"فلسطين"},
   tag:{en:"The Old City, olive groves & the tatreez story",ar:"القدس والزيتون وحكاية التطريز"},
   outfit:{
-    boy:"Dress the character in a traditional Palestinian boys' outfit: a white shirt with a dark vest decorated with red Palestinian cross-stitch tatreez embroidery, and a black-and-white keffiyeh scarf draped loosely around the neck (not on the head), so the hairstyle and full face stay clearly visible.",
+    boy:"Dress the character in a complete traditional Palestinian boys' outfit, and always include ALL of these items: (1) a white long-sleeve shirt, (2) over it an open dark vest richly decorated with bright red Palestinian cross-stitch tatreez embroidery down both front panels, (3) a black-and-white checkered keffiyeh scarf draped loosely around the neck and shoulders (NOT on the head), and (4) black traditional trousers. The head must be bare so the hairstyle and full face stay clearly visible. The embroidered tatreez vest, keffiyeh and black trousers are essential and must always appear.",
     girl:"Dress the character in a traditional Palestinian girls' embroidered thobe — a lovely dress richly decorated with red cross-stitch tatreez embroidery patterns — with no head covering, so the hairstyle and full face stay clearly visible."
   },
   palette:"warm palette of golden Jerusalem stone, silvery olive green and soft terracotta red",
@@ -420,15 +420,77 @@ palestine: {
      ? ({text:`وفي العصر، وصلا إلى ساحة القرية، حيث تعزف الموسيقى والجميعُ يرقصون الدبكة، يدًا بيد في صفٍّ طويلٍ بفرح. ضحك الأطفال ونادوا: "تعال، ارقص معنا!" فأمسك ${n} أيديَهم ورقص الدبكة معهم. غرّد نوّار وهو يقفز على الإيقاع: "هذه رقصةُ الفرح والتلاحم."`})
      : ({text:`وفي العصر، وصلا إلى ساحة القرية، حيث تعزف الموسيقى والجميعُ يرقصون الدبكة، يدًا بيد في صفٍّ طويلٍ بفرح. ضحك الأطفال ونادوا: "تعالي، ارقصي معنا!" فأمسكت ${n} أيديَهم ورقصت الدبكة معهم. غرّد نوّار وهو يقفز على الإيقاع: "هذه رقصةُ الفرح والتلاحم."`}) },
   { prompt:"Sunset scene under a huge ancient olive tree on a hilltop: the sky glowing yellow, orange and gold, the character sitting peacefully against the wide old trunk holding a small handwoven friendship bracelet in red, green, white and black threads in open hands and smiling at it, the tiny iridescent sunbird perched on a low branch, magical peaceful golden light.",
-    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold. Sitting under an ancient olive tree, ${n} looked at the old woman's farewell gift — a little bracelet woven in red, green, white and black threads — and remembered her smiling words: "A little piece of our colors, to remind you of Palestine wherever you go."`}),
+    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold. Sitting under an ancient olive tree, ${n} looked at the old woman's farewell gift — a little bracelet woven in red, green, white and black threads — and remembered her smiling words: "A little piece of our heritage, to remind you of Palestine wherever you go."`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس ${n} تحت شجرة زيتونٍ عتيقةٍ يتأمّل هديةَ السيّدة العجوز: سوارًا صغيرًا منسوجًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء، وتذكّر كيف قالت له مبتسمةً: "قطعةٌ صغيرةٌ من ألوان بلادنا، لتذكّرك بفلسطين أينما ذهبت."`})
-     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلست ${n} تحت شجرة زيتونٍ عتيقةٍ تتأمّل هديةَ السيّدة العجوز: سوارًا صغيرًا منسوجًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء، وتذكّرت كيف قالت لها مبتسمةً: "قطعةٌ صغيرةٌ من ألوان بلادنا، لتذكّركِ بفلسطين أينما ذهبتِ."`}) },
+     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس ${n} تحت شجرة زيتونٍ عتيقةٍ يتأمّل هديةَ السيّدة العجوز: سوارًا صغيرًا منسوجًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء، وتذكّر كيف قالت له مبتسمةً: "قطعةٌ صغيرةٌ من تراثنا، لتذكّرك بفلسطين أينما ذهبت."`})
+     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلست ${n} تحت شجرة زيتونٍ عتيقةٍ تتأمّل هديةَ السيّدة العجوز: سوارًا صغيرًا منسوجًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء، وتذكّرت كيف قالت لها مبتسمةً: "قطعةٌ صغيرةٌ من تراثنا، لتذكّركِ بفلسطين أينما ذهبتِ."`}) },
   { prompt:"Warm evening scene on a hilltop overlooking the old city: the character standing happily waving toward the twinkling city lights, the golden Dome of the Rock glowing softly in the distance, ancient olive trees silhouetted gently around, the tiny iridescent sunbird flying overhead, a small magical passport glowing warmly in the character's hand, loving peaceful mood.",
     en:n=>({text:`That evening, on a hilltop above the twinkling city lights, ${n} waved goodbye to the valley and thanked Nawwar for the beautiful day. The magic passport glowed warmly with a brand-new stamp: PALESTINE. "Come back soon," chirped Nawwar. "The olive trees of Palestine will always be waiting for you." The End ⭐`}),
     ar:(n,g)=> g==="boy"
      ? ({text:`وفي المساء، فوق تلةٍ تطلّ على أضواء المدينة المتلألئة، وقف ${n} يلوّح للوادي مودّعًا، وشكر صديقه نوّار على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: فلسطين. غرّد نوّار: "عُد قريبًا، فزيتونُ فلسطين ينتظرك دائمًا." النهاية ⭐`})
      : ({text:`وفي المساء، فوق تلةٍ تطلّ على أضواء المدينة المتلألئة، وقفت ${n} تلوّح للوادي مودّعةً، وشكرت صديقها نوّار على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: فلسطين. غرّد نوّار: "عودي قريبًا، فزيتونُ فلسطين ينتظركِ دائمًا." النهاية ⭐`}) },
+  ]
+},
+
+/* ---------------- EGYPT 🇪🇬 ---------------- */
+egypt: {
+  icon:"🇪🇬",
+  flag:"eg",
+  name:{en:"Egypt",ar:"مصر"},
+  tag:{en:"Pyramids, the Nile & the papyrus secret",ar:"الأهرامات والنيل وسرّ ورق البردي"},
+  outfit:{
+    boy:"Dress the character in a traditional Egyptian galabeya — a simple elegant ankle-length cream-white robe with a small neat collar — with no head covering, so the hairstyle and full face stay clearly visible.",
+    girl:"Dress the character in a colorful traditional Egyptian galabeya dress with pretty embroidered patterns along the collar and sleeves, with no head covering, so the hairstyle and full face stay clearly visible."
+  },
+  palette:"warm Egyptian palette of golden desert sand, Nile blue and soft papyrus gold",
+  fun:{
+    en:["Dusting off the Great Pyramids… 🔺","Waking Ramses the hoopoe… 🐦","Raising the felucca's white sail… ⛵","Rolling out golden papyrus… 📜","Lighting the Khan el-Khalili lanterns… 🏮","Tuning the Nubian drums… 🥁"],
+    ar:["ننفض الغبار عن الأهرامات… 🔺","نوقظ الهدهد رمسيس… 🐦","نرفع شراع الفلوكة الأبيض… ⛵","نفرد ورق البردي الذهبي… 📜","نضيء فوانيس خان الخليلي… 🏮","نضبط إيقاع الطبول النوبية… 🥁"]
+  },
+  story:[
+  { prompt:"The character stands happily on golden desert sand in front of the three Great Pyramids of Giza and the Great Sphinx under a clear blue sky, a friendly colorful hoopoe bird with a beautiful crown of feathers perched gently on their arm, warm sunny mood, wide desert view.",
+    en:n=>({title:`${n}'s Journey in Egypt`, text:"A story about a beautiful day in Egypt."}),
+    ar:(n,g)=>({title:`رحلة ${n} في مصر`, text:"قصة عن يومٍ جميلٍ في مصر."}) },
+  { prompt:"The character stands amazed on golden desert sand holding a small softly glowing magical passport in both hands, a friendly colorful hoopoe bird with a crown of feathers fluttering down beside them, the three Great Pyramids of Giza rising behind under warm morning light, joyful mood.",
+    en:n=>({text:`The magic passport glowed softly in ${n}'s hands — and suddenly ${n} was standing on the golden sand of Egypt, right in front of the Great Pyramids, with the morning sun warming the desert. A colorful hoopoe fluttered down. "Welcome, ${n}! I'm Ramses," he chirped happily. "Would you like me to show you my ancient country today?"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجد نفسه واقفًا على رمال مصر الذهبية، أمام الأهرامات العظيمة، وشمسُ الصباح تدفّئ الصحراء. رفرف قربه هدهدٌ ملوّنٌ جميل وقال بفرح: "أهلًا بك يا ${n}! أنا رمسيس. هل تحب أن أريك بلدي العريق اليوم؟"`})
+     : ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجدت نفسها واقفةً على رمال مصر الذهبية، أمام الأهرامات العظيمة، وشمسُ الصباح تدفّئ الصحراء. رفرف قربها هدهدٌ ملوّنٌ جميل وقال بفرح: "أهلًا بكِ يا ${n}! أنا رمسيس. هل تحبين أن أريكِ بلدي العريق اليوم؟"`}) },
+  { prompt:"The character rides a friendly decorated camel across golden sand at the Giza pyramids, the Great Sphinx and a huge pyramid close behind, a smiling camel guide walking alongside, the colorful hoopoe flying above, warm sunny desert mood.",
+    en:n=>({text:`First stop: the Pyramids of Giza! A friendly camel carried ${n} across the warm sand, right up to the Great Sphinx with its calm stone face. "These pyramids are thousands of years old," said Ramses. "The ancient Egyptians built them as wonders that still amaze the whole world."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`المحطة الأولى: أهرامات الجيزة! حمل جملٌ لطيفٌ ${n} فوق الرمال الدافئة، حتى وصل إلى أبي الهول بوجهه الحجريِّ الهادئ. قال رمسيس: "عمر هذه الأهرامات آلافُ السنين. بناها المصريون القدماء لتبقى عجائبَ تُدهش العالم كلَّه حتى اليوم."`})
+     : ({text:`المحطة الأولى: أهرامات الجيزة! حمل جملٌ لطيفٌ ${n} فوق الرمال الدافئة، حتى وصلت إلى أبي الهول بوجهه الحجريِّ الهادئ. قال رمسيس: "عمر هذه الأهرامات آلافُ السنين. بناها المصريون القدماء لتبقى عجائبَ تُدهش العالم كلَّه حتى اليوم."`}) },
+  { prompt:"The character explores the lively Khan el-Khalili bazaar, a beautiful old Cairo market with arched stone alleys, colorful hanging lanterns everywhere, shops full of brass lamps and spices, a kind old shopkeeper warmly offering the character a sweet treat, the colorful hoopoe perched on a lantern, warm glowing light.",
+    en:n=>({text:`Next, they wandered into Khan el-Khalili, Cairo's oldest bazaar, glowing with hundreds of colorful lanterns. A kind shopkeeper smiled and offered ${n} a sweet date-filled kahk cookie. "This market has bustled for hundreds of years," he said. And ${n} loved the shining lanterns all around.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`مشيا بعد ذلك إلى خان الخليلي، أقدم أسواق القاهرة، المتلألئ بمئات الفوانيس الملوّنة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} قطعةَ كحكٍ محشوّةً بالتمر، وقال: "يعجّ هذا السوق بالحياة منذ مئات السنين." وأحبّ ${n} الفوانيسَ اللامعة من حوله.`})
+     : ({text:`مشيا بعد ذلك إلى خان الخليلي، أقدم أسواق القاهرة، المتلألئ بمئات الفوانيس الملوّنة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} قطعةَ كحكٍ محشوّةً بالتمر، وقال: "يعجّ هذا السوق بالحياة منذ مئات السنين." وأحبّت ${n} الفوانيسَ اللامعة من حولها.`}) },
+  { prompt:"The character sails on a traditional Egyptian felucca sailboat with a tall white triangular sail, gliding gently on the blue Nile river, green palm trees and riverbanks in the background, the colorful hoopoe flying alongside, peaceful sunny mood.",
+    en:n=>({text:`From the market they made their way to the Nile, where a graceful felucca waited with a tall white sail. They glided gently along the great river, past green palm trees. "The Nile is the heart of Egypt," said Ramses. "For thousands of years, life has bloomed along its banks."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ومن السوق اتجها إلى النيل، حيث انتظرتهما فلوكةٌ جميلةٌ بشراعٍ أبيضَ عالٍ. انسابا برفقٍ فوق النهر العظيم، بين أشجار النخيل الخضراء. قال رمسيس: "النيلُ قلبُ مصر — على ضفافه ازدهرت الحياةُ آلافَ السنين."`})
+     : ({text:`ومن السوق اتجها إلى النيل، حيث انتظرتهما فلوكةٌ جميلةٌ بشراعٍ أبيضَ عالٍ. انسابا برفقٍ فوق النهر العظيم، بين أشجار النخيل الخضراء. قال رمسيس: "النيلُ قلبُ مصر — على ضفافه ازدهرت الحياةُ آلافَ السنين."`}) },
+  { prompt:"Cozy warm scene by the Nile: a kind elderly Egyptian papyrus maker with a gentle smile, wearing a traditional galabeya, sits at a low table showing the character how golden papyrus paper is made from reeds and painting the child's name in colorful ancient Egyptian hieroglyphic symbols on a small scroll; the character sits close, watching happily; the colorful hoopoe perched nearby.",
+    en:n=>({text:`Then came the sweetest stop of all. By the river, they met a kind old papyrus maker. He showed ${n} how golden paper is made from Nile reeds, just like in ancient times, and painted ${n}'s name in beautiful hieroglyphs — the picture-writing of the pharaohs. ${n} watched, amazed.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ثم جاءت أجملُ محطة. قرب النهر، التقيا بصانعِ بردٍ عجوزٍ طيّب. أراه كيف يُصنع الورقُ الذهبيُّ من نبات البردي، تمامًا كما في الزمن القديم، ورسم اسم ${n} بحروفٍ هيروغليفيةٍ جميلة — كتابةِ الفراعنة بالصور. وكان ${n} يشاهد بدهشة.`})
+     : ({text:`ثم جاءت أجملُ محطة. قرب النهر، التقيا بصانعِ بردٍ عجوزٍ طيّب. أراها كيف يُصنع الورقُ الذهبيُّ من نبات البردي، تمامًا كما في الزمن القديم، ورسم اسم ${n} بحروفٍ هيروغليفيةٍ جميلة — كتابةِ الفراعنة بالصور. وكانت ${n} تشاهد بدهشة.`}) },
+  { prompt:"Joyful colorful Nubian celebration by the Nile in warm late afternoon light: happy people in bright colorful Nubian clothing playing drums and dancing, a cheerful festive scene with colorful decorations, the character joyfully clapping and dancing along, the colorful hoopoe hopping to the rhythm, warm happy mood.",
+    en:n=>({text:`In the late afternoon, they came upon a joyful Nubian celebration by the river, full of colorful clothes, drums and dancing. "Come, join us!" the people laughed, and ${n} clapped and danced along to the happy beat. "This is the music of the Nubian people of the south," chirped Ramses, hopping along. "In Egypt, everyone celebrates together!"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي العصر، صادفا احتفالًا نوبيًّا مرِحًا قرب النهر، مليئًا بالملابس الملوّنة والطبول والرقص. ضحك الناس ونادوا: "تعال، ارقص معنا!" فصفّق ${n} ورقص على الإيقاع الفرِح. غرّد رمسيس وهو يقفز: "هذه موسيقى أهل النوبة في الجنوب — وفي مصرَ يفرح الجميعُ معًا!"`})
+     : ({text:`وفي العصر، صادفا احتفالًا نوبيًّا مرِحًا قرب النهر، مليئًا بالملابس الملوّنة والطبول والرقص. ضحك الناس ونادوا: "تعالي، ارقصي معنا!" فصفّقت ${n} ورقصت على الإيقاع الفرِح. غرّد رمسيس وهو يقفز: "هذه موسيقى أهل النوبة في الجنوب — وفي مصرَ يفرح الجميعُ معًا!"`}) },
+  { prompt:"Sunset scene on the bank of the Nile: the sky glowing yellow, orange and gold, the character sitting peacefully on the sand holding a small rolled papyrus scroll with hieroglyphs in open hands and smiling at it, palm trees and a felucca silhouette on the calm river, the colorful hoopoe perched nearby, magical golden light.",
+    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold over the Nile. Sitting by the calm river, ${n} looked at the old man's farewell gift — a little papyrus scroll with ${n}'s name in hieroglyphs — and remembered his smiling words: "A little piece of our history, to remind you of Egypt wherever you go."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ فوق النيل. جلس ${n} قرب النهر الهادئ يتأمّل هديةَ الرجل العجوز: لفافةَ بردٍ صغيرةً كُتب عليها اسمُه بالهيروغليفية، وتذكّر كيف قال له مبتسمًا: "قطعةٌ صغيرةٌ من تاريخنا، لتذكّرك بمصر أينما ذهبت."`})
+     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ فوق النيل. جلست ${n} قرب النهر الهادئ تتأمّل هديةَ الرجل العجوز: لفافةَ بردٍ صغيرةً كُتب عليها اسمُها بالهيروغليفية، وتذكّرت كيف قال لها مبتسمًا: "قطعةٌ صغيرةٌ من تاريخنا، لتذكّركِ بمصر أينما ذهبتِ."`}) },
+  { prompt:"Warm evening scene by the Nile: the character standing happily waving goodbye, the Great Pyramids glowing softly with warm light in the distance, palm trees and a felucca on the calm river, the colorful hoopoe flying overhead, a small magical passport glowing warmly in the character's hand, loving peaceful mood.",
+    en:n=>({text:`That evening by the Nile, ${n} waved goodbye to the great river and thanked Ramses for the beautiful day. The magic passport glowed warmly with a brand-new stamp: EGYPT. "Come back soon," chirped Ramses. "The pyramids of Egypt will always be waiting for you." The End ⭐`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي المساء، قرب النيل، وقف ${n} يلوّح للنهر العظيم مودّعًا، وشكر صديقه رمسيس على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: مصر. غرّد رمسيس: "عُد قريبًا، فأهراماتُ مصر تنتظرك دائمًا." النهاية ⭐`})
+     : ({text:`وفي المساء، قرب النيل، وقفت ${n} تلوّح للنهر العظيم مودّعةً، وشكرت صديقها رمسيس على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: مصر. غرّد رمسيس: "عودي قريبًا، فأهراماتُ مصر تنتظركِ دائمًا." النهاية ⭐`}) },
   ]
 }
 
@@ -436,7 +498,6 @@ palestine: {
 
 /* Countries shown as "Coming soon" passport pages (not yet playable) */
 const COMING_SOON = [
-  { icon:"🇪🇬", flag:"eg", name:{en:"Egypt",     ar:"مصر"} },
   { icon:"🇹🇷", flag:"tr", name:{en:"Turkey",    ar:"تركيا"} },
   { icon:"🇯🇵", flag:"jp", name:{en:"Japan",     ar:"اليابان"} },
   { icon:"🇰🇪", flag:"ke", name:{en:"Kenya",     ar:"كينيا"} },
@@ -929,23 +990,24 @@ async function composePage(i){
   x.beginPath(); x.arc(W-90,90,140,0,7); x.fill();
   x.beginPath(); x.arc(70,H-70,110,0,7); x.fill();
   const img=await loadImg(S.pages[i]);
-  const iw=W-160, ix=80, iy=90;
+  const iw=W-260, ix=130, iy=80;
   roundImage(x,img,ix,iy,iw,iw,36);
   x.strokeStyle="#fff"; x.lineWidth=10;
   roundRectPath(x,ix,iy,iw,iw,36); x.stroke();
   const pt=pageText(i);
   x.textAlign="center"; x.fillStyle="#3B2A4A"; x.direction=ar?"rtl":"ltr";
-  let ty=iy+iw+110;
+  let ty=iy+iw+90;
   if(pt.title){
-    x.font="700 64px "+dispFont;
-    ty=wrapText(x,pt.title,W/2,ty,W-220,80);
-    ty+=30;
+    x.font="700 60px "+dispFont;
+    ty=wrapText(x,pt.title,W/2,ty,W-220,74);
+    ty+=24;
   }
-  x.font="700 44px "+bodyFont;
-  wrapText(x,pt.text,W/2,ty,W-240,66);
+  x.font="700 42px "+bodyFont;
+  ty=wrapText(x,pt.text,W/2,ty,W-240,62);
   if(i>0){
     x.font="600 26px "+dispFont; x.fillStyle="#6D5C80";
-    x.fillText(t("page")+" "+i, W/2, H-56);
+    const pageY=Math.min(H-46, ty+54);
+    x.fillText(t("page")+" "+i, W/2, pageY);
   }
   return c;
 }
