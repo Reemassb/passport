@@ -352,8 +352,8 @@ kuwait: {
   { prompt:"Cozy warm scene by the sea: a kind elderly Kuwaiti sailor with a gentle smile and a short white beard, wearing a white dishdasha and traditional headdress, sits in front of his small seaside house and shows the character an old framed sepia photograph of pearl divers beside a wooden dhow; the character sits close, listening happily; the friendly falcon perched quietly nearby.",
     en:n=>({text:`Then came the sweetest stop of all. By the sea, they met a kind old sailor sitting in front of his little house. He showed ${n} an old photograph of brave pearl divers beside their dhow. "When I was young, we dove deep into the sea to find pearls," he said. "Inside some oysters hid a small white treasure." ${n} listened in amazement.`}),
     ar:(n,g)=> g==="boy"
-     ? ({text:`ثم جاءت أجملُ محطة. قرب البحر، التقيا ببحّارٍ عجوزٍ طيّبٍ يجلس أمام بيته الصغير. أراه البحّارُ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ شابًّا، كنّا نغوص عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغى ${n} بحماسٍ كبير.`})
-     : ({text:`ثم جاءت أجملُ محطة. قرب البحر، التقيا ببحّارٍ عجوزٍ طيّبٍ يجلس أمام بيته الصغير. أراها البحّارُ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ شابًّا، كنّا نغوص عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." أصغت ${n} بحماسٍ كبير.`}) },
+     ? ({text:`ثم جاءت أجملُ محطة. قرب البحر، التقيا ببحّارٍ عجوزٍ طيّبٍ يجلس أمام بيته الصغير. أراه البحّارُ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ شابًّا، كنّا نغوص عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." وكان ${n} يصغي بحماسٍ كبير.`})
+     : ({text:`ثم جاءت أجملُ محطة. قرب البحر، التقيا ببحّارٍ عجوزٍ طيّبٍ يجلس أمام بيته الصغير. أراها البحّارُ صورةً قديمةً لغوّاصي اللؤلؤ الشجعان قرب مركبهم، وقال: "عندما كنتُ شابًّا، كنّا نغوص عميقًا في البحر بحثًا عن اللؤلؤ، ويختبئ في بعض المحار كنزٌ أبيضُ صغير." وكانت ${n} تصغي بحماسٍ كبير.`}) },
   { prompt:"The character rides a gentle friendly camel slowly across soft golden desert sand in warm late afternoon light, passing a cozy traditional tent woven with red, black and white geometric Sadu patterns, the friendly falcon flying calmly ahead, soft dunes rolling to the horizon, peaceful mood.",
     en:n=>({text:`In the late afternoon, they visited the golden desert. A gentle camel carried ${n} slowly over the soft sand, past a cozy tent woven with red, black and white Sadu patterns. "The desert is quiet," whispered Shaheen. "Listen… you can hear the wind telling stories."`}),
     ar:(n,g)=> g==="boy"
@@ -370,13 +370,72 @@ kuwait: {
      ? ({text:`وفي المساء، قرب البحر المتلألئ، وقف ${n} يلوّح للبحر مودّعًا، وشكر صديقه شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عُد قريبًا، فالكويت تنتظرك دائمًا." النهاية ⭐`})
      : ({text:`وفي المساء، قرب البحر المتلألئ، وقفت ${n} تلوّح للبحر مودّعةً، وشكرت صديقها شاهين على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: الكويت. ابتسم شاهين وقال: "عودي قريبًا، فالكويت تنتظركِ دائمًا." النهاية ⭐`}) },
   ]
+},
+
+/* ---------------- PALESTINE 🇵🇸 ---------------- */
+palestine: {
+  icon:"🇵🇸",
+  flag:"ps",
+  name:{en:"Palestine",ar:"فلسطين"},
+  tag:{en:"The Old City, olive groves & the tatreez story",ar:"القدس والزيتون وحكاية التطريز"},
+  outfit:{
+    boy:"Dress the character in a traditional Palestinian boys' outfit: a white shirt with a dark vest decorated with red Palestinian cross-stitch tatreez embroidery, and a black-and-white keffiyeh scarf draped loosely around the neck (not on the head), so the hairstyle and full face stay clearly visible.",
+    girl:"Dress the character in a traditional Palestinian girls' embroidered thobe — a lovely dress richly decorated with red cross-stitch tatreez embroidery patterns — with no head covering, so the hairstyle and full face stay clearly visible."
+  },
+  palette:"warm palette of golden Jerusalem stone, silvery olive green and soft terracotta red",
+  fun:{
+    en:["Baking sesame ka'ek in Jerusalem… 🥯","Picking shiny olives… 🫒","Weaving a little friendship bracelet… 🧵","Waking Nawwar the sunbird… 🐦","Warming up the dabke music… 🪗","Lighting the Old City lanterns… 🏮"],
+    ar:["نخبز الكعك المقدسي بالسمسم… 🥯","نقطف حبات الزيتون اللامعة… 🫒","ننسج سوارًا صغيرًا… 🧵","نوقظ الطائر نوّار… 🐦","نضبط إيقاع الدبكة… 🪗","نضيء قناديل البلدة القديمة… 🏮"]
+  },
+  story:[
+  { prompt:"The character stands happily on a green hillside among ancient olive trees overlooking the old city of Jerusalem with the golden Dome of the Rock shining in the distance, a tiny iridescent sunbird with shimmering feathers perched gently on their hand, warm golden stone buildings, soft clear sky, warm welcoming mood.",
+    en:n=>({title:`${n}'s Journey in Palestine`, text:"A story about a beautiful day in Palestine."}),
+    ar:(n,g)=>({title:`رحلة ${n} في فلسطين`, text:"قصة عن يومٍ جميلٍ في فلسطين."}) },
+  { prompt:"The character stands on a green hillside among ancient olive trees on a bright calm morning, holding a small softly glowing magical passport in both hands, a tiny iridescent sunbird with shimmering blue-green feathers fluttering down beside them, golden morning light over the valley, peaceful joyful mood.",
+    en:n=>({text:`The magic passport glowed softly in ${n}'s hands — and suddenly ${n} was standing on a green hillside in Palestine, among ancient olive trees, with the morning sun filling the valley with golden light. A tiny shimmering sunbird fluttered down. "Welcome, ${n}! I'm Nawwar," he chirped happily. "Would you like me to show you my beautiful country today?"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجد نفسه واقفًا على تلةٍ خضراءَ في فلسطين، بين أشجار زيتونٍ عتيقة، وشمسُ الصباح تملأ الوادي بضوءٍ ذهبيّ. رفرف قربه عصفورُ الشمسِ الفلسطينيُّ الصغيرُ متلألئُ الريش وقال بفرح: "أهلًا بك يا ${n}! أنا نوّار. هل تحب أن أريك بلدي الجميل اليوم؟"`})
+     : ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجدت نفسها واقفةً على تلةٍ خضراءَ في فلسطين، بين أشجار زيتونٍ عتيقة، وشمسُ الصباح تملأ الوادي بضوءٍ ذهبيّ. رفرف قربها عصفورُ الشمسِ الفلسطينيُّ الصغيرُ متلألئُ الريش وقال بفرح: "أهلًا بكِ يا ${n}! أنا نوّار. هل تحبين أن أريكِ بلدي الجميل اليوم؟"`}) },
+  { prompt:"The character and the tiny iridescent sunbird walk through an ancient stone alley in the old city of Jerusalem, warm golden limestone walls, beautiful old arches and wooden doors, the golden Dome of the Rock and the silver-grey dome of Al-Aqsa Mosque shining in the distance between the buildings, soft morning light, peaceful reverent wonder.",
+    en:n=>({text:`First stop: the Old City of Jerusalem! They walked together through its ancient stone alleys, under old arches and beautiful gates, and saw the golden Dome of the Rock shining in the sun from afar. "This is one of the oldest cities in the world," said Nawwar softly. "Here stand the Dome of the Rock and the blessed Al-Aqsa Mosque — among the most beloved and holy places in Palestine. Its stones keep the stories of thousands of years."`}),
+    ar:(n,g)=>({text:`المحطة الأولى: القدس القديمة! مشيا معًا في أزقّتها الحجرية العتيقة، تحت الأقواس والأبواب الجميلة، وشاهدا من بعيد قبةَ الصخرة الذهبية تلمع تحت الشمس. فقال نوّار بهدوء: "هذه من أقدم مدن العالم. هنا تقف قبةُ الصخرة والمسجدُ الأقصى المبارك — من أحبّ الأماكن وأقدسها في فلسطين. وحجارةُ المدينة تحفظ حكاياتِ آلاف السنين."`}) },
+  { prompt:"The character explores a lively old souq alley in the old city with warm stone walls, hanging lanterns, sacks of colorful spices and fresh za'atar, a kind old baker warmly offering the character a traditional Jerusalem ka'ek al-Quds — a large elongated oval ring of bread, much bigger and taller than a bagel, its top generously covered with sesame seeds, the tiny iridescent sunbird perched on a wooden beam above, warm cozy light.",
+    en:n=>({text:`Next, they walked into the old souq, where the air smelled of za'atar, spices and fresh bread. A kind baker smiled and offered ${n} a warm Jerusalem sesame ka'ek. "The children of this city have grown up on this bread for ages," he said. And ${n} loved it too.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`مشيا بعد ذلك إلى سوق البلدة القديمة، حيث فاحت رائحة الزعتر والبهارات والخبز الطازج. ابتسم خبّازٌ طيّبٌ وقدّم إلى ${n} كعكةً مقدسيةً دافئةً بالسمسم، وقال: "على هذا الكعك تربّى أطفال المدينة منذ زمنٍ بعيد." وأحبّه ${n} أيضًا.`})
+     : ({text:`مشيا بعد ذلك إلى سوق البلدة القديمة، حيث فاحت رائحة الزعتر والبهارات والخبز الطازج. ابتسم خبّازٌ طيّبٌ وقدّم إلى ${n} كعكةً مقدسيةً دافئةً بالسمسم، وقال: "على هذا الكعك تربّى أطفال المدينة منذ زمنٍ بعيد." وأحبّته ${n} أيضًا.`}) },
+  { prompt:"The character stands in a sunlit ancient olive grove with old gnarled olive trees hundreds of years old, gently picking shiny olives from a low branch into a small woven basket, silvery green leaves glowing in the sunlight, the tiny iridescent sunbird fluttering between the branches, peaceful golden light.",
+    en:n=>({text:`From the souq they made their way to the olive groves outside the city, where ancient trees hundreds of years old stood. ${n} picked shiny olives and learned how they are pressed into golden oil that lights homes and flavors food. "The olive tree is the symbol of our land," whispered Nawwar. "Its roots run as deep as our stories."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ومن السوق اتجها إلى بساتين الزيتون خارج المدينة، حيث وقفت أشجارٌ عتيقةٌ عمرها مئاتُ السنين. قطف ${n} حبّاتِ زيتونٍ لامعة، وتعلّم كيف تُعصر لتصير زيتًا ذهبيًّا يضيء البيوت ويطيّب الطعام. همس نوّار: "شجرة الزيتون رمز بلادنا — جذورها عميقة مثل حكاياتنا."`})
+     : ({text:`ومن السوق اتجها إلى بساتين الزيتون خارج المدينة، حيث وقفت أشجارٌ عتيقةٌ عمرها مئاتُ السنين. قطفت ${n} حبّاتِ زيتونٍ لامعة، وتعلّمت كيف تُعصر لتصير زيتًا ذهبيًّا يضيء البيوت ويطيّب الطعام. همس نوّار: "شجرة الزيتون رمز بلادنا — جذورها عميقة مثل حكاياتنا."`}) },
+  { prompt:"Cozy warm scene in front of an old stone house: a kind elderly Palestinian woman with a gentle smile, wearing a traditional embroidered thobe dress and a soft white headscarf, sits on the doorstep embroidering cloth with red thread, showing the character a beautiful old thobe covered in red cross-stitch tatreez patterns and weaving a small friendship bracelet in red, green, white and black threads; the character sits close, listening happily; the tiny iridescent sunbird perched quietly nearby.",
+    en:n=>({text:`Then came the sweetest stop of all. In front of an old stone house, they met a kind old woman embroidering cloth with beautiful red threads. She showed ${n} an old embroidered thobe and said: "When I was a girl, we embroidered the cypress trees, flowers and patterns of our villages into our dresses, stitch by stitch — every pattern tells a story." As she spoke, her hands wove a little bracelet in red, green, white and black threads. ${n} listened in amazement.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ثم جاءت أجملُ محطة. أمام بيتٍ حجريٍّ قديم، التقيا بسيّدةٍ عجوزٍ طيّبةٍ تجلس تُطرّز قماشًا بخيوطٍ حمراءَ جميلة. أرته السيّدةُ ثوبًا مطرّزًا قديمًا وقالت: "عندما كنتُ صبيّةً، كنّا نطرّز على الأثواب أشجارَ السرو والأزهار الجميلة، غرزةً غرزة — ولكلِّ نقشٍ حكاية." وبينما تتحدّث، كانت يداها تنسجان سوارًا صغيرًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء. وكان ${n} يصغي بحماسٍ كبير.`})
+     : ({text:`ثم جاءت أجملُ محطة. أمام بيتٍ حجريٍّ قديم، التقيا بسيّدةٍ عجوزٍ طيّبةٍ تجلس تُطرّز قماشًا بخيوطٍ حمراءَ جميلة. أرتها السيّدةُ ثوبًا مطرّزًا قديمًا وقالت: "عندما كنتُ صبيّةً، كنّا نطرّز على الأثواب أشجارَ السرو والأزهار الجميلة، غرزةً غرزة — ولكلِّ نقشٍ حكاية." وبينما تتحدّث، كانت يداها تنسجان سوارًا صغيرًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء. وكانت ${n} تصغي بحماسٍ كبير.`}) },
+  { prompt:"Joyful village celebration in a warm stone village square in late afternoon light: happy Palestinian children and families dancing the traditional dabke line dance, holding hands in a line, some wearing embroidered tatreez and keffiyehs, the character joyfully joining the dabke line holding hands and smiling, the tiny iridescent sunbird hopping to the rhythm, festive warm mood with colorful bunting.",
+    en:n=>({text:`In the late afternoon, they came to the village square, where music was playing and everyone was dancing the dabke, hand in hand in a long happy line. "Come, join us!" the children laughed, and ${n} took their hands and danced along. "This is the dance of joy and togetherness," chirped Nawwar, hopping to the beat.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي العصر، وصلا إلى ساحة القرية، حيث تعزف الموسيقى والجميعُ يرقصون الدبكة، يدًا بيد في صفٍّ طويلٍ بفرح. ضحك الأطفال ونادوا: "تعال، ارقص معنا!" فأمسك ${n} أيديَهم ورقص الدبكة معهم. غرّد نوّار وهو يقفز على الإيقاع: "هذه رقصةُ الفرح والتلاحم."`})
+     : ({text:`وفي العصر، وصلا إلى ساحة القرية، حيث تعزف الموسيقى والجميعُ يرقصون الدبكة، يدًا بيد في صفٍّ طويلٍ بفرح. ضحك الأطفال ونادوا: "تعالي، ارقصي معنا!" فأمسكت ${n} أيديَهم ورقصت الدبكة معهم. غرّد نوّار وهو يقفز على الإيقاع: "هذه رقصةُ الفرح والتلاحم."`}) },
+  { prompt:"Sunset scene under a huge ancient olive tree on a hilltop: the sky glowing yellow, orange and gold, the character sitting peacefully against the wide old trunk holding a small handwoven friendship bracelet in red, green, white and black threads in open hands and smiling at it, the tiny iridescent sunbird perched on a low branch, magical peaceful golden light.",
+    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold. Sitting under an ancient olive tree, ${n} looked at the old woman's farewell gift — a little bracelet woven in red, green, white and black threads — and remembered her smiling words: "A little piece of our colors, to remind you of Palestine wherever you go."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلس ${n} تحت شجرة زيتونٍ عتيقةٍ يتأمّل هديةَ السيّدة العجوز: سوارًا صغيرًا منسوجًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء، وتذكّر كيف قالت له مبتسمةً: "قطعةٌ صغيرةٌ من ألوان بلادنا، لتذكّرك بفلسطين أينما ذهبت."`})
+     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ. جلست ${n} تحت شجرة زيتونٍ عتيقةٍ تتأمّل هديةَ السيّدة العجوز: سوارًا صغيرًا منسوجًا بخيوطٍ حمراءَ وخضراءَ وبيضاءَ وسوداء، وتذكّرت كيف قالت لها مبتسمةً: "قطعةٌ صغيرةٌ من ألوان بلادنا، لتذكّركِ بفلسطين أينما ذهبتِ."`}) },
+  { prompt:"Warm evening scene on a hilltop overlooking the old city: the character standing happily waving toward the twinkling city lights, the golden Dome of the Rock glowing softly in the distance, ancient olive trees silhouetted gently around, the tiny iridescent sunbird flying overhead, a small magical passport glowing warmly in the character's hand, loving peaceful mood.",
+    en:n=>({text:`That evening, on a hilltop above the twinkling city lights, ${n} waved goodbye to the valley and thanked Nawwar for the beautiful day. The magic passport glowed warmly with a brand-new stamp: PALESTINE. "Come back soon," chirped Nawwar. "The olive trees of Palestine will always be waiting for you." The End ⭐`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي المساء، فوق تلةٍ تطلّ على أضواء المدينة المتلألئة، وقف ${n} يلوّح للوادي مودّعًا، وشكر صديقه نوّار على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: فلسطين. غرّد نوّار: "عُد قريبًا، فزيتونُ فلسطين ينتظرك دائمًا." النهاية ⭐`})
+     : ({text:`وفي المساء، فوق تلةٍ تطلّ على أضواء المدينة المتلألئة، وقفت ${n} تلوّح للوادي مودّعةً، وشكرت صديقها نوّار على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: فلسطين. غرّد نوّار: "عودي قريبًا، فزيتونُ فلسطين ينتظركِ دائمًا." النهاية ⭐`}) },
+  ]
 }
 
 };
 
 /* Countries shown as "Coming soon" passport pages (not yet playable) */
 const COMING_SOON = [
-  { icon:"🇵🇸", flag:"ps", name:{en:"Palestine", ar:"فلسطين"} },
   { icon:"🇪🇬", flag:"eg", name:{en:"Egypt",     ar:"مصر"} },
   { icon:"🇹🇷", flag:"tr", name:{en:"Turkey",    ar:"تركيا"} },
   { icon:"🇯🇵", flag:"jp", name:{en:"Japan",     ar:"اليابان"} },
