@@ -461,7 +461,7 @@ egypt: {
     ar:(n,g)=> g==="boy"
      ? ({text:`المحطة الأولى: أهرامات الجيزة! حمل جملٌ لطيفٌ ${n} فوق الرمال الدافئة، حتى وصل إلى أبي الهول بوجهه الحجريِّ الهادئ. قال رمسيس: "عمر هذه الأهرامات آلافُ السنين. بناها المصريون القدماء لتبقى عجائبَ تُدهش العالم كلَّه حتى اليوم."`})
      : ({text:`المحطة الأولى: أهرامات الجيزة! حمل جملٌ لطيفٌ ${n} فوق الرمال الدافئة، حتى وصلت إلى أبي الهول بوجهه الحجريِّ الهادئ. قال رمسيس: "عمر هذه الأهرامات آلافُ السنين. بناها المصريون القدماء لتبقى عجائبَ تُدهش العالم كلَّه حتى اليوم."`}) },
-  { prompt:"The character explores the lively Khan el-Khalili bazaar, a beautiful old Cairo market with arched stone alleys, colorful hanging lanterns everywhere, shops full of brass lamps and spices, a kind old shopkeeper warmly offering the character a sweet treat, the colorful hoopoe perched on a lantern, warm glowing light.",
+  { prompt:"The character explores the lively Khan el-Khalili bazaar, a beautiful old Cairo market with arched stone alleys, colorful hanging lanterns everywhere, shops full of brass lamps and spices, a kind old shopkeeper warmly offering the character a traditional Egyptian kahk cookie — a small round domed shortbread cookie generously dusted with white powdered sugar on top, served on a small plate — the colorful hoopoe perched on a lantern, warm glowing light.",
     en:n=>({text:`Next, they wandered into Khan el-Khalili, Cairo's oldest bazaar, glowing with hundreds of colorful lanterns. A kind shopkeeper smiled and offered ${n} a sweet date-filled kahk cookie. "This market has bustled for hundreds of years," he said. And ${n} loved the shining lanterns all around.`}),
     ar:(n,g)=> g==="boy"
      ? ({text:`مشيا بعد ذلك إلى خان الخليلي، أقدم أسواق القاهرة، المتلألئ بمئات الفوانيس الملوّنة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} قطعةَ كحكٍ محشوّةً بالتمر، وقال: "يعجّ هذا السوق بالحياة منذ مئات السنين." وأحبّ ${n} الفوانيسَ اللامعة من حوله.`})
@@ -492,13 +492,79 @@ egypt: {
      ? ({text:`وفي المساء، قرب النيل، وقف ${n} يلوّح للنهر العظيم مودّعًا، وشكر صديقه رمسيس على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: مصر. غرّد رمسيس: "عُد قريبًا، فأهراماتُ مصر تنتظرك دائمًا." النهاية ⭐`})
      : ({text:`وفي المساء، قرب النيل، وقفت ${n} تلوّح للنهر العظيم مودّعةً، وشكرت صديقها رمسيس على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: مصر. غرّد رمسيس: "عودي قريبًا، فأهراماتُ مصر تنتظركِ دائمًا." النهاية ⭐`}) },
   ]
+},
+
+/* ---------------- TURKEY 🇹🇷 ---------------- */
+turkey: {
+  icon:"🇹🇷",
+  flag:"tr",
+  name:{en:"Turkey",ar:"تركيا"},
+  tag:{en:"Balloons, bazaars & the carpet secret",ar:"المناطيد والأسواق وسرّ السجاد"},
+  outfit:{
+    boy:"Dress the character in a traditional Turkish folk outfit: a white shirt under an open short embroidered vest decorated with gold and red Ottoman-inspired patterns, a colorful woven sash around the waist, and dark baggy şalvar trousers. No head covering, so the hairstyle and full face stay clearly visible. The garment shapes and traditional details must stay the same; only the colors may vary.",
+    girl:"Dress the character in a colorful traditional Turkish folk dress with a fitted embroidered bodice decorated with gold and red Ottoman-inspired patterns, long flowing skirt and delicate floral embroidery, worn over a white blouse. No head covering, so the hairstyle and full face stay clearly visible. The garment shapes and traditional details must stay the same; only the colors may vary."
+  },
+  palette:"warm Turkish palette of soft dawn pinks, terracotta rock, turquoise blue and gold",
+  fun:{
+    en:["Inflating the balloons… 🎈","Waking Pamuk the stork… 🐦","Rolling out Turkish delight… 🍬","Knotting a little carpet… 🧶","Lighting the Grand Bazaar lamps… 🏮","Tuning the folk-dance drums… 🥁"],
+    ar:["ننفخ المناطيد… 🎈","نوقظ اللقلق باموك… 🐦","نجهّز حلوى الراحة… 🍬","نعقد خيوط السجادة… 🧶","نضيء قناديل البازار الكبير… 🏮","نضبط إيقاع الرقص الشعبي… 🥁"]
+  },
+  story:[
+  { prompt:"The character stands happily on a hilltop in Cappadocia at soft dawn, surrounded by dozens of colorful hot-air balloons floating in a golden dawn sky above the famous cone-shaped fairy chimney rocks, a friendly white stork with long legs and a red beak standing gently beside them, magical warm mood.",
+    en:n=>({title:`${n}'s Journey in Turkey`, text:"A story about a beautiful day in Turkey."}),
+    ar:(n,g)=>({title:`رحلة ${n} في تركيا`, text:"قصة عن يومٍ جميلٍ في تركيا."}) },
+  { prompt:"The character stands amazed on a hilltop in Cappadocia holding a small softly glowing magical passport in both hands, a friendly white stork with a red beak fluttering down beside them, dozens of colorful hot-air balloons rising in the golden dawn sky above the cone-shaped fairy chimney rocks, joyful mood.",
+    en:n=>({text:`The magic passport glowed softly in ${n}'s hands — and suddenly ${n} was standing high on the hills of Cappadocia, where dozens of colorful balloons floated in the golden dawn sky. A friendly white stork landed nearby. "Welcome, ${n}! I'm Pamuk," he chirped happily. "Would you like me to show you my beautiful country today?"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجد نفسه واقفًا فوق تلال كابادوكيا، حيث تطفو عشراتُ المناطيد الملوّنة في سماء الفجر الذهبية. حطّ لقلقٌ أبيضُ لطيفٌ قربه وقال بفرح: "أهلًا بك يا ${n}! أنا باموك. هل تحب أن أريك بلدي الجميل اليوم؟"`})
+     : ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجدت نفسها واقفةً فوق تلال كابادوكيا، حيث تطفو عشراتُ المناطيد الملوّنة في سماء الفجر الذهبية. حطّ لقلقٌ أبيضُ لطيفٌ قربها وقال بفرح: "أهلًا بكِ يا ${n}! أنا باموك. هل تحبين أن أريكِ بلدي الجميل اليوم؟"`}) },
+  { prompt:"The character rides happily in the basket of a big colorful hot-air balloon floating over the Cappadocia valley at sunrise, many other balloons all around in the golden pink sky, fairy chimney rock formations far below, the friendly white stork flying alongside, magical joyful mood.",
+    en:n=>({text:`First stop: a balloon ride! ${n} floated up, up into the golden sky, with dozens of other balloons drifting all around. Far below, the tall cone-shaped rocks, called fairy chimneys, looked like a magic city of stone. "People come from all over the world to see this," said Pamuk, gliding gently beside them.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`المحطة الأولى: رحلة بالمنطاد! ارتفع ${n} عاليًا في السماء الذهبية، وحوله عشراتُ المناطيد تطفو برفق. وفي الأسفل، بدت الصخورُ المخروطية الطويلة، التي تُسمّى مداخن الجن، مثل مدينةٍ سحريةٍ من الحجر. قال باموك وهو يحلّق قربهما: "يأتي الناسُ من كل أنحاء العالم ليروا هذا المنظر."`})
+     : ({text:`المحطة الأولى: رحلة بالمنطاد! ارتفعت ${n} عاليًا في السماء الذهبية، وحولها عشراتُ المناطيد تطفو برفق. وفي الأسفل، بدت الصخورُ المخروطية الطويلة، التي تُسمّى مداخن الجن، مثل مدينةٍ سحريةٍ من الحجر. قال باموك وهو يحلّق قربهما: "يأتي الناسُ من كل أنحاء العالم ليروا هذا المنظر."`}) },
+  { prompt:"The character stands in a grand plaza in Istanbul in front of the magnificent Hagia Sophia with its huge dome and tall minarets, warm sunny sky, a few people and pigeons around, the friendly white stork perched on a lamp post, majestic peaceful mood.",
+    en:n=>({text:`After the balloon gently landed, they set off for Istanbul, a great city between two seas. There stood the magnificent Hagia Sophia, with its huge dome and tall minarets. "This building is almost fifteen hundred years old," said Pamuk. "Kings and travelers have marveled at it for centuries."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وبعد أن هبط المنطادُ برفق، انطلقا إلى إسطنبول، المدينةِ العظيمة بين بحرين. هناك وقفت آيا صوفيا المهيبة بقبتها الضخمة ومآذنها العالية. قال باموك: "عمر هذا البناء قرابةَ ألفٍ وخمسمئة سنة — أُعجب به الملوكُ والرحّالة عبر القرون."`})
+     : ({text:`وبعد أن هبط المنطادُ برفق، انطلقا إلى إسطنبول، المدينةِ العظيمة بين بحرين. هناك وقفت آيا صوفيا المهيبة بقبتها الضخمة ومآذنها العالية. قال باموك: "عمر هذا البناء قرابةَ ألفٍ وخمسمئة سنة — أُعجب به الملوكُ والرحّالة عبر القرون."`}) },
+  { prompt:"The character explores the lively Grand Bazaar of Istanbul, a beautiful covered market with arched painted ceilings and hanging lamps, colorful shops full of lanterns, ceramics and sweets, a kind old shopkeeper warmly offering the character a piece of colorful Turkish delight, the friendly white stork perched on a beam, warm glowing light.",
+    en:n=>({text:`Next, they wandered into the Grand Bazaar, one of the oldest and biggest markets in the world, glowing with colorful lamps. A kind shopkeeper smiled and offered ${n} a soft, sweet piece of Turkish delight. "People have shopped in these alleys for five hundred years," he said. And ${n} loved the sweet treat.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`مشيا بعد ذلك إلى البازار الكبير، أحدِ أقدم وأكبر أسواق العالم، المتلألئ بالقناديل الملوّنة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} قطعةً طريةً حلوةً من حلوى الراحة (اللوكوم)، وقال: "يتسوّق الناسُ في هذه الأزقّة منذ خمسمئة عام." وأحبّ ${n} الحلوى اللذيذة.`})
+     : ({text:`مشيا بعد ذلك إلى البازار الكبير، أحدِ أقدم وأكبر أسواق العالم، المتلألئ بالقناديل الملوّنة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} قطعةً طريةً حلوةً من حلوى الراحة (اللوكوم)، وقال: "يتسوّق الناسُ في هذه الأزقّة منذ خمسمئة عام." وأحبّت ${n} الحلوى اللذيذة.`}) },
+  { prompt:"The character rides a traditional boat on the sparkling blue Bosphorus strait in Istanbul, elegant old waterfront palaces and mosques with domes and minarets along the shore, seagulls flying, the friendly white stork gliding alongside, bright cheerful sunny mood.",
+    en:n=>({text:`From the bazaar they made their way to the water, where a boat waited on the sparkling Bosphorus — the blue strait that flows right through the city. They sailed past grand old palaces and domed mosques. "Here two continents meet," said Pamuk. "On one side is Asia, on the other is Europe!"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ومن البازار اتجها إلى الماء، حيث انتظرهما قاربٌ على مضيق البوسفور المتلألئ — المضيقِ الأزرق الذي يجري وسط المدينة. أبحرا قرب القصور العتيقة والمساجد ذات القباب. قال باموك: "هنا تلتقي قارّتان — في جهةٍ آسيا، وفي الأخرى أوروبا!"`})
+     : ({text:`ومن البازار اتجها إلى الماء، حيث انتظرهما قاربٌ على مضيق البوسفور المتلألئ — المضيقِ الأزرق الذي يجري وسط المدينة. أبحرا قرب القصور العتيقة والمساجد ذات القباب. قال باموك: "هنا تلتقي قارّتان — في جهةٍ آسيا، وفي الأخرى أوروبا!"`}) },
+  { prompt:"Cozy warm scene: a kind elderly Turkish woman with a gentle smile sits at a traditional wooden carpet loom, her hands knotting a beautiful colorful Turkish carpet full of red and blue patterns, showing the character how carpets are woven; the character sits close, watching happily; the friendly white stork perched nearby, warm soft light.",
+    en:n=>({text:`Then came the sweetest stop of all. They met a kind old carpet weaver at her wooden loom. She showed ${n} how a Turkish carpet is tied, knot by knot, with bright wool threads. "Each pattern is a little wish," she said. "A carpet can take many months to finish." ${n} watched, amazed.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ثم جاءت أجملُ محطة. التقيا بسيّدةٍ عجوزٍ طيّبةٍ تنسج السجاد على نولها الخشبيّ. أرته كيف تُعقد السجادةُ التركية، عقدةً عقدة، بخيوطِ صوفٍ زاهية، وقالت: "كلُّ نقشٍ أمنيةٌ صغيرة، وقد تستغرق السجادةُ شهورًا حتى تكتمل." وكان ${n} يشاهد بدهشة.`})
+     : ({text:`ثم جاءت أجملُ محطة. التقيا بسيّدةٍ عجوزٍ طيّبةٍ تنسج السجاد على نولها الخشبيّ. أرتها كيف تُعقد السجادةُ التركية، عقدةً عقدة، بخيوطِ صوفٍ زاهية، وقالت: "كلُّ نقشٍ أمنيةٌ صغيرة، وقد تستغرق السجادةُ شهورًا حتى تكتمل." وكانت ${n} تشاهد بدهشة.`}) },
+  { prompt:"Joyful Turkish folk dance celebration in a village square in warm late afternoon light: happy people in colorful traditional Turkish folk costumes dancing in a line holding hands, festive decorations and music, the character joyfully joining the dance holding hands and smiling, the friendly white stork hopping to the rhythm, warm happy festive mood.",
+    en:n=>({text:`In the late afternoon, they came upon a joyful village festival, where everyone was dancing a Turkish folk dance, hand in hand in a happy line. "Come, join us!" the dancers laughed, and ${n} took their hands and danced along. "This is the dance of our celebrations," chirped Pamuk, hopping to the lively music.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي العصر، صادفا احتفالًا قرويًّا مرِحًا، حيث يرقص الجميعُ رقصةً شعبيةً تركية، يدًا بيد في صفٍّ فرِح. ضحك الراقصون ونادوا: "تعال، ارقص معنا!" فأمسك ${n} أيديَهم ورقص معهم. غرّد باموك على أنغام الموسيقى: "هذه رقصةُ أفراحنا!"`})
+     : ({text:`وفي العصر، صادفا احتفالًا قرويًّا مرِحًا، حيث يرقص الجميعُ رقصةً شعبيةً تركية، يدًا بيد في صفٍّ فرِح. ضحك الراقصون ونادوا: "تعالي، ارقصي معنا!" فأمسكت ${n} أيديَهم ورقصت معهم. غرّد باموك على أنغام الموسيقى: "هذه رقصةُ أفراحنا!"`}) },
+  { prompt:"Sunset scene on a Cappadocia hilltop: the sky glowing yellow, orange and gold, a few hot-air balloons drifting softly in the distance, the character sitting peacefully on the rocks holding a small woven carpet piece in open hands and smiling at it, the friendly white stork perched nearby, magical golden light.",
+    en:n=>({text:`As the sun set, the sky over Cappadocia turned yellow, orange and gold, with a few balloons still drifting softly. Sitting on the warm rocks, ${n} looked at the old weaver's farewell gift — a tiny woven carpet keepsake — and remembered her smiling words: "A little piece of our craft, to remind you of Turkey wherever you go."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وعند الغروب، تلوّنت سماءُ كابادوكيا بالأصفر والبرتقاليّ والذهبيّ، وبقيت بضعةُ مناطيدَ تطفو برفق. جلس ${n} على الصخور الدافئة يتأمّل هديةَ السيّدة العجوز: قطعةَ سجادٍ صغيرةً منسوجة، وتذكّر كيف قالت له مبتسمةً: "قطعةٌ صغيرةٌ من حِرفتنا، لتذكّرك بتركيا أينما ذهبت."`})
+     : ({text:`وعند الغروب، تلوّنت سماءُ كابادوكيا بالأصفر والبرتقاليّ والذهبيّ، وبقيت بضعةُ مناطيدَ تطفو برفق. جلست ${n} على الصخور الدافئة تتأمّل هديةَ السيّدة العجوز: قطعةَ سجادٍ صغيرةً منسوجة، وتذكّرت كيف قالت لها مبتسمةً: "قطعةٌ صغيرةٌ من حِرفتنا، لتذكّركِ بتركيا أينما ذهبتِ."`}) },
+  { prompt:"Warm evening scene on a Cappadocia hilltop: the character standing happily waving goodbye, a few glowing hot-air balloons drifting in the twilight sky, fairy chimney rocks and distant town lights, the friendly white stork flying overhead, a small magical passport glowing warmly in the character's hand, loving peaceful mood.",
+    en:n=>({text:`That evening, on the hills of Cappadocia, ${n} waved goodbye to the last floating balloons and thanked Pamuk for the beautiful day. The magic passport glowed warmly with a brand-new stamp: TURKEY. "Come back soon," chirped Pamuk. "The balloons of Turkey will always be waiting for you." The End ⭐`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي المساء، فوق تلال كابادوكيا، وقف ${n} يلوّح للمناطيد الأخيرة مودّعًا، وشكر صديقه باموك على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: تركيا. غرّد باموك: "عُد قريبًا، فمناطيدُ تركيا تنتظرك دائمًا." النهاية ⭐`})
+     : ({text:`وفي المساء، فوق تلال كابادوكيا، وقفت ${n} تلوّح للمناطيد الأخيرة مودّعةً، وشكرت صديقها باموك على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: تركيا. غرّد باموك: "عودي قريبًا، فمناطيدُ تركيا تنتظركِ دائمًا." النهاية ⭐`}) },
+  ]
 }
 
 };
 
 /* Countries shown as "Coming soon" passport pages (not yet playable) */
 const COMING_SOON = [
-  { icon:"🇹🇷", flag:"tr", name:{en:"Turkey",    ar:"تركيا"} },
   { icon:"🇯🇵", flag:"jp", name:{en:"Japan",     ar:"اليابان"} },
   { icon:"🇰🇪", flag:"ke", name:{en:"Kenya",     ar:"كينيا"} },
   { icon:"🇧🇷", flag:"br", name:{en:"Brazil",    ar:"البرازيل"} },
