@@ -15,7 +15,7 @@ pre{background:#f4f4f6;padding:14px;border-radius:10px;white-space:pre-wrap;word
 </head>
 <body>
 <h1>Magic Passport — Gumroad diagnostic</h1>
-<p>Temporary tool. Tells us exactly what Gumroad replies when the Worker checks a license key.</p>
+<p>Tries several product identifiers against one license key and shows which one Gumroad accepts.</p>
 
 <label>Admin password (your ADMIN_KEY)</label>
 <input id="admin" type="password" autocomplete="off">
@@ -23,11 +23,8 @@ pre{background:#f4f4f6;padding:14px;border-radius:10px;white-space:pre-wrap;word
 <label>License key to test</label>
 <input id="key" value="87AAE45E-B8554E23-B00B1FCD-6C686BDE">
 
-<label>Check against which product?</label>
-<select id="which">
-  <option value="passport">passport (The Magic Passport)</option>
-  <option value="adventures">adventures (Little Explorer)</option>
-</select>
+<label>Optional: another product ID to try</label>
+<input id="custom" placeholder="paste any other candidate ID here (optional)">
 
 <button onclick="run()">Run check</button>
 <pre id="out">(results appear here)</pre>
@@ -42,7 +39,7 @@ async function run(){
       body:JSON.stringify({
         admin:document.getElementById("admin").value,
         key:document.getElementById("key").value,
-        which:document.getElementById("which").value
+        custom:document.getElementById("custom").value
       })
     });
     const d=await r.json();
