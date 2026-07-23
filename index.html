@@ -559,6 +559,66 @@ turkey: {
      ? ({text:`وفي المساء، فوق تلال كابادوكيا، وقف ${n} يلوّح للمناطيد الأخيرة مودّعًا، وشكر صديقه باموك على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: تركيا. غرّد باموك: "عُد قريبًا، فمناطيدُ تركيا تنتظرك دائمًا." النهاية ⭐`})
      : ({text:`وفي المساء، فوق تلال كابادوكيا، وقفت ${n} تلوّح للمناطيد الأخيرة مودّعةً، وشكرت صديقها باموك على اليوم الجميل. وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: تركيا. غرّد باموك: "عودي قريبًا، فمناطيدُ تركيا تنتظركِ دائمًا." النهاية ⭐`}) },
   ]
+},
+
+/* ---------------- SPAIN 🇪🇸 ---------------- */
+spain: {
+  icon:"🇪🇸",
+  flag:"es",
+  name:{en:"Spain",ar:"إسبانيا"},
+  tag:{en:"The Alhambra, flamenco & a football dream",ar:"الحمراء والفلامنكو وحلم كرة القدم"},
+  outfit:{
+    boy:"Dress the character in a traditional Spanish boys' outfit: a crisp white shirt with a short black embroidered bolero-style jacket left open, a red sash around the waist, and dark fitted trousers. No head covering, so the hairstyle and full face stay clearly visible. The garment shapes and traditional details must stay the same; only the colors may vary.",
+    girl:"Dress the character in a traditional Spanish flamenco dress: a bright red dress with several layers of ruffles on the skirt and sleeves, white polka dots, and a large red flower tucked in the hair at one side. The face and hairstyle must stay clearly visible. The garment shapes and traditional details must stay the same; only the colors may vary."
+  },
+  palette:"warm Spanish palette of golden sunlight, terracotta rooftops, deep red and Mediterranean blue",
+  fun:{
+    en:["Whitewashing the village walls… 🏘️","Waking Paco the swallow… 🐦","Dusting the Alhambra fountains… ⛲","Dipping churros in chocolate… 🍫","Tuning the flamenco guitar… 🎸","Pumping up the football… ⚽"],
+    ar:["نبيّض جدران القرية… 🏘️","نوقظ السنونو باكو… 🐦","ننظّف نوافير الحمراء… ⛲","نغمس الشورّوس بالشوكولاتة… 🍫","نضبط أوتار الجيتار… 🎸","ننفخ كرة القدم… ⚽"]
+  },
+  story:[
+  { prompt:"The character stands happily in a sunny Andalusian white village street with whitewashed walls, blue flower pots full of red geraniums, terracotta roof tiles and a narrow cobbled lane, a friendly little swallow bird with a blue back and orange throat perched gently on their hand, warm golden sunlight, cheerful mood.",
+    en:n=>({title:`${n}'s Journey in Spain`, text:"A story about a beautiful day in Spain."}),
+    ar:(n,g)=>({title:`رحلة ${n} في إسبانيا`, text:"قصة عن يومٍ جميلٍ في إسبانيا."}) },
+  { prompt:"The character stands amazed in a sunny Andalusian white village street holding a small softly glowing magical passport in both hands, whitewashed walls with blue pots of red geraniums all around, a friendly little swallow with a blue back and orange throat fluttering down beside them, warm morning light, joyful mood.",
+    en:n=>({text:`The magic passport glowed softly in ${n}'s hands — and suddenly ${n} was standing in a little Spanish village where every house was painted white, and flowers spilled from every window. A cheerful swallow fluttered down. "Welcome, ${n}! I'm Paco," he chirped happily. "Would you like me to show you my sunny country today?"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجد نفسه واقفًا في قريةٍ إسبانيةٍ صغيرة، بيوتُها كلُّها بيضاء، وتتدلّى الأزهارُ من كل نافذة. رفرف قربه سنونوٌ مرِحٌ وقال بفرح: "أهلًا بك يا ${n}! أنا باكو. هل تحب أن أريك بلدي المشمس اليوم؟"`})
+     : ({text:`توهّج الجوازُ السحريُّ بهدوءٍ بين يدي ${n}، وفجأةً وجدت نفسها واقفةً في قريةٍ إسبانيةٍ صغيرة، بيوتُها كلُّها بيضاء، وتتدلّى الأزهارُ من كل نافذة. رفرف قربها سنونوٌ مرِحٌ وقال بفرح: "أهلًا بكِ يا ${n}! أنا باكو. هل تحبين أن أريكِ بلدي المشمس اليوم؟"`}) },
+  { prompt:"The character and the little swallow stand in a beautiful courtyard of the Alhambra palace in Granada, elegant horseshoe arches with intricate geometric and arabesque carvings, a long still reflecting pool with gentle fountains, green myrtle hedges, warm golden light, peaceful reverent mood.",
+    en:n=>({text:`First stop: the Alhambra in Granada. They walked through its quiet courtyards, past arches carved like lace and long pools of still water. "Arab craftsmen built this palace hundreds of years ago," said Paco softly. "People come from all over the world just to see its beauty."`}),
+    ar:(n,g)=>({text:`المحطة الأولى: قصر الحمراء في غرناطة. مشيا في باحاته الهادئة، بين أقواسٍ منقوشةٍ كالدانتيل وبِرَكٍ طويلةٍ ساكنة. قال باكو بهدوء: "بناه الحرفيون العرب قبل مئات السنين — ويأتي الناسُ من كل أنحاء العالم ليروا جماله."`}) },
+  { prompt:"The character explores a lively sunny Spanish market square with striped awnings, baskets of oranges and olives, colorful ceramic plates, a kind old vendor warmly offering the character a paper cone of golden churros with a small cup of thick chocolate, the little swallow perched on an awning, warm cheerful light.",
+    en:n=>({text:`Next, they wandered into a busy market square full of oranges, olives and painted plates. A kind vendor smiled and offered ${n} warm churros — long crispy sticks of fried dough dusted with sugar — with a little cup of thick chocolate to dip them in. "Children have loved these for a very long time," he said. And ${n} loved them too.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`مشيا بعد ذلك إلى ساحة سوقٍ مزدحمةٍ مليئةٍ بالبرتقال والزيتون والأطباق المزخرفة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} أصابعَ الشورّوس الدافئة — وهي عجينٌ مقليٌّ مقرمشٌ مرشوشٌ بالسكر — مع كوبٍ صغيرٍ من الشوكولاتة الكثيفة ليغمسها فيه، وقال: "يحبّها الأطفال منذ زمنٍ بعيد." وأحبّها ${n} أيضًا.`})
+     : ({text:`مشيا بعد ذلك إلى ساحة سوقٍ مزدحمةٍ مليئةٍ بالبرتقال والزيتون والأطباق المزخرفة. ابتسم بائعٌ طيّبٌ وقدّم إلى ${n} أصابعَ الشورّوس الدافئة — وهي عجينٌ مقليٌّ مقرمشٌ مرشوشٌ بالسكر — مع كوبٍ صغيرٍ من الشوكولاتة الكثيفة ليغمسها فيه، وقال: "يحبّها الأطفال منذ زمنٍ بعيد." وأحبّتها ${n} أيضًا.`}) },
+  { prompt:"The character stands in a colorful park in Barcelona among curving benches covered in bright mosaic tiles of many colors, playful mosaic shapes and palm trees, the tall ornate towers of a famous basilica rising in the distance, the little swallow flying above, bright sunny cheerful mood.",
+    en:n=>({text:`Then they travelled to Barcelona, a city that looks like it came out of a storybook. ${n} ran along benches covered in thousands of colorful mosaic tiles, while tall carved towers rose into the sky. "One of Spain's artists dreamed all of this," said Paco. "He shaped stone as if it could melt."`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ثم سافرا إلى برشلونة، المدينةِ التي تبدو وكأنها خرجت من كتاب قصص. ركض ${n} على مقاعدَ مغطّاةٍ بآلاف قطع الفسيفساء الملوّنة، وحولهما أبراجٌ عاليةٌ منقوشة ترتفع في السماء. قال باكو: "حلم بهذا كلِّه أحد الفنانين — كان يشكّل الحجر وكأنه ينصهر."`})
+     : ({text:`ثم سافرا إلى برشلونة، المدينةِ التي تبدو وكأنها خرجت من كتاب قصص. ركضت ${n} على مقاعدَ مغطّاةٍ بآلاف قطع الفسيفساء الملوّنة، وحولهما أبراجٌ عاليةٌ منقوشة ترتفع في السماء. قال باكو: "حلم بهذا كلِّه أحد الفنانين — كان يشكّل الحجر وكأنه ينصهر."`}) },
+  { prompt:"Cozy warm scene in a small sunlit Spanish workshop: a kind elderly Spanish guitar maker with a gentle smile and white moustache sits among wooden guitars hanging on the walls, showing the character how a guitar is shaped and strung, wood shavings and tools on the bench; the character sits close, watching happily; the little swallow perched on a windowsill.",
+    en:n=>({text:`Then came the sweetest stop of all. In a small workshop full of hanging guitars, they met a kind old guitar maker. He showed ${n} how the curved wood is bent and the strings are tied, one by one. "A guitar takes months to build," he said, "but its music lasts a lifetime." ${n} watched, amazed.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`ثم جاءت أجملُ محطة. في ورشةٍ صغيرةٍ تتدلّى فيها الجيتارات، التقيا بصانعِ جيتارٍ عجوزٍ طيّب. أراه كيف يُثنى الخشبُ المقوّس وتُشدّ الأوتارُ واحدًا واحدًا، وقال: "تستغرق صناعةُ الجيتار شهورًا، لكنّ موسيقاه تبقى مدى العمر." وكان ${n} يشاهد بدهشة.`})
+     : ({text:`ثم جاءت أجملُ محطة. في ورشةٍ صغيرةٍ تتدلّى فيها الجيتارات، التقيا بصانعِ جيتارٍ عجوزٍ طيّب. أراها كيف يُثنى الخشبُ المقوّس وتُشدّ الأوتارُ واحدًا واحدًا، وقال: "تستغرق صناعةُ الجيتار شهورًا، لكنّ موسيقاه تبقى مدى العمر." وكانت ${n} تشاهد بدهشة.`}) },
+  { prompt:"Joyful flamenco celebration in a warm Spanish plaza at late afternoon: people in colorful ruffled flamenco dresses clapping and dancing, a guitarist playing, strings of little lights above, the character joyfully clapping and dancing along with a big smile, the little swallow hopping to the rhythm, festive warm mood.",
+    en:n=>({text:`In the late afternoon, a plaza filled with music. Dancers stamped and spun in ruffled dresses while a guitarist played and everyone clapped to the beat. "Come, join us!" they laughed, and ${n} clapped and danced along. "This is flamenco," chirped Paco, hopping to the beat. "It is how Spain celebrates!"`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وفي العصر، امتلأت الساحة بالموسيقى. كان الراقصون يدقّون بأقدامهم ويدورون بفساتينَ مكشكشة، والعازفُ يعزف على الجيتار والجميعُ يصفّقون. ضحكوا ونادوا: "تعال، ارقص معنا!" فصفّق ${n} ورقص معهم. غرّد باكو على الإيقاع: "هذه رقصةُ الفلامنكو — هكذا تحتفل إسبانيا!"`})
+     : ({text:`وفي العصر، امتلأت الساحة بالموسيقى. كان الراقصون يدقّون بأقدامهم ويدورون بفساتينَ مكشكشة، والعازفُ يعزف على الجيتار والجميعُ يصفّقون. ضحكوا ونادوا: "تعالي، ارقصي معنا!" فصفّقت ${n} ورقصت معهم. غرّد باكو على الإيقاع: "هذه رقصةُ الفلامنكو — هكذا تحتفل إسبانيا!"`}) },
+  { prompt:"The character plays football joyfully on the green grass of a huge stadium, wearing a simple plain red football shirt and white shorts, kicking a football with a happy smile; in the background a cheerful crowd celebrates with red and yellow flags and confetti, and an invented generic shining golden trophy stands on a small podium at the side with a few families taking photos beside it; warm evening light, the little swallow flying above, energetic joyful mood. Invented generic trophy shape only. No logos, no team badges, no real emblems, no text.",
+    en:n=>({text:`Before the day ended, Paco had one more surprise: a giant stadium with grass like green velvet. All around, people were still celebrating — Spain's team had won the biggest football tournament in the world, and families were lining up to take photos beside the shining golden trophy. ${n} ran across the field and kicked the ball as hard as they could — GOAL! "In Spain, football is everybody's game," laughed Paco, flying a happy loop above.`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وقبل أن ينتهي اليوم، كانت لدى باكو مفاجأةٌ أخيرة: ملعبٌ ضخمٌ بعشبٍ أخضرَ كالمخمل. وكان الناسُ من حولهما ما زالوا يحتفلون — فقد فاز منتخبُ إسبانيا بأكبر بطولةٍ لكرة القدم في العالم، واصطفّت العائلاتُ لالتقاط الصور قرب الكأس الذهبية اللامعة. ركض ${n} في الملعب وركل الكرة بكل قوته — هدف! ضحك باكو وهو يحلّق فرحًا: "في إسبانيا، كرةُ القدم لعبةُ الجميع!"`})
+     : ({text:`وقبل أن ينتهي اليوم، كانت لدى باكو مفاجأةٌ أخيرة: ملعبٌ ضخمٌ بعشبٍ أخضرَ كالمخمل. وكان الناسُ من حولهما ما زالوا يحتفلون — فقد فاز منتخبُ إسبانيا بأكبر بطولةٍ لكرة القدم في العالم، واصطفّت العائلاتُ لالتقاط الصور قرب الكأس الذهبية اللامعة. ركضت ${n} في الملعب وركلت الكرة بكل قوتها — هدف! ضحك باكو وهو يحلّق فرحًا: "في إسبانيا، كرةُ القدم لعبةُ الجميع!"`}) },
+  { prompt:"Warm sunset scene on a hilltop above an Andalusian white village: the sky glowing yellow, orange and gold, the character sitting on a low stone wall holding a tiny wooden guitar charm in open hands and smiling at it, whitewashed houses and terracotta roofs below, the little swallow perched beside them, a small magical passport glowing warmly, peaceful loving mood.",
+    en:n=>({text:`As the sun set, the sky turned yellow, orange and gold above the little village of white houses. Sitting on a warm stone wall, ${n} looked at the guitar maker's farewell gift — a tiny wooden guitar — and remembered his smiling words: "Take a little of our music with you, to remind you of Spain wherever you go." The magic passport glowed with a brand-new stamp: SPAIN. "Come back soon," chirped Paco. The End ⭐`}),
+    ar:(n,g)=> g==="boy"
+     ? ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ فوق القرية الصغيرة ذات البيوت البيضاء. جلس ${n} على جدارٍ حجريٍّ دافئ يتأمّل هديةَ الصانع العجوز: جيتارًا خشبيًّا صغيرًا، وتذكّر كيف قال له مبتسمًا: "خذ معك شيئًا من موسيقانا، لتذكّرك بإسبانيا أينما ذهبت." وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: إسبانيا. غرّد باكو: "عُد قريبًا!" النهاية ⭐`})
+     : ({text:`وعند الغروب، تلوّنت السماء بالأصفر والبرتقاليّ والذهبيّ فوق القرية الصغيرة ذات البيوت البيضاء. جلست ${n} على جدارٍ حجريٍّ دافئ تتأمّل هديةَ الصانع العجوز: جيتارًا خشبيًّا صغيرًا، وتذكّرت كيف قال لها مبتسمًا: "خذي معكِ شيئًا من موسيقانا، لتذكّركِ بإسبانيا أينما ذهبتِ." وتوهّج الجوازُ السحريُّ بختمٍ جديدٍ لامع: إسبانيا. غرّد باكو: "عودي قريبًا!" النهاية ⭐`}) },
+  ]
 }
 
 };
@@ -569,7 +629,6 @@ const COMING_SOON = [
   { icon:"🇰🇪", flag:"ke", name:{en:"Kenya",     ar:"كينيا"} },
   { icon:"🇧🇷", flag:"br", name:{en:"Brazil",    ar:"البرازيل"} },
   { icon:"🇫🇮", flag:"fi", name:{en:"Finland",   ar:"فنلندا"} },
-  { icon:"🇪🇸", flag:"es", name:{en:"Spain",     ar:"إسبانيا"} },
   { icon:"🇦🇺", flag:"au", name:{en:"Australia", ar:"أستراليا"} }
 ];
 
