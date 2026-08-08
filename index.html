@@ -327,6 +327,14 @@ const SUFFIX_BASE = " Children's picture book illustration, soft 3D animated mov
 
 /* ==================== UNIFORM COLOURS ==================== */
 /* m = masculine Arabic form (قميص, بنطال)  |  f = feminine (تنّورة) */
+/* The school building, described once so it looks the same in every book.
+   Drawn from the real campus: pale cream stone, deep blue frames, arched
+   entrance, palms, strong Gulf daylight. */
+const BUILDING = "a modern Gulf school building with smooth pale cream stone cladding, "+
+  "large deep blue window frames set in neat rows, a tall pointed arch over the main "+
+  "entrance outlined in warm gold, flat roofline with no tiles, tall date palms and "+
+  "bright dry Gulf sunlight";
+
 const UCOL = {
   white:  {en:"white",         m:"أبيض",        f:"بيضاء",        ma:"أبيض",         fa:"بيضاء",        hex:"#EFEFEF", dark:true },
   navy:   {en:"navy blue",     m:"أزرق غامق",   f:"زرقاء غامقة",  ma:"أزرق غامقًا",   fa:"زرقاء غامقةً",  hex:"#1F3A6E", dark:false},
@@ -359,6 +367,15 @@ function uni(){
     shirtAr:  sh.m,
     bottomAr: g.fem ? bo.f : bo.m,
     mainAr:   g.fem ? sh.f : sh.m,
+    he:  S.gender==="girl" ? "she"  : "he",
+    He:  S.gender==="girl" ? "She"  : "He",
+    him: S.gender==="girl" ? "her"   : "him",
+    his: S.gender==="girl" ? "her"   : "his",
+    His: S.gender==="girl" ? "Her"   : "His",
+    hers:S.gender==="girl" ? "hers"  : "his",
+    self:S.gender==="girl" ? "herself":"himself",
+    boyGirl: S.gender==="girl" ? "girl" : "boy",
+    friendSex: S.gender==="girl" ? "girl" : "boy",
     shirtArAcc:  sh.ma || sh.m,
     bottomArAcc: g.fem ? (bo.fa || bo.f) : (bo.ma || bo.m),
     garArAcc:    g.arAcc || g.ar,
@@ -401,13 +418,13 @@ firstday: {
   story:[
 
   /* 0 — cover */
-  { prompt:"The character stands at the open gate of a school in bright morning light, schoolbag on both shoulders, smiling proudly at the viewer, behind is a handsome modern Gulf school building with pale cream stone cladding, deep blue window frames, and a tall pointed arch over the main entrance outlined in warm gold, palm trees and bright dry sunlight; other children arriving in the distance.",
+  { prompt:"The character stands at the open gate of a school in bright morning light, schoolbag on both shoulders, smiling proudly at the viewer, behind is "+BUILDING+"; other children arriving in the distance.",
     en:(n,u)=>({title:`My First Day at School`, text:`${n}'s first day at ${u.school||"school"}.`}),
     ar:(n,g,u)=>({title:`أول يوم في المدرسة`, text:`أول يوم لـ${n} في ${u.school||"المدرسة"}`}) },
 
   /* 1 — the gate */
-  { prompt:"The character stands just outside a tall deep blue and gold school gate holding the schoolbag strap tightly with both hands, looking up, a little nervous but determined, warm morning sunlight; behind the gate is a handsome modern Gulf school building with pale cream stone cladding, deep blue window frames, and a tall pointed arch over the main entrance outlined in warm gold, palm trees and bright dry sunlight; other children walk past in the background.",
-    en:(n,u)=>({text:`${n} put on the new uniform — a ${u.shirtEn} shirt and ${u.bottomEn} ${u.garEn} — and stood at the school gate, holding the bag strap tight. ${n}'s heart was beating fast… this was ${n}'s very first day at school!`}),
+  { prompt:"The character stands just outside a tall deep blue and gold school gate holding the schoolbag strap tightly with both hands, looking up, a little nervous but determined, warm morning sunlight; behind the gate is "+BUILDING+"; other children walk past in the background.",
+    en:(n,u)=>({text:`${n} put on the new uniform — a ${u.shirtEn} shirt and ${u.bottomEn} ${u.garEn} — and stood at the school gate, holding the bag strap tight. ${u.His} heart was beating fast… this was ${u.his} very first day at school!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`لبس ${n} زيه الجديد: قميصًا ${u.shirtArAcc} و${u.garArAcc} ${u.bottomArAcc}، ووقف أمام بوابة المدرسة وهو يمسك حزام حقيبته بقوة. كان قلبه يدق بسرعة… فهذا أول يوم له في المدرسة!`})
      : ({text:`لبست ${n} زيها الجديد: قميصًا ${u.shirtArAcc} و${u.garArAcc} ${u.bottomArAcc}، ووقفت أمام بوابة المدرسة وهي تمسك حزام حقيبتها بقوة. كان قلبها يدق بسرعة… فهذا أول يوم لها في المدرسة!`}) },
@@ -421,7 +438,7 @@ firstday: {
 
   /* 3 — my own desk */
   { prompt:"The character sits down at a small classroom desk beside a sunny window, looking around the room with curiosity and a small smile, bright ordinary classroom with cream walls, deep blue furniture trim and simple wooden desks.",
-    en:(n,u)=>({text:`Inside the classroom, the teacher pointed to a desk by the window. "This is your seat, ${n}." ${n} sat down in the new place and looked all around, full of curiosity.`}),
+    en:(n,u)=>({text:`Inside the classroom, the teacher pointed to a desk by the window. "This is your seat, ${n}." ${u.He} sat down in the new place and looked all around, full of curiosity.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في الصف، أشارت المعلمة إلى مقعد قرب النافذة وقالت: «هذا مقعدك يا ${n}.» جلس ${n} في مكانه الجديد، وبدأ ينظر حوله بفضول.`})
      : ({text:`في الصف، أشارت المعلمة إلى مقعد قرب النافذة وقالت: «هذا مقعدك يا ${n}.» جلست ${n} في مكانها الجديد، وبدأت تنظر حولها بفضول.`}) },
@@ -434,15 +451,15 @@ firstday: {
      : ({text:`جلس الأطفال في حلقة، وقالت المعلمة: «أهلًا بكم في المدرسة!» شعرت ${n} بالخجل قليلًا، فبقيت صامتة. ومن النافذة، كان مشمش ينظر إليها.`}) },
 
   /* 5 — a new friend */
-  { prompt:"The character sits at a classroom table beside another young child wearing the same school uniform; both are turned toward each other, smiling and talking. The second child is a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child. Warm bright classroom.",
-    en:(n,u)=>({text:`The child sitting beside ${n} smiled and said, "Shall we play together?" ${n} smiled too. Now there was a new friend!`}),
+  { prompt:(u)=>"The character sits at a classroom table beside another young child wearing the same school uniform; both are turned toward each other, smiling and talking."+" The friend is a "+u.friendSex+", a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child."+" Warm bright classroom.",
+    en:(n,u)=>({text:`The child sitting beside ${n} smiled and said, "Shall we play together?" ${u.He} smiled too. Now there was a new friend!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`ابتسم الطفل الجالس بجانب ${n} وقال: «هل تحب أن نلعب معًا؟» ابتسم ${n} أيضًا. لقد أصبح لديه صديق جديد!`})
      : ({text:`ابتسمت الطفلة الجالسة بجانب ${n} وقالت: «هل تحبين أن نلعب معًا؟» ابتسمت ${n} أيضًا. لقد أصبحت لديها صديقة جديدة!`}) },
 
   /* 6 — break time */
-  { prompt:"A sunny school playground on a Gulf school campus, with pale cream stone walls, deep blue window frames and palm trees; several children run and play in the background; in the foreground the character sits on a low step beside the same friend from the classroom; the character holds their own open lunchbox on their own lap with one hand and offers a piece of food to the friend with the other hand, and the friend reaches out to take it — it is clearly the character who is sharing and the friend who is receiving. The second child is a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child. a small apricot-orange cat sits nearby watching the food hopefully; bright midday light.",
-    en:(n,u)=>({text:`At break, the children ran out to the school yard. ${n} shared a snack with the new friend, and they played together. School was beginning to feel like ${n}'s place too.`}),
+  { prompt:(u)=>"A sunny school playground beside "+BUILDING+"; several children run and play in the background; in the foreground the character sits on a low step beside the same friend from the classroom; the character holds their own open lunchbox on their own lap with one hand and offers a piece of food to the friend with the other hand, and the friend reaches out to take it — it is clearly the character who is sharing and the friend who is receiving."+" The friend is a "+u.friendSex+", a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child."+" a small apricot-orange cat sits nearby watching the food hopefully; bright midday light.",
+    en:(n,u)=>({text:`At break, the children ran out to the school yard. ${n} shared a snack with the new friend, and they played together. School was beginning to feel like ${u.his} place too.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في الفسحة، ركض الأطفال إلى ساحة المدرسة. شارك ${n} طعامه مع صديقه، ولعبا معًا. بدأ يشعر أن المدرسة مكانه أيضًا.`})
      : ({text:`في الفسحة، ركض الأطفال إلى ساحة المدرسة. شاركت ${n} طعامها مع صديقتها، ولعبتا معًا. بدأت تشعر أن المدرسة مكانها أيضًا.`}) },
@@ -450,7 +467,7 @@ firstday: {
   /* 7 — the thing I love (parent picks) */
   { talents:{
       reading:{
-        prompt:"The character stands at the front of a bright classroom holding an open book with both hands, reading aloud confidently, classmates seated on the floor listening happily.",
+        prompt:"The character stands at the front of a bright classroom holding an open book with both hands, reading aloud confidently, classmates seated on the floor listening happily. The open book is oriented the right way up for the child reading it — the drawing and pages face the child, never upside down, mirrored or turned away from them.",
         en:(n,u)=>({text:`Then ${n} read a story to the class in a clear, strong voice. Everybody clapped!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`ثم قرأ ${n} قصة أمام الصف بصوت واضح. صفق له الجميع!`})
@@ -462,7 +479,7 @@ firstday: {
          ? ({text:`ثم رسم ${n} لوحة جميلة، وعلقتها المعلمة على الجدار ليراها الجميع. صفق له الجميع!`})
          : ({text:`ثم رسمت ${n} لوحة جميلة، وعلقتها المعلمة على الجدار ليراها الجميع. صفق لها الجميع!`}) },
       football:{
-        prompt:"The character is mid-kick striking a football on a sunny school yard, full of energy and joy, classmates cheering, the pale cream stone school building with deep blue window frames and palm trees visible behind them, bright daylight.",
+        prompt:"The character is mid-kick striking a football on a sunny school yard, full of energy and joy, classmates cheering, with "+BUILDING+" behind them.",
         en:(n,u)=>({text:`Then ${n} scored a brilliant goal in PE. Everybody clapped!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`ثم سجل ${n} هدفًا رائعًا في حصة الرياضة. صفق له الجميع!`})
@@ -527,7 +544,7 @@ sportsday: {
   story:[
 
   /* 0 — cover */
-  { prompt:"The character stands on a sunny school sports field in a sports kit, hands on hips, smiling proudly at the viewer; colourful bunting and flags strung above; a pale cream stone school building with deep blue window frames and palm trees behind; bright Gulf sunlight.",
+  { prompt:"The character stands on a sunny school sports field in a sports kit, hands on hips, smiling proudly at the viewer; colourful bunting and flags strung above; "+BUILDING+"; bright Gulf sunlight.",
     en:(n,u)=>({title:`Sports Day`, text:`Sports Day with ${n} at ${u.school||"school"}.`}),
     ar:(n,g,u)=>({title:`اليوم الرياضي`, text:`اليوم الرياضي مع ${n} في ${u.school||"المدرسة"}`}) },
 
@@ -556,37 +573,37 @@ sportsday: {
   { talents:{
       running:{
         prompt:"The character sprints down a marked running lane on a school field, arms pumping, face full of effort and joy; other children run in neighbouring lanes; bunting and cheering classmates at the side; bright sunlight.",
-        en:(n,u)=>({text:`It was time! ${n} stood at the starting line and waited for the whistle… then ran as fast as ${n} possibly could!`}),
+        en:(n,u)=>({text:`It was time! ${n} stood at the starting line and waited for the whistle… then ran as fast as ${u.he} possibly could!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`حان الوقت! وقف ${n} على خط البداية وانتظر الصافرة… ثم ركض بأقصى ما يستطيع!`})
          : ({text:`حان الوقت! وقفت ${n} على خط البداية وانتظرت الصافرة… ثم ركضت بأقصى ما تستطيع!`}) },
       jumping:{
         prompt:"The character leaps forward into a sandpit at a school sports field, mid-air with both arms stretched out, full of effort; a teacher and classmates watch from the side; bright sunlight.",
-        en:(n,u)=>({text:`It was time! ${n} took a good run-up, then sprang forward and jumped as far as ${n} possibly could!`}),
+        en:(n,u)=>({text:`It was time! ${n} took a good run-up, then sprang forward and jumped as far as ${u.he} possibly could!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`حان الوقت! أخذ ${n} مسافة مناسبة، ثم انطلق وقفز بأبعد ما يستطيع!`})
          : ({text:`حان الوقت! أخذت ${n} مسافة مناسبة، ثم انطلقت وقفزت بأبعد ما تستطيع!`}) },
       football:{
         prompt:"The character is mid-kick striking a football toward a goal on a sunny school field during a sports day match, full of energy; teammates in the same kit and cheering classmates in the background; bright sunlight.",
-        en:(n,u)=>({text:`The ball came rolling across the grass. ${n} got ready — then struck it with all ${n}'s strength, straight toward the goal!`}),
+        en:(n,u)=>({text:`The ball came rolling across the grass. ${n} got ready — then struck it with all ${u.his} strength, straight toward the goal!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`جاءت الكرة تتدحرج على العشب. استعد ${n}، ثم سددها بكل قوته نحو المرمى!`})
          : ({text:`جاءت الكرة تتدحرج على العشب. استعدت ${n}، ثم سددتها بكل قوتها نحو المرمى!`}) },
       skipping:{
-        prompt:"The character skips with a rope on a school field, mid-jump with the rope curving under both feet, concentrating hard and smiling; classmates count along and clap around; bright sunlight.",
+        prompt:"The character skips with a real skipping rope on a school field — both hands clearly gripping the two wooden handles at each end of a single cord, the cord curving under both feet mid-jump. It must be a proper skipping rope with handles held in the hands, never a free-floating hoop or ring. Concentrating hard and smiling; classmates count along and clap around; bright sunlight.",
         en:(n,u)=>({text:`${n} began to skip. One… two… three… and the whole class counted along out loud!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`بدأ ${n} القفز بالحبل. واحد… اثنان… ثلاثة… والصف كله يعد معه بصوت عالٍ!`})
          : ({text:`بدأت ${n} القفز بالحبل. واحد… اثنان… ثلاثة… والصف كله يعد معها بصوت عالٍ!`}) },
       throwing:{
         prompt:"The character throws a ball as far as possible on a school field, body twisted with the effort and arm following through; a teacher measures the distance in the background; classmates watch; bright sunlight.",
-        en:(n,u)=>({text:`${n} gripped the ball, pulled an arm back, aimed forward… and threw it with all ${n}'s strength!`}),
+        en:(n,u)=>({text:`${n} gripped the ball, pulled an arm back, aimed forward… and threw it with all ${u.his} strength!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`أمسك ${n} الكرة، وسحب ذراعه إلى الخلف، ثم صوب إلى الأمام… ورمى الكرة بكل قوته!`})
          : ({text:`أمسكت ${n} الكرة، وسحبت ذراعها إلى الخلف، ثم صوبت إلى الأمام… ورمت الكرة بكل قوتها!`}) },
       relay:{
         prompt:"The character runs hard in a relay race on a school field, holding a baton out ready to pass to a waiting teammate in the same kit; other teams run in neighbouring lanes; cheering classmates; bright sunlight.",
-        en:(n,u)=>({text:`${n} took the relay baton, ran fast around the bend, then passed it safely to a teammate. ${n} had done ${n}'s part!`}),
+        en:(n,u)=>({text:`${n} took the relay baton, ran fast around the bend, then passed it safely to a teammate. ${u.He} had done ${u.his} part!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`أخذ ${n} عصا التتابع، وركض بسرعة حول المنعطف، ثم سلمها لزميله بأمان. لقد أدى دوره!`})
          : ({text:`أخذت ${n} عصا التتابع، وركضت بسرعة حول المنعطف، ثم سلمتها لزميلتها بأمان. لقد أدت دورها!`}) }
@@ -594,14 +611,14 @@ sportsday: {
 
   /* 5 — not first */
   { prompt:"The character stands at the edge of a school sports field catching their breath, hands on knees, cheeks flushed, looking a little disappointed but not sad; another child celebrates in the background; bright sunlight.",
-    en:(n,u)=>({text:`${n} did not come first. ${n} stood catching ${n}'s breath, and looked over at the winner. There was a little sadness… ${n} had really hoped to win.`}),
+    en:(n,u)=>({text:`${n} did not come first. ${u.He} stood catching ${u.his} breath, and looked over at the winner. There was a little sadness… ${u.He} had really hoped to win.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`لم يفز ${n} بالمركز الأول. وقف يلتقط أنفاسه، ونظر إلى الفائز. شعر بقليل من الحزن… فقد كان يتمنى الفوز.`})
      : ({text:`لم تفز ${n} بالمركز الأول. وقفت تلتقط أنفاسها، ونظرت إلى الفائزة. شعرت بقليل من الحزن… فقد كانت تتمنى الفوز.`}) },
 
   /* 6 — cheering for a friend */
-  { prompt:"The character stands at the side of a school sports field cheering loudly with both hands cupped around their mouth, encouraging a friend who is about to race; the friend, a different child in the same kit, smiles back from the starting line; other classmates cheer alongside; bunting overhead; bright sunlight.",
-    en:(n,u)=>({text:`Then it was ${n}'s friend's turn in the next race. ${n} stood and cheered out loud: "Go on! You can do it!" The friend smiled — and ${n} smiled too. The sadness began to disappear.`}),
+  { prompt:(u)=>"The character stands at the side of a school sports field cheering loudly with both hands cupped around their mouth, encouraging a friend who is about to race; the friend, a "+u.friendSex+" in the same kit, smiles back from the starting line; other classmates cheer alongside; bunting overhead; bright sunlight.",
+    en:(n,u)=>({text:`Then it was ${n}'s friend's turn in the next race. ${u.He} stood and cheered out loud: "Go on! You can do it!" The friend smiled — and ${u.he} smiled too. The sadness began to disappear.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`ثم جاء دور صديقه في السباق التالي. وقف ${n} يشجعه بصوت عالٍ: «هيا! أنت تستطيع!» ابتسم صديقه، وابتسم ${n} أيضًا. وبدأ حزنه يختفي.`})
      : ({text:`ثم جاء دور صديقتها في السباق التالي. وقفت ${n} تشجعها بصوت عالٍ: «هيا! أنت تستطيعين!» ابتسمت صديقتها، وابتسمت ${n} أيضًا. وبدأ حزنها يختفي.`}) },
@@ -612,17 +629,17 @@ sportsday: {
     ar:(n,g,u)=>({text:`وفي النهاية، جاء شد الحبل! أمسك أطفال الصف بالحبل وشدوا معًا. الأقدام ثابتة… والأصوات عالية… «واحد… اثنان… اسحبوا!» شد الجميع بروح الفريق، وتعالت الضحكات والهتافات في الساحة.`}) },
 
   /* 8 — the end of the day */
-  { prompt:"The character walks off a school sports field at the end of the day, tired, dusty and very happy, smiling to themselves; the sun is lower and warmer; bunting and the pale cream stone school building behind.",
-    en:(n,u)=>({text:`Sports Day was over, and ${n} was tired and happy. ${n} remembered the race, and cheering for a friend, and every lovely moment of the day. ${n} smiled and said: "I didn't come first, but I did my very best… and I had fun with my friends!" The End 🏅`}),
+  { prompt:"The character walks off a school sports field at the end of the day wearing a shiny participation medal on a ribbon around their neck, one hand holding the medal up slightly to look at it, tired and dusty but visibly proud and happy, chin up and smiling broadly; the sun is lower and warmer; bunting and "+BUILDING+".",
+    en:(n,u)=>({text:`Sports Day was over, and everyone received a participation medal. ${n} was tired and happy. ${u.He} remembered the race, and cheering for a friend, and every lovely moment of the day. ${u.He} smiled and said: "I didn't come first, but I did my very best… and I had fun with my friends!" The End 🏅`}),
     ar:(n,g,u)=> g==="boy"
-     ? ({text:`انتهى اليوم الرياضي، وكان ${n} متعبًا وسعيدًا. تذكر السباق، وتشجيعه لصديقه، وكل اللحظات الجميلة في ذلك اليوم. ابتسم وقال: «لم أفز بالمركز الأول، لكنني بذلت أفضل ما عندي… واستمتعت مع أصدقائي!» النهاية 🏅`})
-     : ({text:`انتهى اليوم الرياضي، وكانت ${n} متعبة وسعيدة. تذكرت السباق، وتشجيعها لصديقتها، وكل اللحظات الجميلة في ذلك اليوم. ابتسمت وقالت: «لم أفز بالمركز الأول، لكنني بذلت أفضل ما عندي… واستمتعت مع صديقاتي!» النهاية 🏅`}) }
+     ? ({text:`انتهى اليوم الرياضي، وحصل الجميع على ميدالية للمشاركة. كان ${n} متعبًا وسعيدًا. تذكر السباق، وتشجيعه لصديقه، وكل اللحظات الجميلة في ذلك اليوم. ابتسم وقال: «لم أفز بالمركز الأول، لكنني بذلت أفضل ما عندي… واستمتعت مع أصدقائي!» النهاية 🏅`})
+     : ({text:`انتهى اليوم الرياضي، وحصل الجميع على ميدالية للمشاركة. كانت ${n} متعبة وسعيدة. تذكرت السباق، وتشجيعها لصديقتها، وكل اللحظات الجميلة في ذلك اليوم. ابتسمت وقالت: «لم أفز بالمركز الأول، لكنني بذلت أفضل ما عندي… واستمتعت مع صديقاتي!» النهاية 🏅`}) }
   ]
 },
 
 /* ---------------- NATIONAL DAY 🇰🇼 ---------------- */
 nationalday: {
-  icon:"🇰🇼",
+  icon:"🎊",
   name:{en:"National Day", ar:"العيد الوطني"},
   tag:{en:"Flags, traditional dress & the school celebration",
        ar:"الأعلام، والزي التراثي، واحتفال المدرسة"},
@@ -637,7 +654,7 @@ nationalday: {
   talentLabel:{en:"What is your child doing in the celebration?",
                ar:"ماذا يفعل طفلكِ في الاحتفال؟"},
   talents:{
-    flag:   {en:"Carrying the flag 🇰🇼", ar:"حمل العلم 🇰🇼"},
+    flag:   {en:"Carrying the flag 🎌", ar:"حمل العلم 🎌"},
     singing:{en:"Singing the anthem 🎵", ar:"غناء النشيد 🎵"},
     dancing:{en:"The Ardha dance 🥁",    ar:"العرضة 🥁"},
     drawing:{en:"Painting the flag 🎨",  ar:"رسم العلم 🎨"},
@@ -647,13 +664,13 @@ nationalday: {
   outfit:(u)=>`Dress the character in ${u.garEn}, in ${u.shirtEn}, with ${u.bottomEn} embroidered trim. Traditional Kuwaiti national dress, neat and festive. The hair and full face must stay clearly visible.`,
   palette:"festive palette of Kuwaiti flag green, white, red and black against cream stone and bright Gulf sunlight",
   fun:{
-    en:["Hanging a thousand little flags… 🇰🇼","Tuning the drums… 🪘","Filling the sweet baskets… 🍬","Ironing the dishdashas… 👳","Waking Mishmish for the party… 🐱","Practising the anthem… 🎵"],
-    ar:["نعلّق ألف علم صغير… 🇰🇼","نضبط إيقاع الطبول… 🪘","نملأ سلال الحلوى… 🍬","نكوي الدشاديش… 👳","نوقظ مشمش للاحتفال… 🐱","نتمرّن على النشيد… 🎵"]
+    en:["Hanging a thousand little flags… 🎌","Tuning the drums… 🪘","Filling the sweet baskets… 🍬","Ironing the dishdashas… 👳","Waking Mishmish for the party… 🐱","Practising the anthem… 🎵"],
+    ar:["نعلّق ألف علم صغير… 🎌","نضبط إيقاع الطبول… 🪘","نملأ سلال الحلوى… 🍬","نكوي الدشاديش… 👳","نوقظ مشمش للاحتفال… 🐱","نتمرّن على النشيد… 🎵"]
   },
   story:[
 
   /* 0 — cover */
-  { prompt:"The character stands in traditional Kuwaiti national dress in a school courtyard, holding a small Kuwaiti flag and smiling proudly at the viewer; Kuwaiti flag bunting in green, white, red and black strung overhead; a pale cream stone school building with deep blue window frames and palm trees behind; bright Gulf sunlight.",
+  { prompt:"The character stands in traditional Kuwaiti national dress in a school courtyard, holding a small Kuwaiti flag and smiling proudly at the viewer; Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. Kuwaiti flag bunting in green, white, red and black strung overhead; "+BUILDING+"; bright Gulf sunlight.",
     en:(n,u)=>({title:`National Day`, text:`National Day with ${n} at ${u.school||"school"}.`}),
     ar:(n,g,u)=>({title:`العيد الوطني`, text:`العيد الوطني مع ${n} في ${u.school||"المدرسة"}`}) },
 
@@ -665,7 +682,7 @@ nationalday: {
      : ({text:`لا زي مدرسي اليوم! لبست ${n} دراعتها الجميلة، ووقفت أمام المرآة تنظر إلى نفسها بفخر. اليوم تحتفل المدرسة بالعيد الوطني!`}) },
 
   /* 2 — the transformed courtyard */
-  { prompt:"A school courtyard transformed for Kuwait National Day: Kuwaiti flags flying high, flags decorating the walls, children in traditional Kuwaiti dress holding small flags; the character walks in looking around in amazement; bright morning sunlight.",
+  { prompt:"A school courtyard transformed for Kuwait National Day: Kuwaiti flags flying high, flags decorating the walls, children in traditional Kuwaiti dress holding small flags. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. the character walks in looking around in amazement; bright morning sunlight.",
     en:(n,u)=>({text:`The whole school courtyard had changed overnight! Kuwaiti flags flying high, flags decorating the walls, and little flags in the children's hands. ${n} looked around in amazement — the school had never looked like this before!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`تغيرت ساحة المدرسة كلها بين ليلة وضحاها! أعلام الكويت ترفرف في الأعلى، وأعلام تزين الجدران، وأعلام صغيرة في أيدي الأطفال. نظر ${n} حوله بدهشة. لم ير المدرسة بهذا الشكل من قبل!`})
@@ -679,7 +696,7 @@ nationalday: {
      : ({text:`حتى مشمش كان مستعدًا للاحتفال! ربط أحدهم شريطًا صغيرًا بألوان علم الكويت حول رقبته. نظر مشمش إلى الشريط باستغراب، وحاول أن يراه من كل جهة! ضحكت ${n} وهي تراقبه.`}) },
 
   /* 4 — the anthem */
-  { prompt:"Rows of young children in traditional Kuwaiti dress stand respectfully still and straight in a school courtyard, singing together; a Kuwaiti flag is being raised high on a pole in front of them; the character stands among classmates, chin up, singing with pride; bright morning sunlight.",
+  { prompt:"Rows of young children in traditional Kuwaiti dress stand respectfully still and straight in a school courtyard, singing together. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. a Kuwaiti flag is being raised high on a pole in front of them; the character stands among classmates, chin up, singing with pride; bright morning sunlight.",
     en:(n,u)=>({text:`Then everyone stood in respect. The flag of Kuwait rose high, and everyone sang the national anthem together. ${n} stood with the class and sang every word with pride.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`ثم وقف الجميع احترامًا. ارتفع علم الكويت عاليًا، وردد الجميع النشيد الوطني معًا. وقف ${n} مع زملائه، وردد كلمات النشيد بكل فخر.`})
@@ -688,19 +705,19 @@ nationalday: {
   /* 5 — the celebration (parent picks) */
   { talents:{
       flag:{
-        prompt:"The character walks at the front of a school parade in traditional Kuwaiti dress, holding a large Kuwaiti flag high with both hands, proud and careful; classmates in traditional dress follow behind clapping; festive bunting overhead; bright sunlight.",
-        en:(n,u)=>({text:`The parade began, and ${n} was chosen to carry the flag of Kuwait at the front. ${n} carried it with pride and walked with the class amid the clapping.`}),
+        prompt:"The character walks at the front of a school parade in traditional Kuwaiti dress, holding a large Kuwaiti flag high with both hands, proud and careful; classmates in traditional dress follow behind clapping. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. festive bunting overhead; bright sunlight.",
+        en:(n,u)=>({text:`The parade began, and ${n} was chosen to carry the flag of Kuwait at the front. ${u.He} carried it with pride and walked with the class amid the clapping.`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`بدأ العرض، واختير ${n} ليحمل علم الكويت في المقدمة. حمله بفخر وسار مع زملائه وسط التصفيق.`})
          : ({text:`بدأ العرض، واختيرت ${n} لتحمل علم الكويت في المقدمة. حملته بفخر وسارت مع زميلاتها وسط التصفيق.`}) },
       singing:{
-        prompt:"The character stands with classmates in traditional Kuwaiti dress in a school courtyard, all singing the anthem together with pride and energy; teachers watch and smile; festive decorations behind; bright daylight.",
+        prompt:"The character stands with classmates in traditional Kuwaiti dress in a school courtyard, all singing the anthem together with pride and energy. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. teachers watch and smile; festive decorations behind; bright daylight.",
         en:(n,u)=>({text:`It was time to celebrate. ${n} stood with the class and sang the national anthem with pride and excitement. Everybody clapped!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`حان وقت الاحتفال. وقف ${n} مع زملائه وردد النشيد الوطني بكل فخر وحماس. صفق الجميع!`})
          : ({text:`حان وقت الاحتفال. وقفت ${n} مع زميلاتها ورددت النشيد الوطني بكل فخر وحماس. صفق الجميع!`}) },
       dancing:{
-        prompt:"The character performs a traditional Kuwaiti Ardha dance in a school courtyard, in traditional dress, standing among the other dancers moving to the rhythm with confidence, one arm raised; drummers keep the beat at the side; festive bunting overhead; bright sunlight.",
+        prompt:"The character performs a traditional Kuwaiti Ardha dance in a school courtyard, in traditional dress, standing among the other dancers moving to the rhythm with confidence, one arm raised holding a small blunt wooden toy sword — a child's prop, clearly wooden, rounded and harmless, never a real or sharp blade; child drummers keep the beat at the side. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. festive bunting overhead; bright sunlight.",
         en:(n,u)=>({text:`The Ardha began! ${n} stood with the performers and moved with them to the beat of the drums, full of confidence. Everybody clapped!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`بدأت العرضة! وقف ${n} مع المشاركين، وتحرك معهم على إيقاع الطبول بحماس وثقة. صفق الجميع!`})
@@ -712,13 +729,13 @@ nationalday: {
          ? ({text:`رسم ${n} علم الكويت بألوانه الأربعة: الأخضر والأبيض والأحمر والأسود. وعلقت المعلمة رسمته ليراها الجميع.`})
          : ({text:`رسمت ${n} علم الكويت بألوانه الأربعة: الأخضر والأبيض والأحمر والأسود. وعلقت المعلمة رسمتها ليراها الجميع.`}) },
       sweets:{
-        prompt:"The character carries a woven basket of colourful sweets around a decorated school courtyard, offering them to smiling classmates with a warm smile; festive bunting overhead; bright sunlight.",
+        prompt:"The character carries a woven basket of colourful sweets around a decorated school courtyard, offering them to smiling classmates with a warm smile. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. Festive bunting overhead; bright sunlight.",
         en:(n,u)=>({text:`${n} carried the sweet basket and went around among friends, handing them out with a smile — and made sure the sweets reached absolutely everyone!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`حمل ${n} سلة الحلوى، ودار بها بين أصدقائه يوزعها بابتسامة. حرص على أن تصل الحلوى إلى الجميع!`})
          : ({text:`حملت ${n} سلة الحلوى، ودارت بها بين صديقاتها توزعها بابتسامة. حرصت على أن تصل الحلوى إلى الجميع!`}) },
       drum:{
-        prompt:"The character plays a traditional Arabic hand drum in a school courtyard celebration, in traditional Kuwaiti dress, drumming with energy; children around clap along in time; festive bunting overhead; bright sunlight.",
+        prompt:"The character plays a traditional Arabic hand drum in a school courtyard celebration, in traditional Kuwaiti dress, drumming with energy; children around clap along in time. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. festive bunting overhead; bright sunlight.",
         en:(n,u)=>({text:`${n} took the drum and began to play: "Boom… boom… boom!" And soon everybody was clapping along with the rhythm!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`أمسك ${n} بالطبل وبدأ يعزف: «دم… دم… دم!» وسرعان ما صار الجميع يصفقون مع الإيقاع!`})
@@ -726,23 +743,23 @@ nationalday: {
     } },
 
   /* 6 — sweets, music, celebration */
-  { prompt:"A joyful school courtyard celebration: children in traditional Kuwaiti dress laughing, waving small Kuwaiti flags, music and sweets; the character is in the middle of it all, laughing with friends; Kuwaiti flag bunting in green, white, red and black strung overhead; bright sunlight.",
+  { prompt:"A joyful school courtyard celebration: children in traditional Kuwaiti dress laughing, waving small Kuwaiti flags, music and sweets. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. the character is in the middle of it all, laughing with friends; Kuwaiti flag bunting in green, white, red and black strung overhead; bright sunlight.",
     en:(n,u)=>({text:`Then came the sweets, and the music, and the celebration, with little flags waving everywhere. ${n} laughed and had such fun with friends that the time simply flew.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`جاء وقت الحلوى والموسيقى والاحتفال، والأعلام الصغيرة ترفرف في كل مكان. ضحك ${n} واستمتع مع أصدقائه، حتى إنه لم يشعر بمرور الوقت.`})
      : ({text:`جاء وقت الحلوى والموسيقى والاحتفال، والأعلام الصغيرة ترفرف في كل مكان. ضحكت ${n} واستمتعت مع صديقاتها، حتى إنها لم تشعر بمرور الوقت.`}) },
 
   /* 7 — the class photo, with Mishmish */
-  { prompt:"A whole class of young children in traditional Kuwaiti dress squeeze together for a group photograph in a decorated school courtyard, holding small Kuwaiti flags up, everyone smiling; the character is near the front; a small apricot-orange cat sits at the edge of the group, included in the photo; bright sunlight.",
+  { prompt:"A whole class of young children in traditional Kuwaiti dress squeeze together for a group photograph in a decorated school courtyard, holding small Kuwaiti flags up, everyone smiling. Boys wear a plain white dishdasha with a white ghutra headdress and black agal. Girls wear a colourful traditional darraa dress — deep red, green, purple or teal, with gold embroidery — and never a ghutra or agal, which are worn only by boys. The children are not all dressed in white. the character is near the front; a small apricot-orange cat sits at the edge of the group, included in the photo; bright sunlight.",
     en:(n,u)=>({text:`At the end of the celebration, the children of the class gathered for a group photo. Flags raised, smiles filling every face… and even Mishmish appeared in the picture! What a lovely memory!`}),
     ar:(n,g,u)=>({text:`وفي نهاية الاحتفال، اجتمع أطفال الصف لالتقاط صورة جماعية. الأعلام مرفوعة، والابتسامات تملأ الوجوه… وحتى مشمش ظهر في الصورة! يا لها من ذكرى جميلة!`}) },
 
   /* 8 — home, a memory to keep */
   { prompt:"The character stands just inside the front door of a cosy family home at dusk, still in traditional Kuwaiti dress, holding a small Kuwaiti flag and smiling at it; a plain warm hallway with lamp light; a schoolbag set down by the door.",
-    en:(n,u)=>({text:`That evening, ${n} was still holding the little flag of Kuwait. ${n} remembered the flags, the songs, and the celebration with friends, then smiled and said: "It was a beautiful day… and I will keep this memory always!" The End 🇰🇼`}),
+    en:(n,u)=>({text:`That evening, ${n} was still holding the little flag of Kuwait. ${u.He} remembered the flags, the songs, and the celebration with friends, then smiled and said: "It was a beautiful day… and I will keep this memory always!" The End ⭐`}),
     ar:(n,g,u)=> g==="boy"
-     ? ({text:`في المساء، كان ${n} ما يزال يحمل علم الكويت الصغير. تذكر الأعلام والأغاني والاحتفال مع أصدقائه، وابتسم وقال: «كان يومًا جميلًا… وسأحتفظ بهذه الذكرى دائمًا!» النهاية 🇰🇼`})
-     : ({text:`في المساء، كانت ${n} ما تزال تحمل علم الكويت الصغير. تذكرت الأعلام والأغاني والاحتفال مع صديقاتها، وابتسمت وقالت: «كان يومًا جميلًا… وسأحتفظ بهذه الذكرى دائمًا!» النهاية 🇰🇼`}) }
+     ? ({text:`في المساء، كان ${n} ما يزال يحمل علم الكويت الصغير. تذكر الأعلام والأغاني والاحتفال مع أصدقائه، وابتسم وقال: «كان يومًا جميلًا… وسأحتفظ بهذه الذكرى دائمًا!» النهاية ⭐`})
+     : ({text:`في المساء، كانت ${n} ما تزال تحمل علم الكويت الصغير. تذكرت الأعلام والأغاني والاحتفال مع صديقاتها، وابتسمت وقالت: «كان يومًا جميلًا… وسأحتفظ بهذه الذكرى دائمًا!» النهاية ⭐`}) }
   ]
 },
 
@@ -777,7 +794,7 @@ ramadan: {
   story:[
 
   /* 0 — cover */
-  { prompt:"The character stands in a school courtyard decorated for Ramadan, holding a glowing golden lantern, smiling warmly at the viewer; hanging lanterns and paper crescents and stars strung overhead; a pale cream stone school building with deep blue window frames behind; soft warm golden light.",
+  { prompt:"The character stands in a school courtyard decorated for Ramadan, holding a glowing golden lantern, smiling warmly at the viewer; hanging lanterns and paper crescents and stars strung overhead; "+BUILDING+"; soft warm golden light.",
     en:(n,u)=>({title:`Ramadan at School`, text:`Ramadan at ${u.school||"school"} with ${n}.`}),
     ar:(n,g,u)=>({title:`رمضان في المدرسة`, text:`رمضان في ${u.school||"المدرسة"} مع ${n}`}) },
 
@@ -797,7 +814,7 @@ ramadan: {
 
   /* 3 — Mishmish is not forgotten */
   { prompt:"The character sets down a small bowl of food and a bowl of water in a good spot by a school doorway for a small apricot-orange cat with white paws and green eyes, who hurries over eagerly to eat; a hanging lantern above the door; warm afternoon light.",
-    en:(n,u)=>({text:`And giving can start with the simplest things! ${n} saw Mishmish by the door, so ${n} brought him a little food and water and set them down in a good spot. Mishmish hurried over… it seems he was very hungry!`}),
+    en:(n,u)=>({text:`And giving can start with the simplest things! ${n} saw Mishmish by the door, so ${u.he} brought him a little food and water and set them down in a good spot. Mishmish hurried over… it seems he was very hungry!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`والعطاء يمكن أن يبدأ بأشياء بسيطة! رأى ${n} مشمش قرب الباب، فأحضر له قليلًا من الطعام والماء ووضعهما في مكان مناسب. اقترب مشمش بسرعة… ويبدو أنه كان جائعًا جدًا!`})
      : ({text:`والعطاء يمكن أن يبدأ بأشياء بسيطة! رأت ${n} مشمش قرب الباب، فأحضرت له قليلًا من الطعام والماء ووضعتهما في مكان مناسب. اقترب مشمش بسرعة… ويبدو أنه كان جائعًا جدًا!`}) },
@@ -818,8 +835,8 @@ ramadan: {
          ? ({text:`صنع ${n} فانوسًا جميلًا من الورق والخيط الذهبي. وعلقه فوق نافذة الصف ليزين المكان.`})
          : ({text:`صنعت ${n} فانوسًا جميلًا من الورق والخيط الذهبي. وعلقته فوق نافذة الصف ليزين المكان.`}) },
       quran:{
-        prompt:"The character sits upright at a classroom table reading aloud from an open book held in both hands, calm and focused; classmates listen attentively and quietly; a lantern and paper crescent hang by the window; warm soft light.",
-        en:(n,u)=>({text:`${n} recited short verses of the Qur'an in a calm, clear voice. Everyone listened attentively until ${n} finished.`}),
+        prompt:"The character sits upright at a classroom table reading aloud from an open Qur'an — a mus-haf with an ornate dark green and gold decorated hard cover and gilded page edges, resting open on a carved wooden Qur'an stand (rehl) on the table, held respectfully with both hands, the open pages facing the child the right way up and never upside down or turned away. The pages show fine decorative gold borders and ornamental patterns only, never legible writing. It must clearly be a Qur'an and not a picture storybook. Classmates listen attentively and quietly; a lantern and paper crescent hang by the window; warm soft light.",
+        en:(n,u)=>({text:`${n} recited short verses of the Qur'an in a calm, clear voice. Everyone listened attentively until ${u.he} finished.`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`تلا ${n} آيات قصيرة من القرآن بصوت هادئ وواضح. أنصت الجميع باهتمام حتى انتهى.`})
          : ({text:`تلت ${n} آيات قصيرة من القرآن بصوت هادئ وواضح. أنصت الجميع باهتمام حتى انتهت.`}) },
@@ -857,15 +874,15 @@ ramadan: {
      : ({text:`ثم جاء يوم القرقيعان! غنى الأطفال معًا، وأكياس الحلوى تتأرجح في أيديهم، والفرحة تملأ المكان. كانت ${n} تردد كلمات أغنية القرقيعان مع صديقاتها، كلمة كلمة.`}) },
 
   /* 7 — sharing */
-  { prompt:"By the school exit, the character holds out their own open Girgian sweet bag to another child who has no bag, offering it with a warm smile; the other child, clearly different in appearance, smiles back gratefully; a small apricot-orange cat sits nearby; decorated school courtyard; warm late afternoon light.",
-    en:(n,u)=>({text:`On the way out, ${n} saw a child who had no bag of sweets. ${n} opened the bag, held it out with a smile and said, "Here… this is for you!" The friend smiled, and ${n} felt a great happiness — and discovered that sharing with others can make the joy even bigger.`}),
+  { prompt:(u)=>"By the school exit, the character holds out their own open Girgian sweet bag to another "+u.friendSex+" who has no bag, offering it with a warm smile; that child, clearly different in appearance, smiles back gratefully; a small apricot-orange cat sits nearby; decorated school courtyard; warm late afternoon light.",
+    en:(n,u)=>({text:`On the way out, ${n} saw a child who had no bag of sweets. ${u.He} opened the bag, held it out with a smile and said, "Here… this is for you!" The friend smiled, and ${u.he} felt a great happiness — and discovered that sharing with others can make the joy even bigger.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`وعند الخروج، رأى ${n} طفلًا لم يكن معه كيس من الحلوى. فتح ${n} كيسه ومده إليه مبتسمًا وقال: «خذ… هذه لك!» ابتسم صديقه، وشعر ${n} بسعادة كبيرة. اكتشف أن مشاركة الآخرين يمكن أن تجعل الفرحة أكبر.`})
      : ({text:`وعند الخروج، رأت ${n} طفلة لم يكن معها كيس من الحلوى. فتحت ${n} كيسها ومدته إلى صديقتها مبتسمة وقالت: «خذي… هذه لكِ!» ابتسمت صديقتها، وشعرت ${n} بسعادة كبيرة. اكتشفت أن مشاركة الآخرين يمكن أن تجعل الفرحة أكبر.`}) },
 
   /* 8 — the crescent and the lantern */
   { prompt:"The character stands by a home window at night placing a small handmade lantern on the windowsill; through the window a deep blue night sky with a bright shining crescent moon; warm lamp light inside; the character smiles softly.",
-    en:(n,u)=>({text:`That evening, the crescent shone in the sky. ${n} set the little lantern by the window, and remembered everything from the day at school. ${n} smiled and said: "Today I helped others… and tomorrow I'll do something kind again!" The End 🌙`}),
+    en:(n,u)=>({text:`That evening, the crescent shone in the sky. ${n} set the little lantern by the window, and remembered everything from the day at school. ${u.He} smiled and said: "Today I helped others… and tomorrow I'll do something kind again!" The End 🌙`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في المساء، كان الهلال يلمع في السماء. وضع ${n} فانوسه الصغير قرب النافذة، وتذكر كل ما فعله في المدرسة. ابتسم وقال: «اليوم ساعدت الآخرين… وغدًا سأفعل شيئًا طيبًا من جديد!» النهاية 🌙`})
      : ({text:`في المساء، كان الهلال يلمع في السماء. وضعت ${n} فانوسها الصغير قرب النافذة، وتذكرت كل ما فعلته في المدرسة. ابتسمت وقالت: «اليوم ساعدت الآخرين… وغدًا سأفعل شيئًا طيبًا من جديد!» النهاية 🌙`}) }
@@ -903,34 +920,34 @@ schooltrip: {
   story:[
 
   /* 0 — cover */
-  { prompt:"The character stands in school uniform with a small backpack in front of a bright school bus, smiling excitedly at the viewer, other children boarding behind; a pale cream stone school building and palm trees in the background; bright morning sunlight.",
+  { prompt:"The character stands in school uniform with a small backpack in front of a bright school bus, smiling excitedly at the viewer, other children boarding behind; "+BUILDING+"; bright morning sunlight.",
     en:(n,u)=>({title:`The School Trip`, text:`The school trip with ${n} from ${u.school||"school"}.`}),
     ar:(n,g,u)=>({title:`الرحلة المدرسية`, text:`الرحلة المدرسية مع ${n} من ${u.school||"المدرسة"}`}) },
 
   /* 1 — the awaited morning */
   { prompt:"The character hurries out of a home doorway in the early morning wearing school uniform, pulling on a small backpack with excitement and energy, half-running; warm early light in a plain hallway behind.",
-    en:(n,u)=>({text:`${n} woke up early on the day of the school trip. The day everyone had been waiting for had finally come! ${n} got dressed quickly, grabbed a bag, and set off to school full of excitement.`}),
+    en:(n,u)=>({text:`${n} woke up early on the day of the school trip. The day everyone had been waiting for had finally come! ${u.He} got dressed quickly, grabbed a bag, and set off to school full of excitement.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`استيقظ ${n} مبكرًا يوم الرحلة المدرسية. أخيرًا جاء اليوم المنتظر! لبس ملابسه بسرعة، وأمسك حقيبته، وانطلق إلى المدرسة بحماس.`})
      : ({text:`استيقظت ${n} مبكرًا يوم الرحلة المدرسية. أخيرًا جاء اليوم المنتظر! لبست ملابسها بسرعة، وأمسكت حقيبتها، وانطلقت إلى المدرسة بحماس.`}) },
 
   /* 2 — on the bus */
-  { prompt:"Inside a school bus: the character sits by the window beside a friend in the same uniform, both leaning toward the glass and smiling as scenery passes outside; the friend is a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child; bright daylight through the windows.",
+  { prompt:(u)=>"Seen from inside a school bus, looking over the shoulders of the children: the character sits in a bus seat by the window beside a friend in the same uniform, both leaning toward the glass and smiling. Through the window is a Gulf landscape — sandy ground, date palms, low pale sandstone buildings and a wide dry road under strong sunlight. No green hills, no red-tiled roofs, nothing European. The friend is a "+u.friendSex+", a different child entirely with clearly different hair colour and hairstyle; bright daylight through the windows.",
     en:(n,u)=>({text:`On the bus, ${n} sat beside a friend. They looked out of the window together, both smiling. The scenery passed by, and the excitement grew the closer they came to their destination.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في الحافلة، جلس ${n} بجانب صديقه. نظرا معًا من النافذة وهما يبتسمان. كانت المناظر تمر أمامهما، والحماس يزداد كلما اقتربا من وجهتهما.`})
      : ({text:`في الحافلة، جلست ${n} بجانب صديقتها. نظرتا معًا من النافذة وهما تبتسمان. كانت المناظر تمر أمامهما، والحماس يزداد كلما اقتربتا من وجهتهما.`}) },
 
   /* 3 — Mishmish stays behind */
-  { prompt:"Seen from inside a school bus through the window: a small apricot-orange cat with white paws and green eyes sits calmly on the ground outside watching the bus; the character leans toward the glass waving to him with one hand, smiling; warm morning light.",
-    en:(n,u)=>({text:`And before the bus moved off, Mishmish appeared by the window. He looked at ${n} with his green eyes, then sat quietly watching the bus. ${n} waved to him through the glass. It seemed Mishmish would be content today to watch the adventure begin from afar!`}),
+  { prompt:"Interior of a school bus. The character is clearly INSIDE the bus, sitting in a bus seat with the seat back and interior wall visible around them, waving through the closed window glass with one hand. Outside, beyond the glass, a small apricot-orange cat with white paws and green eyes sits on sandy ground watching the bus; a pale sandstone school wall and date palms behind the cat. The child must not appear to be outside the bus or leaning out of it; warm morning light.",
+    en:(n,u)=>({text:`And before the bus moved off, Mishmish appeared by the window. He looked at ${n} with his green eyes, then sat quietly watching the bus. ${u.He} waved to him through the glass. It seemed Mishmish would be content today to watch the adventure begin from afar!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`وقبل أن تتحرك الحافلة، ظهر مشمش قرب النافذة. نظر إلى ${n} بعينيه الخضراوين، ثم جلس بهدوء يراقب الحافلة. لوّح له ${n} من النافذة. يبدو أن مشمش سيكتفي اليوم بمشاهدة المغامرة تبدأ من بعيد!`})
      : ({text:`وقبل أن تتحرك الحافلة، ظهر مشمش قرب النافذة. نظر إلى ${n} بعينيه الخضراوين، ثم جلس بهدوء يراقب الحافلة. لوّحت له ${n} من النافذة. يبدو أن مشمش سيكتفي اليوم بمشاهدة المغامرة تبدأ من بعيد!`}) },
 
   /* 4 — arrival */
   { prompt:"The character steps down from a school bus and looks around wide-eyed in amazement at a new place, backpack on, classmates stepping down behind; bright daylight, an open welcoming space ahead.",
-    en:(n,u)=>({text:`The bus had arrived at last! ${n} stepped down and looked around in amazement. Ahead was a new place ${n} had never seen before. "What will we discover today?" ${n} wondered excitedly.`}),
+    en:(n,u)=>({text:`The bus had arrived at last! ${n} stepped down and looked around in amazement. Ahead was a new place ${u.he} had never seen before. "What will we discover today?" ${u.He} wondered excitedly.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`وصلت الحافلة أخيرًا! نزل ${n} ونظر حوله بدهشة. أمامه مكان جديد لم يره من قبل. تساءل بحماس: «ماذا سنكتشف اليوم؟»`})
      : ({text:`وصلت الحافلة أخيرًا! نزلت ${n} ونظرت حولها بدهشة. أمامها مكان جديد لم تره من قبل. تساءلت بحماس: «ماذا سنكتشف اليوم؟»`}) },
@@ -939,12 +956,12 @@ schooltrip: {
   { talents:{
       museum:{
         prompt:"The character stands in a bright museum gallery in school uniform, looking up at a display case with intense curiosity, one hand pointing, classmates and a guide nearby; warm gallery lighting; no readable text anywhere.",
-        en:(n,u)=>({text:`At the museum, ${n} saw things never seen before. ${n} stopped in front of the displays with curiosity, studied them closely, and asked lots of questions. There was something new to discover in every corner!`}),
+        en:(n,u)=>({text:`At the museum, ${n} saw things never seen before. ${u.He} stopped in front of the displays with curiosity, studied them closely, and asked lots of questions. There was something new to discover in every corner!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`في المتحف، رأى ${n} أشياء لم ير مثلها من قبل. توقف أمام المعروضات بفضول، وتأملها جيدًا، وطرح الكثير من الأسئلة. كان هناك شيء جديد لاكتشافه في كل زاوية!`})
          : ({text:`في المتحف، رأت ${n} أشياء لم تر مثلها من قبل. توقفت أمام المعروضات بفضول، وتأملتها جيدًا، وطرحت الكثير من الأسئلة. كان هناك شيء جديد لاكتشافه في كل زاوية!`}) },
       zoo:{
-        prompt:"The character stands at a zoo enclosure fence in school uniform, watching an animal attentively, one hand pointing and the other holding a small open notebook and pencil; classmates alongside; bright sunny day, green trees.",
+        prompt:"The character stands at a zoo enclosure fence in school uniform, watching an animal attentively, one hand pointing and the other holding a small open notebook and pencil; the animal is anatomically correct and ordinary, with the normal number of limbs, trunks, ears and tails; the notebook shows simple drawings only, never writing; classmates alongside; bright sunny day, green trees.",
         en:(n,u)=>({text:`At the zoo, ${n} stopped in front of the animals and watched them closely, pointing and asking questions, then writing notes in a little notebook. How many new things there were to learn here!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`في حديقة الحيوان، توقف ${n} أمام الحيوانات يراقبها باهتمام. كان يشير ويسأل، ثم يدون ملاحظاته في دفتره الصغير. كم من الأشياء الجديدة يمكن تعلمها هنا!`})
@@ -957,41 +974,41 @@ schooltrip: {
          : ({text:`في المزرعة، اقتربت ${n} من النباتات والحيوانات بفضول. شمت رائحة الأشجار، وشاهدت الحيوانات عن قرب، وتعلمت أشياء جديدة عن الحياة في المزرعة.`}) },
       beach:{
         prompt:"The character walks barefoot at the water's edge on a sandy beach in school uniform with trousers rolled up, holding collected seashells in one cupped hand and smiling as a thin wave touches their feet; classmates further along the sand; bright sunny day.",
-        en:(n,u)=>({text:`At the beach, ${n} walked across the sand and gathered a few shells, studying their shapes and colours. And when the seawater touched ${n}'s feet, ${n} smiled with happiness.`}),
+        en:(n,u)=>({text:`At the beach, ${n} walked across the sand and gathered a few shells, studying their shapes and colours. And when the seawater touched ${u.his} feet, ${u.he} smiled with happiness.`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`على الشاطئ، مشى ${n} فوق الرمال وجمع بعض الأصداف ليتأمل أشكالها وألوانها. وحين لامست مياه البحر قدميه، ابتسم بسعادة.`})
          : ({text:`على الشاطئ، مشت ${n} فوق الرمال وجمعت بعض الأصداف لتتأمل أشكالها وألوانها. وحين لامست مياه البحر قدميها، ابتسمت بسعادة.`}) },
       theatre:{
         prompt:"The character sits in a theatre seat among classmates, gazing at a lit stage in wonder, then clapping with enthusiasm; warm stage light spilling over the young audience; rich red curtains.",
-        en:(n,u)=>({text:`At the theatre, ${n} sat in a seat and watched the show in wonder, following the characters and the story closely until the curtain came down. Then ${n} clapped enthusiastically along with everyone!`}),
+        en:(n,u)=>({text:`At the theatre, ${n} sat in a seat and watched the show in wonder, following the characters and the story closely until the curtain came down. Then ${u.he} clapped enthusiastically along with everyone!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`في المسرح، جلس ${n} في مقعده وراقب العرض بانبهار. تابع الشخصيات والأحداث باهتمام حتى أُسدل الستار. ثم صفق بحماس مع الجميع!`})
          : ({text:`في المسرح، جلست ${n} في مقعدها وراقبت العرض بانبهار. تابعت الشخصيات والأحداث باهتمام حتى أُسدل الستار. ثم صفقت بحماس مع الجميع!`}) },
       library:{
-        prompt:"The character stands in a large library between tall shelves stretching upward, holding an open book carefully with both hands, looking into it with wonder; warm light; the pages show pictures only, never writing.",
-        en:(n,u)=>({text:`In the great library, ${n} looked up at the shelves stretching out ahead. ${n} chose a book and opened it carefully… as if opening a door into a whole new world!`}),
+        prompt:"The character stands in a large library between tall shelves stretching upward, holding an open book carefully with both hands, looking into it with wonder; warm light; the pages show pictures only, never writing. The open book is oriented the right way up for the child reading it — the drawing and pages face the child, never upside down, mirrored or turned away from them.",
+        en:(n,u)=>({text:`In the great library, ${n} looked up at the shelves stretching out ahead. ${u.He} chose a book and opened it carefully… as if opening a door into a whole new world!`}),
         ar:(n,g,u)=> g==="boy"
          ? ({text:`في المكتبة الكبيرة، نظر ${n} إلى الأرفف الممتدة أمامه. اختار كتابًا، وفتحه بحذر… كأنه يفتح بابًا إلى عالم جديد!`})
          : ({text:`في المكتبة الكبيرة، نظرت ${n} إلى الأرفف الممتدة أمامها. اختارت كتابًا، وفتحته بحذر… كأنها تفتح بابًا إلى عالم جديد!`}) }
     } },
 
   /* 6 — the break */
-  { prompt:"The character sits outdoors beside a friend in the same school uniform with an open lunchbox, both eating and talking animatedly about what they have seen; the friend is a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child; classmates picnic nearby; bright midday light.",
+  { prompt:(u)=>"The character sits outdoors beside a friend in the same school uniform with an open lunchbox, both eating and talking animatedly about what they have seen."+" The friend is a "+u.friendSex+", a different child entirely — clearly different hair colour and hairstyle, different face, and must not resemble the reference child."+" Classmates picnic nearby; bright midday light.",
     en:(n,u)=>({text:`It was time for a break. ${n} opened a lunchbox and sat down beside a friend. They ate together, talking excitedly about all the things they had seen and discovered on the trip.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`حان وقت الاستراحة. فتح ${n} علبة طعامه وجلس بجانب صديقه. أكلا معًا، وتحدثا بحماس عن الأشياء التي شاهداها واكتشفاها في الرحلة.`})
      : ({text:`حان وقت الاستراحة. فتحت ${n} علبة طعامها وجلست بجانب صديقتها. أكلتا معًا، وتحدثتا بحماس عن الأشياء التي شاهدتاها واكتشفتاها في الرحلة.`}) },
 
   /* 7 — drawing the memory */
-  { prompt:"The character sits with a small open notebook drawing a picture of the day, pencil in hand, looking down at the drawing with a pleased smile; the school bus waits in the background with classmates boarding; warm late afternoon light.",
-    en:(n,u)=>({text:`Before leaving, ${n} wanted to keep a memory of the day. ${n} opened the little notebook and drew the thing ${n} had liked most on the trip, then looked at the drawing and smiled. It would help ${n} remember this lovely adventure! Then everyone went back to the bus, and took one last look at the place before returning to school.`}),
+  { prompt:"The character sits with a small open notebook drawing a picture of the day, pencil in hand, looking down at the drawing with a pleased smile; the notebook page shows a simple child's crayon drawing and no writing at all, lying open the right way up for the child so the drawing faces them, never upside down or turned away; the school bus waits in the background with classmates boarding; warm late afternoon light.",
+    en:(n,u)=>({text:`Before leaving, ${n} wanted to keep a memory of the day. ${u.He} opened the little notebook and drew the thing ${u.he} had liked most on the trip, then looked at the drawing and smiled. It would help ${u.he} remember this lovely adventure! Then everyone went back to the bus, and took one last look at the place before returning to school.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`وقبل المغادرة، أراد ${n} أن يحتفظ بذكرى من هذا اليوم. فتح دفتره الصغير ورسم أكثر شيء أعجبه في الرحلة. نظر إلى رسمته وابتسم. ستساعده على تذكر هذه المغامرة الجميلة! ثم عاد الجميع إلى الحافلة، وألقوا نظرة أخيرة على المكان قبل العودة إلى المدرسة.`})
      : ({text:`وقبل المغادرة، أرادت ${n} أن تحتفظ بذكرى من هذا اليوم. فتحت دفترها الصغير ورسمت أكثر شيء أعجبها في الرحلة. نظرت إلى رسمتها وابتسمت. ستساعدها على تذكر هذه المغامرة الجميلة! ثم عاد الجميع إلى الحافلة، وألقوا نظرة أخيرة على المكان قبل العودة إلى المدرسة.`}) },
 
   /* 8 — home with the drawing */
-  { prompt:"The character sits at a desk at home in the evening with the little notebook open, looking down at their own drawing from the trip and smiling; a warm lamp lights the room; the schoolbag rests beside the chair.",
-    en:(n,u)=>({text:`That evening, ${n} opened the notebook and looked at the drawing made on the trip. ${n} remembered the bus, the new place, and everything discovered with friends. ${n} smiled and said: "I love school trips… today I learned new things and made a lovely memory!" The End 🚌`}),
+  { prompt:"The character sits at a desk at home in the evening with the little notebook lying open flat on the desk in front of them, the drawing facing the child the right way up and never upside down or mirrored, looking down at their own simple crayon drawing from the trip and smiling; the notebook shows a child's drawing only, no writing; a warm lamp lights the room; the schoolbag rests beside the chair.",
+    en:(n,u)=>({text:`That evening, ${n} opened the notebook and looked at the drawing made on the trip. ${u.He} remembered the bus, the new place, and everything discovered with friends. ${u.He} smiled and said: "I love school trips… today I learned new things and made a lovely memory!" The End 🚌`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في المساء، فتح ${n} دفتره ونظر إلى الرسم الذي رسمه في الرحلة. تذكر الحافلة، والمكان الجديد، وكل ما اكتشفه مع أصدقائه. ابتسم وقال: «أحب الرحلات المدرسية… فقد تعلمت اليوم أشياء جديدة وصنعت ذكرى جميلة!» النهاية 🚌`})
      : ({text:`في المساء، فتحت ${n} دفترها ونظرت إلى الرسم الذي رسمته في الرحلة. تذكرت الحافلة، والمكان الجديد، وكل ما اكتشفته مع صديقاتها. ابتسمت وقالت: «أحب الرحلات المدرسية… فقد تعلمت اليوم أشياء جديدة وصنعت ذكرى جميلة!» النهاية 🚌`}) }
@@ -1012,7 +1029,7 @@ graduation: {
                 ar:"ثوب التخرج — لون الثوب ولون الحاشية"},
   talentLabel:{en:"", ar:""},
   talents:{},
-  outfit:(u)=>`Dress the character in a child's graduation gown in ${u.shirtEn} with ${u.bottomEn} trim, over a neat school uniform, and a matching mortarboard graduation cap with a tassel. The hair and full face must stay clearly visible under the cap.`,
+  outfit:(u)=>`Dress the character in a child's graduation gown in ${u.shirtEn} with ${u.bottomEn} trim, worn over a neat school uniform of a plain collared shirt and trousers or skirt, with NO necktie and no bow tie of any kind, and a matching mortarboard graduation cap with a tassel. The hair and full face must stay clearly visible under the cap.`,
   palette:"warm celebratory palette with cream stone tones, soft gold light and gentle blue accents",
   fun:{
     en:["Pressing the gowns… 🎓","Straightening every tassel… ✨","Rolling the certificates… 📜","Setting out the chairs… 🪑","Telling Mishmish to sit still… 🐱","Tuning the microphone… 🎤"],
@@ -1021,62 +1038,62 @@ graduation: {
   story:[
 
   /* 0 — cover */
-  { prompt:"The character stands in a child's graduation gown and mortarboard cap in a school courtyard, holding a rolled certificate in one hand, smiling proudly at the viewer; a pale cream stone school building with deep blue window frames and palm trees behind; warm golden light. The rolled certificate is plain and blank with no writing.",
+  { prompt:"The character stands in a child's graduation gown and mortarboard cap in a school courtyard, holding a rolled paper certificate tied with a ribbon in one hand, smiling proudly at the viewer; All the children wear the same graduation gown over the school uniform — a collared shirt and trousers or skirt, no neckties on anyone.  "+BUILDING+"; warm golden light. The rolled certificate is plain and blank with no writing.",
     en:(n,u)=>({title:`Graduation Day`, text:`${n}'s graduation day at ${u.school||"school"}.`}),
     ar:(n,g,u)=>({title:`يوم التخرج`, text:`يوم تخرج ${n} في ${u.school||"المدرسة"}`}) },
 
   /* 1 — the gown in the mirror */
   { prompt:"The character stands in front of a bedroom mirror wearing a child's graduation gown and mortarboard cap, looking at their own reflection with wonder and a growing smile; warm morning light; a neat room behind.",
-    en:(n,u)=>({text:`Today was a very special day! ${n} put on the graduation gown and placed the cap on ${n}'s head, then stood in front of the mirror and looked in wonder. Had graduation day really come? ${n} smiled… this moment had been a long time coming!`}),
+    en:(n,u)=>({text:`Today was a very special day! ${n} put on the graduation gown and placed the cap on ${u.his} head, then stood in front of the mirror and looked in wonder. Had graduation day really come? ${u.He} smiled… this moment had been a long time coming!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`اليوم يوم مميز! لبس ${n} ثوب التخرج، ووضع القبعة على رأسه. وقف أمام المرآة ونظر إلى نفسه بدهشة. هل جاء يوم التخرج حقًا؟ ابتسم… كان ينتظر هذه اللحظة منذ وقت طويل!`})
      : ({text:`اليوم يوم مميز! لبست ${n} ثوب التخرج، ووضعت القبعة على رأسها. وقفت أمام المرآة ونظرت إلى نفسها بدهشة. هل جاء يوم التخرج حقًا؟ ابتسمت… كانت تنتظر هذه اللحظة منذ وقت طويل!`}) },
 
   /* 2 — remembering the year */
-  { prompt:"The character walks along a sunny path toward a school in a graduation gown and cap, looking ahead thoughtfully with a soft smile, lost in memory; palm trees and pale cream stone walls; warm morning light.",
-    en:(n,u)=>({text:`On the way to school, ${n} remembered all the lovely days there… the very first day, and Mishmish, and a good friend, and every adventure along the way. ${n} smiled and thought: "What a beautiful journey it has been!"`}),
+  { prompt:"The character walks along a sunny path toward "+BUILDING+", in a graduation gown and cap, looking ahead thoughtfully with a soft smile, lost in memory; warm morning light. All the children wear the same graduation gown over the school uniform — a collared shirt and trousers or skirt, no neckties on anyone. ",
+    en:(n,u)=>({text:`On the way to school, ${n} remembered all the lovely days there… the very first day, and Mishmish, and a good friend, and every adventure along the way. ${u.He} smiled and thought: "What a beautiful journey it has been!"`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في طريقه إلى المدرسة، تذكر ${n} أيامه الجميلة فيها… أول يوم له في المدرسة، ومشمش، وصديقه، وكل المغامرات التي عاشها. ابتسم وقال في نفسه: «يا لها من رحلة جميلة!»`})
      : ({text:`في طريقها إلى المدرسة، تذكرت ${n} أيامها الجميلة فيها… أول يوم لها في المدرسة، ومشمش، وصديقتها، وكل المغامرات التي عاشتها. ابتسمت وقالت في نفسها: «يا لها من رحلة جميلة!»`}) },
 
   /* 3 — Mishmish knows */
   { prompt:"A small apricot-orange cat with white paws and green eyes sits in his usual spot at a school entrance, looking up at the character in the graduation gown and cap; the character crouches close to him smiling warmly; warm morning light on pale stone.",
-    en:(n,u)=>({text:`And at the school entrance, Mishmish was in his usual place. He looked at ${n} with his green eyes, then looked at the gown and the cap. ${n} came closer and smiled. It seemed Mishmish knew this day was different!`}),
+    en:(n,u)=>({text:`And at the school entrance, Mishmish was in his usual place. He looked at ${n} with his green eyes, then looked at the gown and the cap. ${u.He} came closer and smiled. It seemed Mishmish knew this day was different!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`وعند مدخل المدرسة، كان مشمش في مكانه المعتاد. نظر إلى ${n} بعينيه الخضراوين، ثم نظر إلى ثوب التخرج والقبعة. اقترب ${n} منه وابتسم. يبدو أن مشمش يعرف أن هذا اليوم مختلف!`})
      : ({text:`وعند مدخل المدرسة، كان مشمش في مكانه المعتاد. نظر إلى ${n} بعينيه الخضراوين، ثم نظر إلى ثوب التخرج والقبعة. اقتربت ${n} منه وابتسمت. يبدو أن مشمش يعرف أن هذا اليوم مختلف!`}) },
 
   /* 4 — the hall */
-  { prompt:"A school hall set for a graduation ceremony: rows of young children in graduation gowns and caps seated together, teachers smiling at the side, families waiting in seats behind; the character sits among the children looking ahead with eager anticipation; warm indoor light and gentle decorations.",
-    en:(n,u)=>({text:`The children gathered in the hall in their graduation gowns. The teachers were smiling, the families waited in their seats, and everyone was getting ready for the moment they had all been waiting for. ${n} sat with the class, waiting excitedly for ${n}'s turn.`}),
+  { prompt:"A school hall set for a graduation ceremony: rows of young children in graduation gowns and caps seated together, teachers smiling at the side, families waiting in seats behind. All the children wear the same graduation gown over the school uniform — a collared shirt and trousers or skirt, no neckties on anyone.  the character sits among the children looking ahead with eager anticipation; warm indoor light and gentle decorations.",
+    en:(n,u)=>({text:`The children gathered in the hall in their graduation gowns. The teachers were smiling, the families waited in their seats, and everyone was getting ready for the moment they had all been waiting for. ${n} sat with the class, waiting excitedly for ${u.his} turn.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`اجتمع الأطفال في القاعة بثياب التخرج. المعلمون يبتسمون، والعائلات تنتظر في المقاعد، والجميع يستعد للحظة المنتظرة. جلس ${n} مع زملائه، وكان ينتظر دوره بحماس.`})
      : ({text:`اجتمع الأطفال في القاعة بثياب التخرج. المعلمون يبتسمون، والعائلات تنتظر في المقاعد، والجميع يستعد للحظة المنتظرة. جلست ${n} مع زميلاتها، وكانت تنتظر دورها بحماس.`}) },
 
   /* 5 — the moment */
   { prompt:"The character stands on a small school stage in a graduation gown and cap, holding a rolled certificate in both hands and looking down at it with a proud smile; an adult's hands have just handed it over; classmates and families clap in the background. The rolled certificate is plain and blank with no writing.",
-    en:(n,u)=>({text:`Then came the moment ${n} had been waiting for! ${n}'s name was called. ${n} rose, walked to the stage with confidence, and received the certificate. Everybody clapped. ${n} looked at the certificate and smiled with pride. Graduation day had arrived!`}),
+    en:(n,u)=>({text:`Then came the moment ${n} had been waiting for! ${u.His} name was called. ${u.He} rose, walked to the stage with confidence, and received the certificate. Everybody clapped. ${u.He} looked at the certificate and smiled with pride. Graduation day had arrived!`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`ثم جاءت اللحظة التي كان ينتظرها! نودي باسم ${n}. نهض من مكانه، ومشى نحو المنصة بثقة، ثم تسلم شهادته. صفق له الجميع. نظر ${n} إلى شهادته وابتسم بفخر. لقد وصل إلى يوم التخرج!`})
      : ({text:`ثم جاءت اللحظة التي كانت تنتظرها! نودي باسم ${n}. نهضت من مكانها، ومشت نحو المنصة بثقة، ثم تسلمت شهادتها. صفق لها الجميع. نظرت ${n} إلى شهادتها وابتسمت بفخر. لقد وصلت إلى يوم التخرج!`}) },
 
   /* 6 — friends after the ceremony */
-  { prompt:"A group of young children in graduation gowns and caps stand together after the ceremony, laughing and talking warmly, certificates in hand; the character is among them mid-smile; other children are clearly different from one another; warm afternoon light in a school courtyard.",
-    en:(n,u)=>({text:`After the ceremony, ${n} gathered with friends. They laughed and talked about their happiest memories in the classroom. One of them said, "Let's stay in touch!" ${n} smiled. A school year may end, but the lovely memories stay.`}),
+  { prompt:"A group of young children in graduation gowns and caps stand together after the ceremony, laughing and talking warmly, rolled certificates in hand. All the children wear the same graduation gown over the school uniform — a collared shirt and trousers or skirt, no neckties on anyone.  the character is among them mid-smile; other children are clearly different from one another; warm afternoon light in a school courtyard.",
+    en:(n,u)=>({text:`After the ceremony, ${n} gathered with friends. They laughed and talked about their happiest memories in the classroom. One of them said, "Let's stay in touch!" ${u.He} smiled. A school year may end, but the lovely memories stay.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`بعد الحفل، اجتمع ${n} مع أصدقائه. ضحكوا وتحدثوا عن أجمل ذكرياتهم في الصف. قال أحدهم: «لنبقَ على تواصل!» ابتسم ${n}. قد تنتهي سنة دراسية، لكن الذكريات الجميلة تبقى.`})
      : ({text:`بعد الحفل، اجتمعت ${n} مع صديقاتها. ضحكن وتحدثن عن أجمل ذكرياتهن في الصف. قالت إحداهن: «لنبقَ على تواصل!» ابتسمت ${n}. قد تنتهي سنة دراسية، لكن الذكريات الجميلة تبقى.`}) },
 
   /* 7 — farewell to the classroom */
   { prompt:"The character stands quietly at the open door of an empty classroom in a graduation gown and cap, looking in at the familiar desks, the board and a corner by the window, smiling softly; warm afternoon light through the windows; the room is still and empty.",
-    en:(n,u)=>({text:`And before leaving, ${n} passed by the classroom. ${n} stopped at the door and looked at the place ${n} knew so well… ${n}'s own desk, the board, and the corner where ${n} used to sit with friends. ${n} smiled quietly. There were so many memories here, and ${n} would carry them along to the next adventure.`}),
+    en:(n,u)=>({text:`And before leaving, ${n} passed by the classroom. ${u.He} stopped at the door and looked at the place ${u.he} knew so well… ${u.His} own desk, the board, and the corner where ${u.he} used to sit with friends. ${u.He} smiled quietly. There were so many memories here, and ${u.he} would carry them along to the next adventure.`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`وقبل أن يغادر، مر ${n} بجانب صفه. توقف عند الباب، ونظر إلى المكان الذي عرفه جيدًا… مقعده، والسبورة، والزاوية التي جلس فيها مع أصدقائه. ابتسم بهدوء. كانت هنا ذكريات كثيرة، وسيحملها معه إلى مغامرته القادمة.`})
      : ({text:`وقبل أن تغادر، مرت ${n} بجانب صفها. توقفت عند الباب، ونظرت إلى المكان الذي عرفته جيدًا… مقعدها، والسبورة، والزاوية التي جلست فيها مع صديقاتها. ابتسمت بهدوء. كانت هنا ذكريات كثيرة، وستحملها معها إلى مغامرتها القادمة.`}) },
 
   /* 8 — home, looking ahead */
-  { prompt:"The character stands at home in the evening looking at their graduation certificate displayed in a special place on a shelf, still wearing the gown with the cap held in one hand, smiling thoughtfully; warm lamp light; the certificate is plain with no writing.",
-    en:(n,u)=>({text:`That evening, ${n} put the certificate somewhere special. ${n} looked at it and remembered everything learned, and all the friends and lovely moments that had been part of the journey. ${n} smiled and said: "I learned so much, and I made beautiful memories… and tomorrow a new adventure begins!" The End 🎓`}),
+  { prompt:"The character stands at home in the evening beside a shelf where their graduation certificate is displayed in a simple gold frame, propped upright and clearly visible, with the rolled certificate ribbon beside it; the child still wears the gown and holds the cap in one hand, smiling thoughtfully; warm lamp light. The certificate inside the frame is plain cream paper with a decorative gold border and no writing at all — but it must clearly be a certificate, not an empty picture frame.",
+    en:(n,u)=>({text:`That evening, ${n} put the certificate somewhere special. ${u.He} looked at it and remembered everything learned, and all the friends and lovely moments that had been part of the journey. ${u.He} smiled and said: "I learned so much, and I made beautiful memories… and tomorrow a new adventure begins!" The End 🎓`}),
     ar:(n,g,u)=> g==="boy"
      ? ({text:`في المساء، وضع ${n} شهادته في مكان مميز. نظر إليها وتذكر كل ما تعلمه، وكل الأصدقاء واللحظات الجميلة التي كانت جزءًا من رحلته. ابتسم وقال: «تعلمت الكثير، وصنعت ذكريات جميلة… وغدًا تبدأ مغامرة جديدة!» النهاية 🎓`})
      : ({text:`في المساء، وضعت ${n} شهادتها في مكان مميز. نظرت إليها وتذكرت كل ما تعلمته، وكل الصديقات واللحظات الجميلة التي كانت جزءًا من رحلتها. ابتسمت وقالت: «تعلمت الكثير، وصنعت ذكريات جميلة… وغدًا تبدأ مغامرة جديدة!» النهاية 🎓`}) }
@@ -1387,16 +1404,17 @@ async function downscale(file,maxSide){
 /* Tidy obvious slips, then read the name back before anything is generated —
    the school name lands in four sentences of a book the parent has paid for. */
 function tidySchool(v){
+  // NOTE: never trim here — this runs on every keystroke, and trimming
+  // would swallow the space the moment it is typed.
   return String(v||"")
     .replace(/[\\/|_]+/g," ")      // stray slashes and bars
-    .replace(/\s+/g," ")
-    .trim();
+    .replace(/ {2,}/g," ");        // collapse doubles, keep a single trailing space
 }
 function validateSetup(){
   S.name=$("kidName").value.trim();
   const _sc=tidySchool($("schoolName").value);
   if(_sc!==$("schoolName").value) $("schoolName").value=_sc;
-  S.school=_sc;
+  S.school=_sc.trim();
   S.initials=$("schoolInit").value.trim().toUpperCase().replace(/[^A-Z\u0621-\u064A]/g,"").slice(0,3);
   if($("schoolInit").value!==S.initials) $("schoolInit").value=S.initials;
   S.shirt=$("shirtSel").value; S.bottom=$("bottomSel").value; S.garment=$("garmentSel").value;
@@ -1436,6 +1454,11 @@ function characterPrompt(){
     .replace("{OUTFIT}", typeof THEMES[S.theme].outfit === "function"
         ? THEMES[S.theme].outfit(uni())
         : THEMES[S.theme].outfit);
+}
+/* A page's prompt may be a plain string or a function of the uniform object,
+   so scenes can describe a friend of the right gender. */
+function promptFor(sc){
+  return typeof sc.prompt === "function" ? sc.prompt(uni()) : sc.prompt;
 }
 function sceneSuffix(i){
   const u=uni();
@@ -1513,7 +1536,7 @@ async function runGeneration(){
     $("genBar").style.width=Math.round(i/st.length*100)+"%";
     if(S.pages[i]) continue;
     try{
-      const img=await tryTwice(()=>generateImage(S.character, st[i].prompt+sceneSuffix(i)));
+      const img=await tryTwice(()=>generateImage(S.character, promptFor(st[i])+sceneSuffix(i)));
       S.pages[i]=img;
       saveBook();
       $("thumb-"+i).innerHTML='<img src="'+img+'">';
@@ -1578,7 +1601,7 @@ window.regenCurrentPage=async function(){
   $("regenPageBtn").disabled=true;
   $("regenPageBtn").textContent="🖌️ …";
   try{
-    const img=await generateImage(S.character, story()[i].prompt+sceneSuffix(i));
+    const img=await generateImage(S.character, promptFor(story()[i])+sceneSuffix(i));
     S.pages[i]=img; saveBook(); renderBook();
   }catch(e){ n.className="notice err"; n.textContent=(e.message||t("netErr")); }
   $("regenPageBtn").disabled=false;
