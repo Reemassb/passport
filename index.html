@@ -712,7 +712,9 @@ en:{
   lockedNote:"✈️ This code's journey is:",
   resumeFound:"📖 A saved book was found on this device:", resumeOpen:"Open my saved book",
   resumeNew:"…or start a new journey below (this will replace the saved one):",
+  resumeRestart:"…or start your {COUNTRY} book again from the beginning below (this will replace the saved one):",
   resumeConfirm:"Starting a new journey will REPLACE your saved book:\n\n{BOOK}\n\nContinue?",
+  resumeConfirmRestart:"Starting {COUNTRY} again from the beginning will REPLACE your saved book:\n\n{BOOK}\n\nContinue?",
   setupTitle:"Tell us about your hero", setupSub:"Name, and one nice clear photo of the face.",
   nameLabel:"Child's name (as it should appear in the story)",
   genderLabel:"The story's hero is a…", boy:"Boy 👦", girl:"Girl 👧",
@@ -744,7 +746,9 @@ ar:{
   lockedNote:"✈️ رحلة هذا الرمز هي:",
   resumeFound:"📖 يوجد كتاب محفوظ على هذا الجهاز:", resumeOpen:"افتح كتابي المحفوظ",
   resumeNew:"…أو ابدأ رحلة جديدة من الأسفل (ستحلّ محل الكتاب المحفوظ):",
+  resumeRestart:"…أو ابدأ كتاب {COUNTRY} من جديد من الأسفل (سيحلّ محل الكتاب المحفوظ):",
   resumeConfirm:"بدء رحلة جديدة سيحلّ محل كتابك المحفوظ:\n\n{BOOK}\n\nهل تريد المتابعة؟",
+  resumeConfirmRestart:"بدء كتاب {COUNTRY} من جديد سيحلّ محل كتابك المحفوظ:\n\n{BOOK}\n\nهل تريد المتابعة؟",
   setupTitle:"أخبرنا عن بطل القصة", setupSub:"الاسم، وصورة واضحة للوجه.",
   nameLabel:"اسم الطفل (كما سيظهر في القصة)",
   genderLabel:"بطل القصة…", boy:"ولد 👦", girl:"بنت 👧",
@@ -902,7 +906,12 @@ function renderCountryPicker(){
     wrap.appendChild(b);
     const hint=document.createElement("p");
     hint.style.cssText="font-weight:700;font-size:.85rem;color:var(--ink-soft);margin-top:12px";
-    hint.textContent=t("resumeNew");
+    if(S.lockedCountry && COUNTRIES[S.lockedCountry]){
+      const lth=COUNTRIES[S.lockedCountry];
+      hint.textContent=t("resumeRestart").replace("{COUNTRY}",lth.icon+" "+lth.name[S.lang]);
+    } else {
+      hint.textContent=t("resumeNew");
+    }
     wrap.appendChild(hint);
     box.appendChild(wrap);
   }
@@ -964,7 +973,14 @@ function pickCountry(id){
     const th=COUNTRIES[S.saved.theme];
     const done=S.saved.pages.filter(Boolean).length, total=S.saved.pages.length;
     const desc=th.icon+" "+th.name[S.saved.lang]+" — "+S.saved.name+(done<total?" ("+done+"/"+total+")":"");
-    if(!confirm(t("resumeConfirm").replace("{BOOK}",desc))) return;
+    let msg;
+    if(S.lockedCountry && COUNTRIES[S.lockedCountry]){
+      const lth=COUNTRIES[S.lockedCountry];
+      msg=t("resumeConfirmRestart").replace("{COUNTRY}",lth.icon+" "+lth.name[S.lang]);
+    } else {
+      msg=t("resumeConfirm");
+    }
+    if(!confirm(msg.replace("{BOOK}",desc))) return;
     S.saved=null;
   }
   S.theme=id;
